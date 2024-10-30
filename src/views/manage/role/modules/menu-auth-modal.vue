@@ -1,28 +1,7 @@
-<template>
-  <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
-    <div class="flex-y-center gap-16px pb-12px">
-      <div>{{ $t('page.manage.menu.home') }}</div>
-      <NSelect :value="home" :options="pageSelectOptions" size="small" class="w-160px" @update:value="updateHome" />
-    </div>
-    <NTree v-model:checked-keys="checks" :data="tree" key-field="id" checkable expand-on-click virtual-scroll block-line
-      class="h-280px" />
-    <template #footer>
-      <NSpace justify="end">
-        <NButton size="small" class="mt-16px" @click="closeModal">
-          {{ $t('common.cancel') }}
-        </NButton>
-        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
-          {{ $t('common.confirm') }}
-        </NButton>
-      </NSpace>
-    </template>
-  </NModal>
-</template>
-
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue';
 import { $t } from '@/locales';
-import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
+import { fetchGetAllPages, fetchGetMenuTree, fetchGetRoleByRoleId, fetchUpdateRoleMenu } from '@/service/api';
 
 defineOptions({
   name: 'MenuAuthModal'
@@ -91,17 +70,20 @@ async function getTree() {
 const checks = shallowRef<number[]>([]);
 
 async function getChecks() {
-  console.log(props.roleId);
   // request
   checks.value = [];
+  const result = await fetchGetRoleByRoleId(props.roleId);
+  checks.value = result.data;
 }
 
-function handleSubmit() {
-  console.log(checks.value, props.roleId);
+async function handleSubmit() {
+  const requetData = {
+    menuIds: checks.value,
+    roleId: props.roleId
+  };
   // request
-
-  window.$message?.success?.($t('common.modifySuccess'));
-
+  const result = await fetchUpdateRoleMenu(requetData);
+  if (result) window.$message?.success?.($t('common.modifySuccess'));
   closeModal();
 }
 
@@ -118,5 +100,34 @@ watch(visible, val => {
   }
 });
 </script>
+
+<template>
+  <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
+    <div class="flex-y-center gap-16px pb-12px">
+      <div>{{ $t('page.manage.menu.home') }}</div>
+      <NSelect :value="home" :options="pageSelectOptions" size="small" class="w-160px" @update:value="updateHome" />
+    </div>
+    <NTree
+      v-model:checked-keys="checks"
+      :data="tree"
+      key-field="id"
+      checkable
+      expand-on-click
+      virtual-scroll
+      block-line
+      class="h-280px"
+    />
+    <template #footer>
+      <NSpace justify="end">
+        <NButton size="small" class="mt-16px" @click="closeModal">
+          {{ $t('common.cancel') }}
+        </NButton>
+        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
+          {{ $t('common.confirm') }}
+        </NButton>
+      </NSpace>
+    </template>
+  </NModal>
+</template>
 
 <style scoped></style>

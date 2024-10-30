@@ -4,3 +4,7 @@ export * from './system-manage';
 export * from './system/user';
 export * from './system/role';
 export * from './system/menu';
+export * from './system/permission';
+export * from './monitor/scheduler';
+export * from './monitor/system-info';
+export * from './monitor/cache';

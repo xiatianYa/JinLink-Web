@@ -484,45 +484,6 @@ declare namespace App {
           };
           creativity: string;
         };
-        function: {
-          tab: {
-            tabOperate: {
-              title: string;
-              addTab: string;
-              addTabDesc: string;
-              closeTab: string;
-              closeCurrentTab: string;
-              closeAboutTab: string;
-              addMultiTab: string;
-              addMultiTabDesc1: string;
-              addMultiTabDesc2: string;
-            };
-            tabTitle: {
-              title: string;
-              changeTitle: string;
-              change: string;
-              resetTitle: string;
-              reset: string;
-            };
-          };
-          multiTab: {
-            routeParam: string;
-            backTab: string;
-          };
-          toggleAuth: {
-            toggleAccount: string;
-            authHook: string;
-            superAdminVisible: string;
-            adminVisible: string;
-            adminOrUserVisible: string;
-          };
-          request: {
-            repeatedErrorOccurOnce: string;
-            repeatedError: string;
-            repeatedErrorMsg1: string;
-            repeatedErrorMsg2: string;
-          };
-        };
         manage: {
           common: {
             status: {
@@ -638,6 +599,115 @@ declare namespace App {
             iconType: {
               iconify: string;
               local: string;
+            };
+          };
+        };
+        monitor: {
+          percentage: string;
+          scheduler: {
+            title: string;
+            jobName: string;
+            jobGroup: string;
+            triggerName: string;
+            triggerGroup: string;
+            jobData: string;
+            triggerData: string;
+            addScheduler: string;
+            editScheduler: string;
+            corn: string;
+            jobClassName: string;
+            status: string;
+            form: {
+              jobName: string;
+              jobGroup: string;
+              triggerName: string;
+              triggerGroup: string;
+              jobData: string;
+              triggerData: string;
+              corn: string;
+              jobClassName: string;
+              status: string;
+            };
+          };
+          system: {
+            status: string;
+            cpuUserUsage: string;
+            cpuSystemUsage: string;
+            systemMemoryUsage: string;
+            jvmMemoryUsage: string;
+            operatingSystem: {
+              title: string;
+              name: string;
+              manufacturer: string;
+              arch: string;
+              systemBootTime: string;
+              systemUptime: string;
+            };
+            centralProcessor: {
+              title: string;
+              name: string;
+              physicalProcessorCount: string;
+              logicalProcessorCount: string;
+              processorIdentifier: string;
+              vendorFreq: string;
+              userPercent: string;
+              systemPercent: string;
+              idlePercent: string;
+            };
+            globalMemory: {
+              title: string;
+              total: string;
+              used: string;
+              available: string;
+              swapTotal: string;
+              swapUsed: string;
+              swapFree: string;
+              memoryUsedRate: string;
+              swapUsedRate: string;
+            };
+            jvm: {
+              title: string;
+              vmName: string;
+              uptime: string;
+              vmVersion: string;
+              vmVendor: string;
+              startTime: string;
+              inputArguments: string;
+              heapMemoryUsed: string;
+              heapMemoryMax: string;
+              memoryUsageRate: string;
+              nonHeapMemoryUsed: string;
+            };
+            fileStore: {
+              title: string;
+              name: string;
+              type: string;
+              mount: string;
+              totalSpace: string;
+              usableSpace: string;
+              usedSpace: string;
+              usedPercentage: string;
+            };
+            process: {
+              title: string;
+              processID: string;
+              name: string;
+              cpuLoad: string;
+            };
+          };
+          cache: {
+            redis: {
+              title: string;
+              version: string;
+              uptime: string;
+              connectedClients: string;
+              usedMemory: string;
+              maxMemory: string;
+              memoryUsageRate: string;
+              memFragmentationRatio: string;
+              totalCommandsProcessed: string;
+              echartsTitle: string;
+              echartsSubTitle: string;
             };
           };
         };

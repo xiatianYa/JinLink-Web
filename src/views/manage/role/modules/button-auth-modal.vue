@@ -1,23 +1,7 @@
-<template>
-  <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
-    <NTree v-model:checked-keys="checks" :data="tree" key-field="id" block-line checkable expand-on-click virtual-scroll
-      class="h-280px" />
-    <template #footer>
-      <NSpace justify="end">
-        <NButton size="small" class="mt-16px" @click="closeModal">
-          {{ $t('common.cancel') }}
-        </NButton>
-        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
-          {{ $t('common.confirm') }}
-        </NButton>
-      </NSpace>
-    </template>
-  </NModal>
-</template>
-
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue';
+import { computed, shallowRef, watch } from 'vue';
 import { $t } from '@/locales';
+import { fetchPermissionAll, fetchPermissionByRoleId, fetchUpdatePermissionByRoleId } from '@/service/api';
 
 defineOptions({
   name: 'ButtonAuthModal'
@@ -50,35 +34,26 @@ const tree = shallowRef<ButtonConfig[]>([]);
 
 async function getAllButtons() {
   // request
-  tree.value = [
-    { id: 1, label: 'button1', code: 'code1' },
-    { id: 2, label: 'button2', code: 'code2' },
-    { id: 3, label: 'button3', code: 'code3' },
-    { id: 4, label: 'button4', code: 'code4' },
-    { id: 5, label: 'button5', code: 'code5' },
-    { id: 6, label: 'button6', code: 'code6' },
-    { id: 7, label: 'button7', code: 'code7' },
-    { id: 8, label: 'button8', code: 'code8' },
-    { id: 9, label: 'button9', code: 'code9' },
-    { id: 10, label: 'button10', code: 'code10' }
-  ];
+  const result = await fetchPermissionAll();
+  tree.value = result.data;
 }
 
 const checks = shallowRef<number[]>([]);
 
 async function getChecks() {
-  console.log(props.roleId);
   // request
-  checks.value = [1, 2, 3, 4, 5];
+  const result = await fetchPermissionByRoleId(props.roleId);
+  checks.value = result.data;
 }
 
-function handleSubmit() {
-  console.log(checks.value, props.roleId);
+async function handleSubmit() {
   // request
-  console.log(checks.value);
-  console.log(props.roleId);
-  window.$message?.success?.($t('common.modifySuccess'));
-
+  const params = {
+    roleId: props.roleId,
+    permissionList: checks.value
+  };
+  const result = await fetchUpdatePermissionByRoleId(params);
+  if (result.data) window.$message?.success?.($t('common.modifySuccess'));
   closeModal();
 }
 
@@ -87,8 +62,37 @@ function init() {
   getChecks();
 }
 
-// init
-init();
+watch(visible, newValue => {
+  if (newValue) {
+    // init
+    init();
+  }
+});
 </script>
+
+<template>
+  <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
+    <NTree
+      v-model:checked-keys="checks"
+      :data="tree"
+      key-field="id"
+      block-line
+      checkable
+      expand-on-click
+      virtual-scroll
+      class="h-280px"
+    />
+    <template #footer>
+      <NSpace justify="end">
+        <NButton size="small" class="mt-16px" @click="closeModal">
+          {{ $t('common.cancel') }}
+        </NButton>
+        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
+          {{ $t('common.confirm') }}
+        </NButton>
+      </NSpace>
+    </template>
+  </NModal>
+</template>
 
 <style scoped></style>

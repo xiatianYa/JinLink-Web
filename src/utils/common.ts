@@ -56,3 +56,23 @@ export function toggleHtmlClass(className: string) {
     remove
   };
 }
+
+/**
+ * 转换switch
+ *
+ * @param status
+ * @returns
+ */
+export function transformStatus(status: any): '0' | '1' {
+  return status ? '1' : '0';
+}
+
+/**
+ * 转换switch
+ *
+ * @param status
+ * @returns
+ */
+export function transformStatusBoolean(status: any): boolean {
+  return status === 1;
+}

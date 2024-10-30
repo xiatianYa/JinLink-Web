@@ -1,8 +1,6 @@
 import { request } from '../../request';
 
-/**
- * Insert
- */
+/** Insert */
 export function fetchInsertRole(params: any) {
   return request({
     url: '/sysRole/save',
@@ -11,9 +9,7 @@ export function fetchInsertRole(params: any) {
   });
 }
 
-/**
- * Update
- */
+/** Update */
 export function fetchUpdateRole(params: any) {
   return request({
     url: '/sysRole/update',
@@ -22,23 +18,36 @@ export function fetchUpdateRole(params: any) {
   });
 }
 
-/**
- * Delete
- */
+/** Delete */
 export function fetchDeleteRoleById(id: number) {
   return request({
-    url: '/sysRole/remove/' + id,
-    method: 'delete',
+    url: `/sysRole/remove/${id}`,
+    method: 'delete'
   });
 }
 
-/**
- * Delete
- */
+/** Delete */
 export function fetchDeleteRoleByIds(params: any) {
   return request<Api.Auth.LoginToken>({
     url: '/sysRole/removeByIds',
     method: 'delete',
+    data: params
+  });
+}
+
+/** GetRoleByRoleId */
+export function fetchGetRoleByRoleId(roleId: number) {
+  return request({
+    url: `/sysRoleMenu/getRoleByRoleId/${roleId}`,
+    method: 'get'
+  });
+}
+
+/** UpdateRoleMenu */
+export function fetchUpdateRoleMenu(params: any) {
+  return request({
+    url: '/sysRoleMenu/updateRoleMenu',
+    method: 'put',
     data: params
   });
 }

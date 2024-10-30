@@ -155,59 +155,17 @@ const local: App.I18n.Schema = {
     500: 'Server Error',
     'iframe-page': 'Iframe',
     home: 'Home',
-    document: 'Document',
-    document_project: 'Project Document',
-    'document_project-link': 'Project Document(External Link)',
-    document_vue: 'Vue Document',
-    document_vite: 'Vite Document',
-    document_unocss: 'UnoCSS Document',
-    document_naive: 'Naive UI Document',
-    document_antd: 'Ant Design Vue Document',
     'user-center': 'User Center',
     about: 'About',
-    function: 'System Function',
-    function_tab: 'Tab',
-    'function_multi-tab': 'Multi Tab',
-    'function_hide-child': 'Hide Child',
-    'function_hide-child_one': 'Hide Child',
-    'function_hide-child_two': 'Two',
-    'function_hide-child_three': 'Three',
-    function_request: 'Request',
-    'function_toggle-auth': 'Toggle Auth',
-    'function_super-page': 'Super Admin Visible',
     manage: 'System Manage',
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',
     manage_role: 'Role Manage',
     manage_menu: 'Menu Manage',
-    'multi-menu': 'Multi Menu',
-    'multi-menu_first': 'Menu One',
-    'multi-menu_first_child': 'Menu One Child',
-    'multi-menu_second': 'Menu Two',
-    'multi-menu_second_child': 'Menu Two Child',
-    'multi-menu_second_child_home': 'Menu Two Child Home',
-    exception: 'Exception',
-    exception_403: '403',
-    exception_404: '404',
-    exception_500: '500',
-    plugin: 'Plugin',
-    plugin_copy: 'Copy',
-    plugin_charts: 'Charts',
-    plugin_charts_echarts: 'ECharts',
-    plugin_editor: 'Editor',
-    plugin_editor_quill: 'Quill',
-    plugin_editor_markdown: 'Markdown',
-    plugin_icon: 'Icon',
-    plugin_map: 'Map',
-    plugin_print: 'Print',
-    plugin_swiper: 'Swiper',
-    plugin_video: 'Video',
-    plugin_barcode: 'Barcode',
-    plugin_pinyin: 'pinyin',
-    plugin_excel: 'Excel',
-    plugin_pdf: 'PDF preview',
-    plugin_gantt: 'Gantt Chart',
-    plugin_typeit: 'Typeit'
+    monitor: 'Monitoring management',
+    monitor_scheduler: 'Scheduling tasks',
+    monitor_system: 'System Monitor',
+    monitor_cache: 'Cache Monitor'
   },
   page: {
     login: {
@@ -297,45 +255,6 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean just wrote some of the workbench pages casually, and it was enough to see!'
       },
       creativity: 'Creativity'
-    },
-    function: {
-      tab: {
-        tabOperate: {
-          title: 'Tab Operation',
-          addTab: 'Add Tab',
-          addTabDesc: 'To about page',
-          closeTab: 'Close Tab',
-          closeCurrentTab: 'Close Current Tab',
-          closeAboutTab: 'Close "About" Tab',
-          addMultiTab: 'Add Multi Tab',
-          addMultiTabDesc1: 'To MultiTab page',
-          addMultiTabDesc2: 'To MultiTab page(with query params)'
-        },
-        tabTitle: {
-          title: 'Tab Title',
-          changeTitle: 'Change Title',
-          change: 'Change',
-          resetTitle: 'Reset Title',
-          reset: 'Reset'
-        }
-      },
-      multiTab: {
-        routeParam: 'Route Param',
-        backTab: 'Back function_tab'
-      },
-      toggleAuth: {
-        toggleAccount: 'Toggle Account',
-        authHook: 'Auth Hook Function `hasAuth`',
-        superAdminVisible: 'Super Admin Visible',
-        adminVisible: 'Admin Visible',
-        adminOrUserVisible: 'Admin and User Visible'
-      },
-      request: {
-        repeatedErrorOccurOnce: 'Repeated Request Error Occurs Once',
-        repeatedError: 'Repeated Request Error',
-        repeatedErrorMsg1: 'Custom Request Error 1',
-        repeatedErrorMsg2: 'Custom Request Error 2'
-      }
     },
     manage: {
       common: {
@@ -452,6 +371,115 @@ const local: App.I18n.Schema = {
         iconType: {
           iconify: 'Iconify Icon',
           local: 'Local Icon'
+        }
+      }
+    },
+    monitor: {
+      percentage: '{value} %',
+      scheduler: {
+        title: '任务列表',
+        jobName: '任务名称',
+        jobGroup: '任务组别',
+        triggerName: '触发器名称',
+        triggerGroup: '触发器组别',
+        jobData: '任务参数',
+        triggerData: '触发器参数',
+        addScheduler: '添加调度任务',
+        editScheduler: '编辑调度任务',
+        corn: '调度表达式',
+        jobClassName: '调度任务全类名',
+        status: '状态',
+        form: {
+          jobName: '请输入任务名称',
+          jobGroup: '请输入任务组别',
+          triggerName: '请输入触发器名称',
+          triggerGroup: '请输入触发器组别',
+          jobData: '请输入任务参数',
+          triggerData: '请输入触发器参数',
+          corn: '请输入调度表达式',
+          jobClassName: '请输入调度任务全类名',
+          status: '状态'
+        }
+      },
+      system: {
+        status: '系统状态',
+        cpuUserUsage: 'CPU 用户使用率',
+        cpuSystemUsage: 'CPU 系统使用率',
+        systemMemoryUsage: '系统内存使用率',
+        jvmMemoryUsage: 'JVM 内存使用率',
+        operatingSystem: {
+          title: '系统信息',
+          name: '操作系统',
+          manufacturer: '系统制造商',
+          arch: '系统架构',
+          systemBootTime: '系统启动时间',
+          systemUptime: '系统运行时间'
+        },
+        centralProcessor: {
+          title: '中央处理器',
+          name: 'CPU 名称',
+          physicalProcessorCount: '物理核心数',
+          logicalProcessorCount: '逻辑核心数（包含超线程）',
+          processorIdentifier: '处理器标识符',
+          vendorFreq: 'CPU 频率',
+          userPercent: '用户使用率',
+          systemPercent: '系统使用率',
+          idlePercent: '空闲率'
+        },
+        globalMemory: {
+          title: '系统内存',
+          total: '总内存',
+          used: '已用内存',
+          available: '可用内存',
+          swapTotal: '交换区总内存',
+          swapUsed: '已用交换区',
+          swapFree: '剩余交换区',
+          memoryUsedRate: '内存使用率',
+          swapUsedRate: '交换区使用率'
+        },
+        jvm: {
+          title: 'JVM 内存',
+          vmName: '名称',
+          uptime: '运行时间',
+          vmVersion: '版本',
+          vmVendor: '供应商',
+          startTime: '启动时间',
+          inputArguments: '输入参数',
+          heapMemoryUsed: '堆内存已用',
+          heapMemoryMax: '堆内存最大',
+          memoryUsageRate: '使用率',
+          nonHeapMemoryUsed: '非堆内存已用'
+        },
+        fileStore: {
+          title: '文件存储',
+          name: '名称',
+          type: '类型',
+          mount: '挂载点',
+          totalSpace: '总空间',
+          usableSpace: '可用空间',
+          usedSpace: '已用空间',
+          usedPercentage: '已用百分比'
+        },
+        process: {
+          title: '系统前 6 进程',
+          processID: '进程ID',
+          name: '名称',
+          cpuLoad: 'CPU 负载'
+        }
+      },
+      cache: {
+        redis: {
+          title: 'Redis 缓存信息',
+          version: '版本',
+          uptime: '运行时间',
+          connectedClients: '连接客户端数',
+          usedMemory: '已用内存',
+          maxMemory: '最大内存',
+          memoryUsageRate: '内存使用率',
+          memFragmentationRatio: '内存碎片率',
+          totalCommandsProcessed: '命令处理总数',
+          echartsTitle: '命令统计',
+          echartsSubTitle: '图示每一个命令的执行占比'
         }
       }
     }
