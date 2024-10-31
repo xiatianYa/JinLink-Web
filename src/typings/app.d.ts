@@ -710,6 +710,85 @@ declare namespace App {
               echartsSubTitle: string;
             };
           };
+          logs: {
+            login: {
+              userName: string;
+              userRealName: string;
+              ip: string;
+              ipAddr: string;
+              userAgent: string;
+              status: string;
+              message: string;
+              createTime: string;
+              createUser: string;
+              form: {
+                userName: string;
+                userRealName: string;
+              };
+              loginStatus: {
+                fail: string;
+                success: string;
+              };
+            };
+            operation: {
+              requestId: string;
+              ip: string;
+              ipAddr: string;
+              userAgent: string;
+              requestUri: string;
+              requestMethod: string;
+              contentType: string;
+              operation: string;
+              methodName: string;
+              methodParams: string;
+              useTime: string;
+              createUser: string;
+              createTime: string;
+              form: {
+                createUser: string;
+              };
+            };
+            error: {
+              requestId: string;
+              ip: string;
+              ipAddr: string;
+              userAgent: string;
+              requestUri: string;
+              requestMethod: string;
+              contentType: string;
+              operation: string;
+              methodName: string;
+              methodParams: string;
+              useTime: string;
+              createUser: string;
+              createTime: string;
+              exceptionMessage: string;
+              exceptionClass: string;
+              line: string;
+              stackTrace: string;
+              form: {
+                createUser: string;
+              };
+            };
+            scheduler: {
+              jobName: string;
+              jobGroup: string;
+              useTime: string;
+              status: string;
+              createTime: string;
+              exceptionMessage: string;
+              exceptionClass: string;
+              line: string;
+              stackTrace: string;
+              executeStatus: {
+                success: string;
+                fail: string;
+              };
+              form: {
+                jobName: string;
+              };
+            };
+          };
         };
       };
       form: {

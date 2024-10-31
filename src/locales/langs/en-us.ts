@@ -165,7 +165,9 @@ const local: App.I18n.Schema = {
     monitor: 'Monitoring management',
     monitor_scheduler: 'Scheduling tasks',
     monitor_system: 'System Monitor',
-    monitor_cache: 'Cache Monitor'
+    monitor_cache: 'Cache Monitor',
+    monitor_logs: 'Logs Monitor',
+    monitor_logs_login: 'Login logs Monitor'
   },
   page: {
     login: {
@@ -480,6 +482,85 @@ const local: App.I18n.Schema = {
           totalCommandsProcessed: '命令处理总数',
           echartsTitle: '命令统计',
           echartsSubTitle: '图示每一个命令的执行占比'
+        }
+      },
+      logs: {
+        login: {
+          userName: '用户名',
+          userRealName: '真实姓名',
+          ip: '登录 IP',
+          ipAddr: 'IP 所属地',
+          userAgent: 'User-Agent',
+          status: '登录状态',
+          message: '登录信息',
+          createTime: '登录时间',
+          createUser: '登录用户',
+          form: {
+            userName: '请填写用户名',
+            userRealName: '请填写真实姓名'
+          },
+          loginStatus: {
+            fail: '登录失败',
+            success: '登录成功'
+          }
+        },
+        operation: {
+          requestId: '请求 ID',
+          ip: '操作 IP',
+          ipAddr: 'IP 所属地',
+          userAgent: 'User-Agent',
+          requestUri: '请求 URI',
+          requestMethod: '请求方式',
+          contentType: '请求类型',
+          methodName: '操作方法',
+          operation: '操作方法说明',
+          methodParams: '操作参数',
+          useTime: '耗时(ms)',
+          createUser: '操作用户',
+          createTime: '操作时间',
+          form: {
+            createUser: '请填写操作用户'
+          }
+        },
+        error: {
+          requestId: '请求 ID',
+          ip: '操作 IP',
+          ipAddr: 'IP 所属地',
+          userAgent: 'User-Agent',
+          requestUri: '请求 URI',
+          requestMethod: '请求方式',
+          contentType: '请求类型',
+          methodName: '操作方法',
+          operation: '操作方法说明',
+          methodParams: '操作参数',
+          useTime: '耗时(ms)',
+          createUser: '操作用户',
+          createTime: '异常时间',
+          exceptionMessage: '异常信息',
+          exceptionClass: '异常类名',
+          line: '异常行号',
+          stackTrace: '异常堆栈',
+          form: {
+            createUser: '请填写操作用户'
+          }
+        },
+        scheduler: {
+          jobName: '任务名称',
+          jobGroup: '任务组名',
+          useTime: '耗时(ms)',
+          status: '执行状态',
+          createTime: '执行时间',
+          exceptionMessage: '异常信息',
+          exceptionClass: '异常类名',
+          line: '异常行号',
+          stackTrace: '异常堆栈',
+          executeStatus: {
+            success: '执行成功',
+            fail: '执行失败'
+          },
+          form: {
+            jobName: '请选择任务名称'
+          }
         }
       }
     }

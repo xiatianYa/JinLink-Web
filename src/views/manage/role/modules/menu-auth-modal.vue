@@ -27,8 +27,6 @@ const title = computed(() => $t('common.edit') + $t('page.manage.role.menuAuth')
 const home = shallowRef('');
 
 async function getHome() {
-  console.log(props.roleId);
-
   home.value = 'home';
 }
 

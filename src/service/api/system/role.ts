@@ -51,3 +51,24 @@ export function fetchUpdateRoleMenu(params: any) {
     data: params
   });
 }
+
+/** get role list */
+export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
+  return request<Api.SystemManage.RoleList>({
+    url: '/sysRole/page',
+    method: 'get',
+    params
+  });
+}
+
+/**
+ * get all roles
+ *
+ * these roles are all enabled
+ */
+export function fetchGetAllRoles() {
+  return request<Api.SystemManage.AllRole[]>({
+    url: '/sysRole/getAllRoles',
+    method: 'get'
+  });
+}

@@ -169,6 +169,25 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'monitor_logs',
+        path: '/monitor/logs',
+        meta: {
+          title: 'monitor_logs',
+          i18nKey: 'route.monitor_logs'
+        },
+        children: [
+          {
+            name: 'monitor_logs_login',
+            path: '/monitor/logs/login',
+            component: 'view.monitor_logs_login',
+            meta: {
+              title: 'monitor_logs_login',
+              i18nKey: 'route.monitor_logs_login'
+            }
+          }
+        ]
+      },
+      {
         name: 'monitor_scheduler',
         path: '/monitor/scheduler',
         component: 'view.monitor_scheduler',

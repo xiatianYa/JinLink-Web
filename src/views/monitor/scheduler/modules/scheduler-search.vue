@@ -18,14 +18,19 @@ const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const model = defineModel<Api.MonitorManage.SchedulerSearchParams>('model', { required: true });
 
-type RuleKey = Extract<keyof Api.SystemManage.UserSearchParams, 'userEmail' | 'userPhone'>;
+type RuleKey = Extract<
+  keyof Api.SystemManage.UserSearchParams,
+  'jobName' | 'jobGroup' | 'triggerName' | 'triggerGroup'
+>;
 
 const rules = computed<Record<RuleKey, App.Global.FormRule>>(() => {
-  const { patternRules } = useFormRules(); // inside computed to make locale reactive
+  const { defaultRequiredRule } = useFormRules(); // inside computed to make locale reactive
 
   return {
-    userEmail: patternRules.email,
-    userPhone: patternRules.phone
+    jobName: defaultRequiredRule,
+    jobGroup: defaultRequiredRule,
+    triggerName: defaultRequiredRule,
+    triggerGroup: defaultRequiredRule
   };
 });
 

@@ -1,8 +1,6 @@
 import { request } from '../../request';
 
-/**
- * Insert
- */
+/** Insert */
 export function fetchInsertMenu(params: any) {
   return request({
     url: '/sysMenu/save',
@@ -11,10 +9,7 @@ export function fetchInsertMenu(params: any) {
   });
 }
 
-
-/**
- * Update
- */
+/** Update */
 export function fetchUpdateMenu(params: any) {
   return request({
     url: '/sysMenu/update',
@@ -23,19 +18,15 @@ export function fetchUpdateMenu(params: any) {
   });
 }
 
-/**
- * Delete
- */
+/** Delete */
 export function fetchDeleteMenuById(id: number) {
   return request({
-    url: '/sysMenu/remove/' + id,
-    method: 'delete',
+    url: `/sysMenu/remove/${id}`,
+    method: 'delete'
   });
 }
 
-/**
- * Delete
- */
+/** Delete */
 export function fetchDeleteMenuByIds(params: any) {
   return request<Api.Auth.LoginToken>({
     url: '/sysMenu/removeByIds',
@@ -44,5 +35,26 @@ export function fetchDeleteMenuByIds(params: any) {
   });
 }
 
+/** get menu list */
+export function fetchGetMenuList() {
+  return request<Api.SystemManage.MenuList>({
+    url: '/sysMenu/page',
+    method: 'get'
+  });
+}
 
+/** get all pages */
+export function fetchGetAllPages() {
+  return request<string[]>({
+    url: '/sysMenu/getAllPages',
+    method: 'get'
+  });
+}
 
+/** get menu tree */
+export function fetchGetMenuTree() {
+  return request<Api.SystemManage.MenuTree[]>({
+    url: '/sysMenu/getMenuTree',
+    method: 'get'
+  });
+}

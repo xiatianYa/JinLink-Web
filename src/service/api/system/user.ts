@@ -1,18 +1,14 @@
 import { request } from '../../request';
 
-/**
- * Delete
- */
+/** Delete */
 export function fetchDeleteUserById(id: number) {
   return request({
-    url: '/sysUser/remove/' + id,
-    method: 'delete',
+    url: `/sysUser/remove/${id}`,
+    method: 'delete'
   });
 }
 
-/**
- * Delete
- */
+/** Delete */
 export function fetchDeleteUserByIds(params: any) {
   return request<Api.Auth.LoginToken>({
     url: '/sysUser/removeByIds',
@@ -21,9 +17,7 @@ export function fetchDeleteUserByIds(params: any) {
   });
 }
 
-/**
- * Insert
- */
+/** Insert */
 export function fetchInsertUser(params: any) {
   return request({
     url: '/sysUser/save',
@@ -32,9 +26,7 @@ export function fetchInsertUser(params: any) {
   });
 }
 
-/**
- * Update
- */
+/** Update */
 export function fetchUpdateUser(params: any) {
   return request({
     url: '/sysUser/update',
@@ -43,3 +35,11 @@ export function fetchUpdateUser(params: any) {
   });
 }
 
+/** get user list */
+export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
+  return request<Api.SystemManage.UserList>({
+    url: '/sysUser/page',
+    method: 'get',
+    params
+  });
+}
