@@ -3,13 +3,13 @@ import { request } from '../../request';
 /** List */
 export function fetchPermissionAll() {
   return request({
-    url: '/sysPermission/listAll',
+    url: '/sysPermission/getPermissionTree',
     method: 'get'
   });
 }
 
 /** List */
-export function fetchPermissionByRoleId(roleId: number) {
+export function fetchPermissionByRoleId(roleId: string | number) {
   return request({
     url: `/sysRolePermission/getPermissionByRoleId/${roleId}`,
     method: 'get'

@@ -222,11 +222,21 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     openDrawer();
   }
 
+  /** the editing row data id */
+  const editingId: Ref<string> = ref('0');
   /** the editing row data */
   const editingData: Ref<T | null> = ref(null);
 
+  /** set row data id */
+  function handleId(id?: T['id']) {
+    editingId.value = getTargetId(id);
+  }
+
   function handleEdit(id: T['id']) {
     operateType.value = 'edit';
+
+    editingId.value = id;
+
     const findItem = data.value.find(item => item.id === id) || null;
     editingData.value = jsonClone(findItem);
 
@@ -235,6 +245,11 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
 
   /** the checked row keys of table */
   const checkedRowKeys = ref<string[]>([]);
+
+  /** get the target id , If no ID is entered, retrieve the row key; otherwise, it is 0 */
+  function getTargetId(id?: string) {
+    return id ?? (checkedRowKeys.value.length > 0 ? checkedRowKeys.value[0] : '0');
+  }
 
   /** the hook after the batch delete operation is completed */
   async function onBatchDeleted() {
@@ -258,8 +273,10 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     closeDrawer,
     operateType,
     handleAdd,
+    editingId,
     editingData,
     handleEdit,
+    handleId,
     checkedRowKeys,
     onBatchDeleted,
     onDeleted

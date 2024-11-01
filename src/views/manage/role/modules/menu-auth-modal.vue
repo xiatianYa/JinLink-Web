@@ -9,7 +9,7 @@ defineOptions({
 
 interface Props {
   /** the roleId */
-  roleId: number;
+  roleId: string | number;
 }
 
 const props = defineProps<Props>();

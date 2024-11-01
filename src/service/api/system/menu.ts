@@ -19,7 +19,7 @@ export function fetchUpdateMenu(params: any) {
 }
 
 /** Delete */
-export function fetchDeleteMenuById(id: number) {
+export function fetchDeleteMenuById(id: string) {
   return request({
     url: `/sysMenu/remove/${id}`,
     method: 'delete'

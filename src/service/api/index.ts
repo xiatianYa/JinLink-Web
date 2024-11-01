@@ -8,3 +8,4 @@ export * from './monitor/scheduler';
 export * from './monitor/system-info';
 export * from './monitor/cache';
 export * from './monitor/logs-login';
+export * from './system/dict';

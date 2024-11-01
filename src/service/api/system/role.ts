@@ -19,7 +19,7 @@ export function fetchUpdateRole(params: any) {
 }
 
 /** Delete */
-export function fetchDeleteRoleById(id: number) {
+export function fetchDeleteRoleById(id: string) {
   return request({
     url: `/sysRole/remove/${id}`,
     method: 'delete'
@@ -36,7 +36,7 @@ export function fetchDeleteRoleByIds(params: any) {
 }
 
 /** GetRoleByRoleId */
-export function fetchGetRoleByRoleId(roleId: number) {
+export function fetchGetRoleByRoleId(roleId: string | number) {
   return request({
     url: `/sysRoleMenu/getRoleByRoleId/${roleId}`,
     method: 'get'

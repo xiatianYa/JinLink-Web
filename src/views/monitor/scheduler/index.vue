@@ -1,13 +1,16 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm, NTag } from 'naive-ui';
+import { NButton, NPopconfirm } from 'naive-ui';
 import { fetchDeleteSchedulerById, fetchDeleteSchedulerByIds, fetchGetSchedulerList } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
+import { useDict } from '@/hooks/business/dict';
 import MonitorSearch from './modules/scheduler-search.vue';
 import SchedulerOperateDrawer from './modules/scheduler-operate-drawer.vue';
 
 const appStore = useAppStore();
+
+const { dictTag } = useDict();
 
 const {
   columns,
@@ -82,12 +85,7 @@ const {
       key: 'status',
       title: $t('page.monitor.scheduler.status'),
       align: 'center',
-      render: row => {
-        if (row.status === null) {
-          return null;
-        }
-        return <NTag type={row.status ? 'success' : 'warning'}>{row.status ? '启用' : '停用'}</NTag>;
-      }
+      render: row => dictTag('scheduler_trigger_status', row.status)
     },
     {
       key: 'operate',
@@ -133,13 +131,13 @@ async function handleBatchDelete() {
   if (result.data) onBatchDeleted();
 }
 
-async function handleDelete(id: number) {
+async function handleDelete(id: string) {
   // request
   const result: any = await fetchDeleteSchedulerById(id);
   if (result.data) onDeleted();
 }
 
-function edit(id: number) {
+function edit(id: string) {
   handleEdit(id);
 }
 </script>

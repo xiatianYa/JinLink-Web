@@ -10,7 +10,7 @@ export function fetchGetSchedulerList(params?: Api.MonitorManage.SchedulerSearch
 }
 
 /** Delete */
-export function fetchDeleteSchedulerById(id: number) {
+export function fetchDeleteSchedulerById(id: string) {
   return request({
     url: `/monScheduler/remove/${id}`,
     method: 'delete'

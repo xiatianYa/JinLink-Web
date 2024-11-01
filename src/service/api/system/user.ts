@@ -1,7 +1,7 @@
 import { request } from '../../request';
 
 /** Delete */
-export function fetchDeleteUserById(id: number) {
+export function fetchDeleteUserById(id: string) {
   return request({
     url: `/sysUser/remove/${id}`,
     method: 'delete'

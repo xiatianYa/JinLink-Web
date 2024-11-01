@@ -167,7 +167,8 @@ const local: App.I18n.Schema = {
     monitor_system: 'System Monitor',
     monitor_cache: 'Cache Monitor',
     monitor_logs: 'Logs Monitor',
-    monitor_logs_login: 'Login logs Monitor'
+    monitor_logs_login: 'Login logs Monitor',
+    manage_dict: 'Dict Manage'
   },
   page: {
     login: {
@@ -374,6 +375,56 @@ const local: App.I18n.Schema = {
           iconify: 'Iconify Icon',
           local: 'Local Icon'
         }
+      },
+      dict: {
+        title: '字典列表',
+        name: '字典名称',
+        code: '字典编码',
+        type: '字典类型',
+        description: '字典描述',
+        sort: '排序',
+        status: '字典状态',
+        form: {
+          name: '请输入字典名称',
+          code: '请输入字典编码',
+          type: '请选择字典类型',
+          description: '请输入字典描述',
+          sort: '请输入排序',
+          status: '请选择字典状态'
+        },
+        addDict: '新增字典',
+        editDict: '编辑字典',
+        dictType: {
+          system: '系统字典',
+          business: '业务字典'
+        },
+        loadCacheSuccess: '缓存成功',
+        selectTreeIsEmptyTip: '请选择字典查看子项目',
+        systemFieldsCannotBeDeleted: '系统字段禁止操作删除'
+      },
+      dictItem: {
+        title: '字典项列表',
+        dictCode: '字典编码',
+        value: '字典值',
+        zhCN: '中文',
+        enUS: '英文',
+        color: '#颜色',
+        sort: '排序',
+        type: '类型',
+        status: '状态',
+        description: '描述',
+        form: {
+          value: '请输入字典值',
+          zhCN: '请输入字典项中文',
+          enUS: '请输入字典项英文',
+          color: '请选择颜色',
+          type: '请选择类型',
+          sort: '请输入排序',
+          status: '请选择字典项状态',
+          description: '请输入字典描述'
+        },
+        addDictItem: '新增字典项',
+        editDictItem: '编辑字典项'
       }
     },
     monitor: {
@@ -562,6 +613,84 @@ const local: App.I18n.Schema = {
             jobName: '请选择任务名称'
           }
         }
+      }
+    },
+    tools: {
+      common: {
+        renderType: {
+          input: '输入框',
+          select: '下拉框',
+          radio: '单选框'
+        },
+        searchType: {
+          equal: '等于',
+          noEqual: '不等于',
+          like: '模糊',
+          leftLike: '左模糊',
+          rightLike: '右模糊',
+          greaterThan: '大于',
+          greaterThanOrEqual: '大于等于',
+          lessThan: '小于',
+          lessThanOrEqual: '小于等于',
+          in: '包含',
+          notIn: '不包含',
+          between: '在区间内',
+          notBetween: '不在区间内'
+        }
+      },
+      generateTable: {
+        tableName: '表名',
+        tableComment: '表注释',
+        tablePrefix: '表前缀',
+        parentPackage: '生成父包名',
+        moduleName: '模块名',
+        parentMenuName: '上级菜单',
+        author: '作者',
+        status: '状态',
+        form: {
+          tableName: '请输入表名',
+          tableNameSelect: '请选择表名',
+          tableComment: '请输入表注释',
+          tablePrefix: '请输入表前缀',
+          parentPackage: '请输入生成父包名',
+          moduleName: '请输入模块名',
+          parentMenuName: '请选择上级菜单',
+          author: '请输入作者'
+        },
+        addGenerate: '新增生成',
+        editGenerate: '编辑生成表：{tableName}',
+        isNotDevEnvTip: '当前为非开发环境，不允许新增编辑数据'
+      },
+      generateTableColumn: {
+        ordinalPosition: '表序号',
+        columnName: '字段名称',
+        propertyName: '属性名称',
+        columnComment: '字段注释',
+        dataType: '数据类型',
+        javaType: 'Java类型',
+        typescriptType: 'TypeScript类型',
+        list: '列表',
+        search: '查询',
+        searchType: '查询条件',
+        required: '必填',
+        added: '新增',
+        edit: '编辑',
+        renderType: '渲染类型',
+        dictCode: '数据字典',
+        status: '启用状态',
+        cleanColumns: '清空字段',
+        cleanColumnsConfirm: '你确定要清空生成表字段？它会删除现有配置字段，可二次同步数据库字段即可。',
+        cleanSuccess: '清空成功',
+        syncColumns: '同步数据库字段',
+        syncColumnsConfirm: '你确定要同步数据库字段？',
+        syncSuccess: '同步成功',
+        baseInfo: '基础信息',
+        columnInfo: '字段信息',
+        resultInfo: '结果信息',
+        generateSuccess: '生成成功',
+        downloadZip: '下载 ZIP 压缩包',
+        previous: '上一步',
+        next: '下一步'
       }
     }
   },

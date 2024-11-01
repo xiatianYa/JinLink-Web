@@ -76,3 +76,13 @@ export function transformStatus(status: any): '0' | '1' {
 export function transformStatusBoolean(status: any): boolean {
   return status === 1;
 }
+
+/**
+ * Translate deleted id to DeleteParams
+ *
+ * @param record id Array
+ * @returns Api.Common.DeleteParams
+ */
+export function transDeleteParams(record: string[]): Api.Common.DeleteParams {
+  return { ids: record };
+}

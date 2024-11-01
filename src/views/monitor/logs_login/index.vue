@@ -3,6 +3,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { fetchGetLoginLogList } from '@/service/api';
+import { useDict } from '@/hooks/business/dict';
 import LogsLoginSearch from './modules/login-search.vue';
 
 defineOptions({
@@ -10,6 +11,8 @@ defineOptions({
 });
 
 const appStore = useAppStore();
+
+const { dictTag } = useDict();
 
 const {
   columns,
@@ -25,7 +28,7 @@ const {
   apiFn: fetchGetLoginLogList,
   apiParams: {
     current: 1,
-    size: 10,
+    size: 20,
     userName: null,
     userRealName: null
   },
@@ -46,7 +49,8 @@ const {
       key: 'status',
       title: $t('page.monitor.logs.login.status'),
       align: 'center',
-      minWidth: 100
+      minWidth: 100,
+      render: row => dictTag('login_status', row.status)
     },
     {
       key: 'ip',

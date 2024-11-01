@@ -601,6 +601,56 @@ declare namespace App {
               local: string;
             };
           };
+          dict: {
+            title: string;
+            name: string;
+            code: string;
+            type: string;
+            sort: string;
+            description: string;
+            status: string;
+            form: {
+              name: string;
+              code: string;
+              type: string;
+              sort: string;
+              description: string;
+              status: string;
+            };
+            addDict: string;
+            editDict: string;
+            dictType: {
+              system: string;
+              business: string;
+            };
+            loadCacheSuccess: string;
+            selectTreeIsEmptyTip: string;
+            systemFieldsCannotBeDeleted: string;
+          };
+          dictItem: {
+            title: string;
+            dictCode: string;
+            value: string;
+            zhCN: string;
+            enUS: string;
+            sort: string;
+            type: string;
+            color: string;
+            description: string;
+            status: string;
+            form: {
+              value: string;
+              zhCN: string;
+              enUS: string;
+              sort: string;
+              type: string;
+              color: string;
+              description: string;
+              status: string;
+            };
+            addDictItem: string;
+            editDictItem: string;
+          };
         };
         monitor: {
           percentage: string;
@@ -788,6 +838,84 @@ declare namespace App {
                 jobName: string;
               };
             };
+          };
+        };
+        tools: {
+          common: {
+            renderType: {
+              input: string;
+              select: string;
+              radio: string;
+            };
+            searchType: {
+              equal: string;
+              noEqual: string;
+              like: string;
+              leftLike: string;
+              rightLike: string;
+              greaterThan: string;
+              greaterThanOrEqual: string;
+              lessThan: string;
+              lessThanOrEqual: string;
+              in: string;
+              notIn: string;
+              between: string;
+              notBetween: string;
+            };
+          };
+          generateTable: {
+            tableName: string;
+            tableComment: string;
+            tablePrefix: string;
+            parentPackage: string;
+            moduleName: string;
+            parentMenuName: string;
+            author: string;
+            status: string;
+            form: {
+              tableName: string;
+              tableNameSelect: string;
+              tableComment: string;
+              tablePrefix: string;
+              parentPackage: string;
+              moduleName: string;
+              parentMenuName: string;
+              author: string;
+            };
+            addGenerate: string;
+            editGenerate: string;
+            isNotDevEnvTip: string;
+          };
+          generateTableColumn: {
+            ordinalPosition: string;
+            columnName: string;
+            propertyName: string;
+            columnComment: string;
+            dataType: string;
+            javaType: string;
+            typescriptType: string;
+            list: string;
+            search: string;
+            searchType: string;
+            required: string;
+            added: string;
+            edit: string;
+            renderType: string;
+            dictCode: string;
+            status: string;
+            cleanColumns: string;
+            cleanColumnsConfirm: string;
+            cleanSuccess: string;
+            syncColumns: string;
+            syncColumnsConfirm: string;
+            syncSuccess: string;
+            baseInfo: string;
+            columnInfo: string;
+            resultInfo: string;
+            generateSuccess: string;
+            downloadZip: string;
+            previous: string;
+            next: string;
           };
         };
       };
