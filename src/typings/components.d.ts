@@ -23,6 +23,7 @@ declare module 'vue' {
     'IconFileIcons:microsoftExcel': typeof import('~icons/file-icons/microsoft-excel')['default']
     IconGridiconsFullscreen: typeof import('~icons/gridicons/fullscreen')['default']
     IconGridiconsFullscreenExit: typeof import('~icons/gridicons/fullscreen-exit')['default']
+    'IconIc:outlineRefresh': typeof import('~icons/ic/outline-refresh')['default']
     'IconIc:roundPlus': typeof import('~icons/ic/round-plus')['default']
     IconIcRoundDelete: typeof import('~icons/ic/round-delete')['default']
     IconIcRoundPlus: typeof import('~icons/ic/round-plus')['default']

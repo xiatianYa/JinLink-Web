@@ -33,7 +33,10 @@ declare module "@elegant-router/types" {
     "monitor": "/monitor";
     "monitor_cache": "/monitor/cache";
     "monitor_logs": "/monitor/logs";
+    "monitor_logs_error": "/monitor/logs/error";
     "monitor_logs_login": "/monitor/logs/login";
+    "monitor_logs_operation": "/monitor/logs/operation";
+    "monitor_logs_scheduler": "/monitor/logs/scheduler";
     "monitor_scheduler": "/monitor/scheduler";
     "monitor_system": "/monitor/system";
     "user-center": "/user-center";
@@ -107,7 +110,10 @@ declare module "@elegant-router/types" {
     | "manage_user-detail"
     | "manage_user"
     | "monitor_cache"
+    | "monitor_logs_error"
     | "monitor_logs_login"
+    | "monitor_logs_operation"
+    | "monitor_logs_scheduler"
     | "monitor_scheduler"
     | "monitor_system"
     | "user-center"

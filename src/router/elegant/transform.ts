@@ -179,7 +179,10 @@ const routeMap: RouteMap = {
   "monitor": "/monitor",
   "monitor_cache": "/monitor/cache",
   "monitor_logs": "/monitor/logs",
+  "monitor_logs_error": "/monitor/logs/error",
   "monitor_logs_login": "/monitor/logs/login",
+  "monitor_logs_operation": "/monitor/logs/operation",
+  "monitor_logs_scheduler": "/monitor/logs/scheduler",
   "monitor_scheduler": "/monitor/scheduler",
   "monitor_system": "/monitor/system",
   "user-center": "/user-center"

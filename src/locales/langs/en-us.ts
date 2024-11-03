@@ -168,7 +168,10 @@ const local: App.I18n.Schema = {
     monitor_cache: 'Cache Monitor',
     monitor_logs: 'Logs Monitor',
     monitor_logs_login: 'Login logs Monitor',
-    manage_dict: 'Dict Manage'
+    manage_dict: 'Dict Manage',
+    monitor_logs_scheduler: 'Logs Scheduler Monitor',
+    monitor_logs_error: 'Logs Error Monitor',
+    monitor_logs_operation: 'Logs Operation Monitor'
   },
   page: {
     login: {

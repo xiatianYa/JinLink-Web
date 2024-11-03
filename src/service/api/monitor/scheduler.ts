@@ -43,3 +43,11 @@ export function fetchUpdateScheduler(params: any) {
     data: params
   });
 }
+
+/** get scheduler all job name */
+export function fetchGetSchedulerAllJobNames() {
+  return request<CommonType.Option<string>[]>({
+    url: '/monScheduler/allJobNames',
+    method: 'get'
+  });
+}

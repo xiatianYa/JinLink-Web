@@ -401,6 +401,82 @@ declare namespace Api {
   }
 
   namespace Monitor {
+    /** error log */
+    type ErrorLog = Common.CommonRecord<
+      {
+        /** exception message */
+        exceptionMessage: string;
+        /** exception class */
+        exceptionClass: string;
+        /** line */
+        line: number;
+        /** stackTrace */
+        stackTrace: string;
+      } & OperationLog
+    >;
+
+    /** error log list */
+    type ErrorLogList = Common.PaginatingQueryRecord<ErrorLog>;
+
+    /** error log search params */
+    type ErrorLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.Monitor.ErrorLog, 'createUser'> & Api.Common.CommonSearchParams
+    >;
+    /** OperationLog */
+    type OperationLog = Common.CommonRecord<{
+      /** request id */
+      requestId: number;
+      /** ip */
+      ip: string;
+      /** ip addr */
+      ipAddr: string;
+      /** iser agent */
+      userAgent: string;
+      /** request uri */
+      requestUri: string;
+      /** request method */
+      requestMethod: string;
+      /** content Type */
+      contentType: string;
+      /** operation message */
+      operation: string;
+      /** method name */
+      methodName: string;
+      /** method params */
+      methodParams: string;
+      /** use time */
+      useTime: number;
+      /** createUser */
+      createUser: string;
+    }>;
+
+    /** operation log list */
+    type OperationLogList = Common.PaginatingQueryRecord<OperationLog>;
+
+    /** login log search params */
+    type OperationLogSearchParams = CommonType.RecordNullable<Api.Monitor.OperationLog & Api.Common.CommonSearchParams>;
+    /** scheduler execute status */
+    type SchedulerExecuteStatus = 'SUCCESS' | 'FAIL';
+
+    /** scheduler log */
+    type SchedulerLog = Common.CommonRecord<{
+      jobName: string;
+      jobGroup: string;
+      useTime: number;
+      createTime: string;
+      exceptionMessage: string;
+      exceptionClass: string;
+      line: number;
+      stackTrace: string;
+    }>;
+
+    /** scheduler log list */
+    type SchedulerLogList = Common.PaginatingQueryRecord<SchedulerLog>;
+
+    /** scheduler log search params */
+    type SchedulerLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.Monitor.SchedulerLog, 'jobName'> & Api.Common.CommonSearchParams
+    >;
     /**
      * login status
      *

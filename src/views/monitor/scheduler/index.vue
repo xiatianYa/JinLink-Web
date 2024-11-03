@@ -85,7 +85,7 @@ const {
       key: 'status',
       title: $t('page.monitor.scheduler.status'),
       align: 'center',
-      render: row => dictTag('scheduler_trigger_status', row.status)
+      render: row => dictTag('status', row.status)
     },
     {
       key: 'operate',

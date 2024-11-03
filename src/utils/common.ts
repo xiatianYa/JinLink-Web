@@ -74,7 +74,7 @@ export function transformStatus(status: any): '0' | '1' {
  * @returns
  */
 export function transformStatusBoolean(status: any): boolean {
-  return status === 1;
+  return status === '1';
 }
 
 /**

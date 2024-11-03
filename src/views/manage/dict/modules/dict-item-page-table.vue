@@ -35,8 +35,8 @@ const apiParams = reactive({
   dictId: dictId.value,
   value: null,
   description: null,
-  zhCN: null,
-  enUS: null
+  zhCn: null,
+  enUs: null
 });
 
 const {

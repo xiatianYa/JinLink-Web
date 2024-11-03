@@ -43,3 +43,11 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
     params
   });
 }
+
+/** get scheduler all job name */
+export function fetchGetUserNames() {
+  return request<CommonType.Option<string>[]>({
+    url: '/sysUser/allUserNames',
+    method: 'get'
+  });
+}

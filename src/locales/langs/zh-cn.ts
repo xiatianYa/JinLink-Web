@@ -168,7 +168,10 @@ const local: App.I18n.Schema = {
     monitor_cache: '缓存监控',
     monitor_logs: '日志管理',
     monitor_logs_login: '登录日志',
-    manage_dict: '字典管理'
+    manage_dict: '字典管理',
+    monitor_logs_scheduler: '调度日志',
+    monitor_logs_error: '异常日志',
+    monitor_logs_operation: '操作日志'
   },
   page: {
     login: {
@@ -570,7 +573,7 @@ const local: App.I18n.Schema = {
           createUser: '操作用户',
           createTime: '操作时间',
           form: {
-            createUser: '请填写操作用户'
+            createUser: '请选择操作用户'
           }
         },
         error: {
