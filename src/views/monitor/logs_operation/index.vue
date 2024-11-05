@@ -26,7 +26,7 @@ const {
   apiFn: fetchGetOperationLogList,
   apiParams: {
     current: 1,
-    size: 10,
+    size: 20,
     createUser: null
   },
   columns: () => [

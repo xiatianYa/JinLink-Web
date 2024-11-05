@@ -58,7 +58,7 @@ function logout() {
     content: $t('common.logoutConfirm'),
     positiveText: $t('common.confirm'),
     negativeText: $t('common.cancel'),
-    onPositiveClick: () => {
+    onPositiveClick: async () => {
       authStore.resetStore();
     }
   });
@@ -70,6 +70,7 @@ function handleDropdown(key: DropdownKey) {
   } else {
     // If your other options are jumps from other routes, they will be directly supported here
     routerPushByKey(key);
+    logout();
   }
 }
 </script>

@@ -176,7 +176,7 @@ onMounted(() => init());
         >
           <template #header-extra>
             <NSpace>
-              <NButton v-if="hasAuth('sys:dict:add')" ghost type="primary" @click="handleAdd()">
+              <NButton v-if="hasAuth('sys:dict:save')" ghost type="primary" @click="handleAdd()">
                 {{ $t('common.add') }}
               </NButton>
               <NButton v-if="hasAuth('sys:dict:list')" quaternary @click="init()">

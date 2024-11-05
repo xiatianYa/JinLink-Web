@@ -69,6 +69,5 @@ function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
   if (!key) {
     return '/proxy-default';
   }
-
   return `/proxy-${key}`;
 }

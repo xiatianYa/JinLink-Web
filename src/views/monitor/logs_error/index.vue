@@ -26,7 +26,7 @@ const {
   apiFn: fetchGetErrorLogList,
   apiParams: {
     current: 1,
-    size: 10,
+    size: 20,
     createUser: null
   },
   columns: () => [
@@ -89,7 +89,7 @@ const {
       key: 'createTime',
       title: $t('page.monitor.logs.error.createTime'),
       align: 'center',
-      width: 200
+      width: 180
     },
     {
       key: 'ip',
@@ -101,7 +101,7 @@ const {
       key: 'ipAddr',
       title: $t('page.monitor.logs.error.ipAddr'),
       align: 'center',
-      width: 200,
+      width: 180,
       ellipsis: {
         tooltip: true
       }
@@ -110,7 +110,7 @@ const {
       key: 'requestUri',
       title: $t('page.monitor.logs.error.requestUri'),
       align: 'center',
-      width: 200,
+      width: 180,
       ellipsis: {
         tooltip: true
       }
