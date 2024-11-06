@@ -91,28 +91,19 @@ init();
         <NDescriptionsItem :label="$t('page.monitor.cache.redis.totalCommandsProcessed')">
           {{ redisInfo?.totalCommandsProcessed }}
         </NDescriptionsItem>
-        <NDescriptionsItem
-          :label="$t('page.monitor.cache.redis.usedMemory')"
-          label-style="color:red;"
-          content-style="color:red;"
-        >
+        <NDescriptionsItem :label="$t('page.monitor.cache.redis.usedMemory')" label-style="color:red;"
+          content-style="color:red;">
           {{ redisInfo?.usedMemory }}
         </NDescriptionsItem>
         <NDescriptionsItem :label="$t('page.monitor.cache.redis.maxMemory')">
           {{ redisInfo?.maxMemory }}
         </NDescriptionsItem>
-        <NDescriptionsItem
-          :label="$t('page.monitor.cache.redis.memFragmentationRatio')"
-          label-style="color:red;"
-          content-style="color:red;"
-        >
+        <NDescriptionsItem :label="$t('page.monitor.cache.redis.memFragmentationRatio')" label-style="color:red;"
+          content-style="color:red;">
           {{ $t('page.monitor.percentage', { value: redisInfo?.memFragmentationRatio }) }}
         </NDescriptionsItem>
-        <NDescriptionsItem
-          :label="$t('page.monitor.cache.redis.memoryUsageRate')"
-          label-style="color:red;"
-          content-style="color:red;"
-        >
+        <NDescriptionsItem :label="$t('page.monitor.cache.redis.memoryUsageRate')" label-style="color:red;"
+          content-style="color:red;">
           {{ $t('page.monitor.percentage', { value: redisInfo?.memoryUsageRate }) }}
         </NDescriptionsItem>
       </NDescriptions>

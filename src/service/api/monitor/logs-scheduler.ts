@@ -8,3 +8,11 @@ export function fetchGetSchedulerLogList(params?: Api.Monitor.SchedulerLogSearch
     params
   });
 }
+
+/** clear scheduler log all */
+export function fetchClearSchedulerLogAll() {
+  return request<Boolean>({
+    url: '/monLogsScheduler/clearAll',
+    method: 'delete',
+  });
+}

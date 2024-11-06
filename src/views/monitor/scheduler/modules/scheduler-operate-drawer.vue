@@ -13,7 +13,7 @@ interface Props {
   /** the type of operation */
   operateType: NaiveUI.TableOperateType;
   /** the edit row data */
-  rowData?: Api.MonitorManage.Scheduler | null;
+  rowData?: Api.Monitor.Scheduler | null;
 }
 
 const props = defineProps<Props>();
@@ -40,7 +40,7 @@ const title = computed(() => {
 });
 
 type Model = Pick<
-  Api.MonitorManage.Scheduler,
+  Api.Monitor.Scheduler,
   'jobName' | 'jobGroup' | 'triggerName' | 'triggerGroup' | 'cron' | 'jobClassName' | 'status'
 >;
 

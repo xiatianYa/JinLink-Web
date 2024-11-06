@@ -11,4 +11,12 @@ export function fetchGetOperationLogList(params?: Api.Monitor.OperationLogSearch
   });
 }
 
+/** clear operation log all */
+export function fetchClearOperationLogAll() {
+  return request<Boolean>({
+    url: '/monLogsOperation/clearAll',
+    method: 'delete',
+  });
+}
+
 // =============== Logs Error End ===============

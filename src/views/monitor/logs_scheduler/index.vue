@@ -1,9 +1,23 @@
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsSchedulerSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation v-model:columns="columnChecks" :deleteAll="true"
+        :deleteAllAuth="'mon:monLogsScheduler:delete'" :checked-row-keys="checkedRowKeys" :loading="loading"
+        @delete="handleBatchDelete" @refresh="getData" />
+      <NDataTable v-model:checked-row-keys="checkedRowKeys" remote striped size="small" class="sm:h-full" :data="data"
+        :scroll-x="962" :columns="columns" :flex-height="!appStore.isMobile" :loading="loading" :single-line="false"
+        :row-key="row => row.id" :pagination="mobilePagination" />
+    </NCard>
+  </div>
+</template>
+
 <script setup lang="tsx">
-import { NCard, NSpace, NText } from 'naive-ui';
+import { NButton, NCard } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchGetSchedulerLogList } from '@/service/api';
+import { fetchClearSchedulerLogAll, fetchGetSchedulerLogList } from '@/service/api';
 import { useDict } from '@/hooks/business/dict';
 import LogsSchedulerSearch from './modules/scheduler-search.vue';
 
@@ -38,28 +52,6 @@ const {
       title: $t('common.index'),
       width: 64,
       align: 'center'
-    },
-    {
-      type: 'expand',
-      expandable: () => true,
-      renderExpand: rowData => {
-        return (
-          <NSpace vertical>
-            <NText>
-              {$t('page.monitor.logs.scheduler.exceptionMessage')}: {rowData.exceptionMessage}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.scheduler.line')}: {rowData.line}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.scheduler.exceptionClass')}: {rowData.exceptionClass}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.scheduler.stackTrace')}: {rowData.stackTrace}
-            </NText>
-          </NSpace>
-        );
-      }
     },
     {
       key: 'createTime',
@@ -122,38 +114,22 @@ const {
       title: $t('page.monitor.logs.scheduler.line'),
       align: 'center',
       width: 100
-    }
+    },
+    {
+      key: 'stackTrace',
+      title: $t('page.monitor.logs.scheduler.stackTrace'),
+      align: 'center',
+      width: 100
+    },
   ]
 });
 
-const { checkedRowKeys } = useTableOperate(data, getData);
-</script>
+const { checkedRowKeys, onDeleted } = useTableOperate(data, getData);
 
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsSchedulerSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation
-        v-model:columns="columnChecks"
-        :checked-row-keys="checkedRowKeys"
-        :loading="loading"
-        @refresh="getData"
-      />
-      <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
-        remote
-        striped
-        size="small"
-        class="sm:h-full"
-        :data="data"
-        :scroll-x="962"
-        :columns="columns"
-        :flex-height="!appStore.isMobile"
-        :loading="loading"
-        :single-line="false"
-        :row-key="row => row.id"
-        :pagination="mobilePagination"
-      />
-    </NCard>
-  </div>
-</template>
+
+async function handleBatchDelete() {
+  // request
+  const result: any = await fetchClearSchedulerLogAll();
+  if (result.data) onDeleted();
+}
+</script>

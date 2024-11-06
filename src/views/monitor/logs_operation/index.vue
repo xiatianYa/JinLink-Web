@@ -1,10 +1,31 @@
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsOperationSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation v-model:columns="columnChecks" :deleteAll="true"
+        :deleteAllAuth="'mon:monLogsOperation:delete'" :checked-row-keys="checkedRowKeys" :loading="loading"
+        @delete="handleBatchDelete" @refresh="getData" />
+      <NDataTable v-model:checked-row-keys="checkedRowKeys" remote striped size="small" class="sm:h-full" :data="data"
+        :scroll-x="962" :columns="columns" :flex-height="!appStore.isMobile" :loading="loading" :single-line="false"
+        :row-key="row => row.id" :pagination="mobilePagination" />
+      <OperationOperateModal v-model:visible="visible" :operate-type="operateType" :row-data="editingData"
+        @submitted="getDataByPage" />
+    </NCard>
+  </div>
+</template>
+
 <script setup lang="tsx">
-import { NCard, NSpace, NText } from 'naive-ui';
+import { NButton, NCard } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchGetOperationLogList } from '@/service/api';
+import { fetchGetOperationLogList, fetchClearOperationLogAll } from '@/service/api';
 import LogsOperationSearch from './modules/operation-search.vue';
+import OperationOperateModal, { type OperateType } from './modules/operation-operate-modal.vue';
+import { useBoolean } from '~/packages/hooks/src';
+import { Ref, ref } from 'vue';
+
+const { bool: visible, setTrue: openModal } = useBoolean();
 
 defineOptions({
   name: 'MonitorLogsOperation'
@@ -37,37 +58,6 @@ const {
       align: 'center'
     },
     {
-      type: 'expand',
-      expandable: () => true,
-      renderExpand: rowData => {
-        return (
-          <NSpace vertical>
-            <NText>
-              {$t('page.monitor.logs.operation.ip')}: {rowData.ip}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.operation.ipAddr')}: {rowData.ipAddr}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.operation.requestId')}: {rowData.requestId}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.operation.userAgent')}: {rowData.userAgent}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.operation.requestUri')}: {rowData.requestUri}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.operation.contentType')}: {rowData.contentType}
-            </NText>
-            <NText>
-              {$t('page.monitor.logs.operation.methodParams')}: {rowData.methodParams}
-            </NText>
-          </NSpace>
-        );
-      }
-    },
-    {
       key: 'createUser',
       title: $t('page.monitor.logs.operation.createUser'),
       align: 'center',
@@ -95,6 +85,15 @@ const {
       }
     },
     {
+      key: 'userAgent',
+      title: $t('page.monitor.logs.operation.userAgent'),
+      align: 'center',
+      width: 200,
+      ellipsis: {
+        tooltip: true
+      }
+    },
+    {
       key: 'requestUri',
       title: $t('page.monitor.logs.operation.requestUri'),
       align: 'center',
@@ -108,6 +107,12 @@ const {
       title: $t('page.monitor.logs.operation.requestMethod'),
       align: 'center',
       width: 80
+    },
+    {
+      key: 'contentType',
+      title: $t('page.monitor.logs.operation.contentType'),
+      align: 'center',
+      width: 150
     },
     {
       key: 'methodName',
@@ -128,6 +133,17 @@ const {
       }
     },
     {
+      key: 'operate',
+      title: $t('common.operate'),
+      align: 'center',
+      width: 130,
+      render: row => (
+        <div class="flex-center gap-8px">
+          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row)}>查看请求参数</NButton>
+        </div>
+      )
+    },
+    {
       key: 'useTime',
       title: $t('page.monitor.logs.operation.useTime'),
       align: 'center',
@@ -136,34 +152,22 @@ const {
   ]
 });
 
-const { checkedRowKeys } = useTableOperate(data, getData);
-</script>
+const { checkedRowKeys, onDeleted } = useTableOperate(data, getData);
 
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsOperationSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation
-        v-model:columns="columnChecks"
-        :checked-row-keys="checkedRowKeys"
-        :loading="loading"
-        @refresh="getData"
-      />
-      <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
-        remote
-        striped
-        size="small"
-        class="sm:h-full"
-        :data="data"
-        :scroll-x="962"
-        :columns="columns"
-        :flex-height="!appStore.isMobile"
-        :loading="loading"
-        :single-line="false"
-        :row-key="row => row.id"
-        :pagination="mobilePagination"
-      />
-    </NCard>
-  </div>
-</template>
+const operateType = ref<OperateType>('add');
+
+/** the edit menu data or the parent menu data when adding a child menu */
+const editingData: Ref<Api.Monitor.OperationLog | null> = ref(null);
+
+function handleEdit(item: Api.Monitor.OperationLog) {
+  operateType.value = 'edit';
+  editingData.value = { ...item };
+  openModal();
+}
+
+async function handleBatchDelete() {
+  // request
+  const result: any = await fetchClearOperationLogAll();
+  if (result.data) onDeleted();
+}
+</script>

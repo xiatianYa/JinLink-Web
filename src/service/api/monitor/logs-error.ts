@@ -11,4 +11,12 @@ export function fetchGetErrorLogList(params?: Api.Monitor.ErrorLogSearchParams) 
   });
 }
 
+/** clear error log all */
+export function fetchClearErrorLogAll() {
+  return request<Boolean>({
+    url: '/monLogsError/clearAll',
+    method: 'delete',
+  });
+}
+
 // =============== Logs Error End ===============

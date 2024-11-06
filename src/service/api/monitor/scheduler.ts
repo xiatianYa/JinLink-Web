@@ -1,8 +1,8 @@
 import { request } from '../../request';
 
 /** get scheduler list */
-export function fetchGetSchedulerList(params?: Api.MonitorManage.SchedulerSearchParams) {
-  return request<Api.MonitorManage.SchedulerList>({
+export function fetchGetSchedulerList(params?: Api.Monitor.SchedulerSearchParams) {
+  return request<Api.Monitor.SchedulerList>({
     url: '/monScheduler/page',
     method: 'get',
     params

@@ -1,55 +1,3 @@
-<script setup lang="ts">
-import { computed } from 'vue';
-import { $t } from '@/locales';
-import { useAppStore } from '@/store/modules/app';
-import { useAuth } from '@/hooks/business/auth';
-
-defineOptions({
-  name: 'TableHeaderOperation'
-});
-
-interface Props {
-  loading?: boolean;
-  checkedRowKeys?: string[];
-  addAuth?: string;
-  deleteAuth?: string;
-}
-
-interface Emits {
-  (e: 'add'): void;
-  (e: 'delete'): void;
-  (e: 'refresh'): void;
-}
-
-const appsotre = useAppStore();
-
-const isMobile = computed(() => appsotre.isMobile);
-
-const { hasAuth } = useAuth();
-
-const emit = defineEmits<Emits>();
-
-const props = defineProps<Props>();
-
-const hasCheck = computed(() => (props.checkedRowKeys?.length ?? 0) > 0);
-
-const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
-  default: () => []
-});
-
-function add() {
-  emit('add');
-}
-
-function batchDelete() {
-  emit('delete');
-}
-
-function refresh() {
-  emit('refresh');
-}
-</script>
-
 <template>
   <NGrid x-gap="8" y-gap="8" :cols="12" class="mb-2">
     <NGridItem span="10">
@@ -71,7 +19,19 @@ function refresh() {
                 {{ $t('common.batchDelete') }}
               </NButton>
             </template>
-            {{ $t('common.confirmBatchDelete') }}
+            {{ $t('common.confirmDelete') }}
+          </NPopconfirm>
+          <NPopconfirm v-if="deleteAll && deleteAllAuth && hasAuth(deleteAllAuth)" placement="bottom"
+            @positive-click="batchDelete">
+            <template #trigger>
+              <NButton size="small" ghost type="error">
+                <template #icon>
+                  <icon-ic-round-delete class="text-icon" />
+                </template>
+                {{ $t('common.batchDeleteAll') }}
+              </NButton>
+            </template>
+            {{ $t('common.confirmDelete') }}
           </NPopconfirm>
         </slot>
         <slot name="suffix"></slot>
@@ -93,3 +53,57 @@ function refresh() {
     </NGi>
   </NGrid>
 </template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import { $t } from '@/locales';
+import { useAppStore } from '@/store/modules/app';
+import { useAuth } from '@/hooks/business/auth';
+
+defineOptions({
+  name: 'TableHeaderOperation'
+});
+
+interface Props {
+  loading?: boolean;
+  deleteAll?: boolean;
+  checkedRowKeys?: string[];
+  addAuth?: string;
+  deleteAuth?: string;
+  deleteAllAuth?: string;
+}
+
+interface Emits {
+  (e: 'add'): void;
+  (e: 'delete'): void;
+  (e: 'refresh'): void;
+}
+
+const appsotre = useAppStore();
+
+const isMobile = computed(() => appsotre.isMobile);
+
+const { hasAuth } = useAuth();
+
+const emit = defineEmits<Emits>();
+
+const props = defineProps<Props>();
+
+const hasCheck = computed(() => props.checkedRowKeys?.length && props.checkedRowKeys?.length > 0 ? true : false);
+
+const columns = defineModel<NaiveUI.TableColumnCheck[]>('columns', {
+  default: () => []
+});
+
+function add() {
+  emit('add');
+}
+
+function batchDelete() {
+  emit('delete');
+}
+
+function refresh() {
+  emit('refresh');
+}
+</script>

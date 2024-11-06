@@ -38,6 +38,9 @@ importers:
       '@vueuse/core':
         specifier: 11.1.0
         version: 11.1.0(vue@3.5.11(typescript@5.6.3))
+      ace-builds:
+        specifier: ^1.36.4
+        version: 1.36.4
       clipboard:
         specifier: 2.0.11
         version: 2.0.11
@@ -101,6 +104,9 @@ importers:
       vue-router:
         specifier: 4.4.5
         version: 4.4.5(vue@3.5.11(typescript@5.6.3))
+      vue3-ace-editor:
+        specifier: ^2.2.4
+        version: 2.2.4(ace-builds@1.36.4)(vue@3.5.11(typescript@5.6.3))
       wangeditor:
         specifier: 4.7.15
         version: 4.7.15
@@ -1503,6 +1509,9 @@ packages:
 
   abs-svg-path@0.1.1:
     resolution: {integrity: sha512-d8XPSGjfyzlXC3Xx891DJRyZfqk5JU0BJrDQcsWomFIV1/BIzPW5HDH5iDdWpqWaav0YVIEzT1RHTwWr0FFshA==}
+
+  ace-builds@1.36.4:
+    resolution: {integrity: sha512-eE+iAsLRfNsq30yd34cezKSob6/N9mQatWs44Bp5LUDgKZ3rJtQds/YtcbnwbEWMTe7yCIxG/Cfezd4BsKIiFg==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -4046,6 +4055,9 @@ packages:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
 
+  resize-observer-polyfill@1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
+
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -4806,6 +4818,12 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
+
+  vue3-ace-editor@2.2.4:
+    resolution: {integrity: sha512-FZkEyfpbH068BwjhMyNROxfEI8135Sc+x8ouxkMdCNkuj/Tuw83VP/gStFQqZHqljyX9/VfMTCdTqtOnJZGN8g==}
+    peerDependencies:
+      ace-builds: '*'
+      vue: ^3
 
   vue@3.5.11:
     resolution: {integrity: sha512-/8Wurrd9J3lb72FTQS7gRMNQD4nztTtKPmuDuPuhqXmmpD6+skVjAeahNpVzsuky6Sy9gy7wn8UadqPtt9SQIg==}
@@ -6277,6 +6295,8 @@ snapshots:
     optional: true
 
   abs-svg-path@0.1.1: {}
+
+  ace-builds@1.36.4: {}
 
   acorn-jsx@5.3.2(acorn@8.12.1):
     dependencies:
@@ -9083,6 +9103,8 @@ snapshots:
 
   require-directory@2.1.1: {}
 
+  resize-observer-polyfill@1.5.1: {}
+
   resolve-from@4.0.0: {}
 
   resolve-pkg-maps@1.0.0: {}
@@ -9941,6 +9963,12 @@ snapshots:
       '@vue/language-core': 2.1.6(typescript@5.6.3)
       semver: 7.6.3
       typescript: 5.6.3
+
+  vue3-ace-editor@2.2.4(ace-builds@1.36.4)(vue@3.5.11(typescript@5.6.3)):
+    dependencies:
+      ace-builds: 1.36.4
+      resize-observer-polyfill: 1.5.1
+      vue: 3.5.11(typescript@5.6.3)
 
   vue@3.5.11(typescript@5.6.3):
     dependencies:

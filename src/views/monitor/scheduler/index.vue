@@ -152,41 +152,18 @@ function edit(id: string) {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <MonitorSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard
-      :title="$t('page.monitor.scheduler.title')"
-      :bordered="false"
-      size="small"
-      class="sm:flex-1-hidden card-wrapper"
-    >
+    <NCard :title="$t('page.monitor.scheduler.title')" :bordered="false" size="small"
+      class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
-        <TableHeaderOperation
-          v-model:columns="columnChecks"
-          :disabled-delete="checkedRowKeys.length === 0"
-          :loading="loading"
-          @add="handleAdd"
-          @delete="handleBatchDelete"
-          @refresh="getData"
-        />
+        <TableHeaderOperation v-model:checkedRowKeys="checkedRowKeys" :addAuth="'mon:scheduler:save'"
+          :deleteAuth="'mon:scheduler:delete'" :disabled-delete="checkedRowKeys.length === 0" :loading="loading"
+          @add="handleAdd" @delete="handleBatchDelete" @refresh="getData" />
       </template>
-      <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
-        :columns="columns"
-        :data="data"
-        size="small"
-        :flex-height="!appStore.isMobile"
-        :scroll-x="962"
-        :loading="loading"
-        remote
-        :row-key="row => row.id"
-        :pagination="mobilePagination"
-        class="sm:h-full"
-      />
-      <SchedulerOperateDrawer
-        v-model:visible="drawerVisible"
-        :operate-type="operateType"
-        :row-data="editingData"
-        @submitted="getDataByPage"
-      />
+      <NDataTable v-model:checked-row-keys="checkedRowKeys" :columns="columns" :data="data" size="small"
+        :flex-height="!appStore.isMobile" :scroll-x="962" :loading="loading" remote :row-key="row => row.id"
+        :pagination="mobilePagination" class="sm:h-full" />
+      <SchedulerOperateDrawer v-model:visible="drawerVisible" :operate-type="operateType" :row-data="editingData"
+        @submitted="getDataByPage" />
     </NCard>
   </div>
 </template>

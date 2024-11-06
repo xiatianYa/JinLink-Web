@@ -126,7 +126,7 @@ declare namespace Api {
     /** dict item search params */
     type DictItemSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.DictItem, 'dictId' | 'value' | 'zhCn' | 'enUs' | 'description'> &
-        Api.Common.CommonSearchParams
+      Api.Common.CommonSearchParams
     >;
 
     /** dict item page list */
@@ -141,6 +141,67 @@ declare namespace Api {
 
     /** dict store search params */
     type DictStoreSearchParams = CommonType.RecordNullable<{ language: string; code?: string }>;
+
+    /** CommonSearchParams */
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+
+    /** role search params */
+    type RoleSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
+    >;
+
+    /** role list */
+    type RoleList = Common.PaginatingQueryRecord<Role>;
+
+    /** all role */
+    type AllRole = Pick<Role, 'id' | 'roleName' | 'roleCode'>;
+
+    /**
+     * user gender
+     *
+     * - "1": "male"
+     * - "2": "female"
+     */
+    type UserGender = '1' | '2';
+
+    /** user search params */
+    type UserSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
+      CommonSearchParams
+    >;
+
+    /** user list */
+    type UserList = Common.PaginatingQueryRecord<User>;
+
+    /**
+     * menu type
+     *
+     * - "1": directory
+     * - "2": menu
+     */
+    type MenuType = '1' | '2';
+
+    /**
+* icon type
+*
+* - "1": iconify icon
+* - "2": local icon
+*/
+    type IconType = '1' | '2';
+
+    type MenuPropsOfRoute = Pick<
+      import('vue-router').RouteMeta,
+      | 'i18nKey'
+      | 'keepAlive'
+      | 'constant'
+      | 'order'
+      | 'href'
+      | 'hideInMenu'
+      | 'activeMenu'
+      | 'multiTab'
+      | 'fixedIndexInTab'
+      | 'query'
+    >;
 
     /** dict item */
     type DictItem = Common.CommonRecord<{
@@ -180,8 +241,6 @@ declare namespace Api {
       status: Common.EnableStatus;
     }>;
 
-    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
-
     /** role */
     type Role = Common.CommonRecord<{
       /** role name */
@@ -192,24 +251,6 @@ declare namespace Api {
       roleDesc: string;
     }>;
 
-    /** role search params */
-    type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
-    >;
-
-    /** role list */
-    type RoleList = Common.PaginatingQueryRecord<Role>;
-
-    /** all role */
-    type AllRole = Pick<Role, 'id' | 'roleName' | 'roleCode'>;
-
-    /**
-     * user gender
-     *
-     * - "1": "male"
-     * - "2": "female"
-     */
-    type UserGender = '1' | '2';
 
     /** user */
     type User = Common.CommonRecord<{
@@ -281,23 +322,6 @@ declare namespace Api {
       children?: Menu[] | null;
     };
 
-    /** user search params */
-    type UserSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
-        CommonSearchParams
-    >;
-
-    /** user list */
-    type UserList = Common.PaginatingQueryRecord<User>;
-
-    /**
-     * menu type
-     *
-     * - "1": directory
-     * - "2": menu
-     */
-    type MenuType = '1' | '2';
-
     type MenuButton = {
       /**
        * button code
@@ -308,28 +332,6 @@ declare namespace Api {
       /** button description */
       desc: string;
     };
-
-    /**
-     * icon type
-     *
-     * - "1": iconify icon
-     * - "2": local icon
-     */
-    type IconType = '1' | '2';
-
-    type MenuPropsOfRoute = Pick<
-      import('vue-router').RouteMeta,
-      | 'i18nKey'
-      | 'keepAlive'
-      | 'constant'
-      | 'order'
-      | 'href'
-      | 'hideInMenu'
-      | 'activeMenu'
-      | 'multiTab'
-      | 'fixedIndexInTab'
-      | 'query'
-    >;
 
     type Menu = Common.CommonRecord<{
       /** parent menu id */
@@ -366,8 +368,76 @@ declare namespace Api {
     };
   }
 
-  namespace MonitorManage {
+  namespace Monitor {
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+
+    /** scheduler search params */
+    type SchedulerSearchParams = CommonType.RecordNullable<
+      Pick<
+        Api.Monitor.Scheduler,
+        'jobName' | 'jobGroup' | 'triggerName' | 'triggerGroup' | 'cron' | 'jobClassName' | 'status'
+      > &
+      CommonSearchParams
+    >;
+
+    /** scheduler list */
+    type SchedulerList = Common.PaginatingQueryRecord<Scheduler>;
+
+    /** error log list */
+    type ErrorLogList = Common.PaginatingQueryRecord<ErrorLog>;
+
+    /** error log search params */
+    type ErrorLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.Monitor.ErrorLog, 'createUser'> & Api.Common.CommonSearchParams
+    >;
+
+    /** operation log list */
+    type OperationLogList = Common.PaginatingQueryRecord<OperationLog>;
+
+    /** login log search params */
+    type OperationLogSearchParams = CommonType.RecordNullable<Api.Monitor.OperationLog & Api.Common.CommonSearchParams>;
+
+    /** scheduler execute status */
+    type SchedulerExecuteStatus = 'SUCCESS' | 'FAIL';
+
+    /** scheduler log list */
+    type SchedulerLogList = Common.PaginatingQueryRecord<SchedulerLog>;
+
+    /** scheduler log search params */
+    type SchedulerLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.Monitor.SchedulerLog, 'jobName'> & Api.Common.CommonSearchParams
+    >;
+    /**
+     * login status
+     *
+     * - "0": "fail"
+     * - "1": "success"
+     */
+    type LogsLoginStatus = '0' | '1';
+
+
+    /** login log list */
+    type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
+
+    /** login log search params */
+    type LoginLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.Monitor.LoginLog, 'userName' | 'userRealName'> & Api.Common.CommonSearchParams
+    >;
+
+
+    /** error log */
+    type ErrorLog = Common.CommonRecord<
+      {
+        /** exception message */
+        exceptionMessage: string;
+        /** exception class */
+        exceptionClass: string;
+        /** line */
+        line: number;
+        /** stackTrace */
+        stackTrace: string;
+      } & OperationLog
+    >;
 
     /** scheduler */
     type Scheduler = Common.CommonRecord<{
@@ -387,41 +457,6 @@ declare namespace Api {
       status: any;
     }>;
 
-    /** scheduler search params */
-    type SchedulerSearchParams = CommonType.RecordNullable<
-      Pick<
-        Api.MonitorManage.Scheduler,
-        'jobName' | 'jobGroup' | 'triggerName' | 'triggerGroup' | 'cron' | 'jobClassName' | 'status'
-      > &
-        CommonSearchParams
-    >;
-
-    /** scheduler list */
-    type SchedulerList = Common.PaginatingQueryRecord<Scheduler>;
-  }
-
-  namespace Monitor {
-    /** error log */
-    type ErrorLog = Common.CommonRecord<
-      {
-        /** exception message */
-        exceptionMessage: string;
-        /** exception class */
-        exceptionClass: string;
-        /** line */
-        line: number;
-        /** stackTrace */
-        stackTrace: string;
-      } & OperationLog
-    >;
-
-    /** error log list */
-    type ErrorLogList = Common.PaginatingQueryRecord<ErrorLog>;
-
-    /** error log search params */
-    type ErrorLogSearchParams = CommonType.RecordNullable<
-      Pick<Api.Monitor.ErrorLog, 'createUser'> & Api.Common.CommonSearchParams
-    >;
     /** OperationLog */
     type OperationLog = Common.CommonRecord<{
       /** request id */
@@ -450,14 +485,6 @@ declare namespace Api {
       createUser: string;
     }>;
 
-    /** operation log list */
-    type OperationLogList = Common.PaginatingQueryRecord<OperationLog>;
-
-    /** login log search params */
-    type OperationLogSearchParams = CommonType.RecordNullable<Api.Monitor.OperationLog & Api.Common.CommonSearchParams>;
-    /** scheduler execute status */
-    type SchedulerExecuteStatus = 'SUCCESS' | 'FAIL';
-
     /** scheduler log */
     type SchedulerLog = Common.CommonRecord<{
       jobName: string;
@@ -469,21 +496,6 @@ declare namespace Api {
       line: number;
       stackTrace: string;
     }>;
-
-    /** scheduler log list */
-    type SchedulerLogList = Common.PaginatingQueryRecord<SchedulerLog>;
-
-    /** scheduler log search params */
-    type SchedulerLogSearchParams = CommonType.RecordNullable<
-      Pick<Api.Monitor.SchedulerLog, 'jobName'> & Api.Common.CommonSearchParams
-    >;
-    /**
-     * login status
-     *
-     * - "0": "fail"
-     * - "1": "success"
-     */
-    type LogsLoginStatus = '0' | '1';
 
     /** LoginLog */
     type LoginLog = Common.CommonRecord<{
@@ -504,14 +516,6 @@ declare namespace Api {
       /** login message */
       message: string;
     }>;
-
-    /** login log list */
-    type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
-
-    /** login log search params */
-    type LoginLogSearchParams = CommonType.RecordNullable<
-      Pick<Api.Monitor.LoginLog, 'userName' | 'userRealName'> & Api.Common.CommonSearchParams
-    >;
 
     /** Cache Redis */
     type RedisInfo = {

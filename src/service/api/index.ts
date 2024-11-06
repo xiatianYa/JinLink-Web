@@ -12,3 +12,4 @@ export * from './monitor/logs-login';
 export * from './monitor/logs-scheduler';
 export * from './monitor/logs-operation';
 export * from './monitor/logs-error';
+export * from './file/index';

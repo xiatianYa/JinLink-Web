@@ -293,6 +293,7 @@ declare namespace App {
         addSuccess: string;
         backToHome: string;
         batchDelete: string;
+        batchDeleteAll: string;
         cancel: string;
         close: string;
         check: string;

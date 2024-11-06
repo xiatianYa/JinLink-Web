@@ -12,6 +12,7 @@ const local: App.I18n.Schema = {
     addSuccess: '添加成功',
     backToHome: '返回首页',
     batchDelete: '批量删除',
+    batchDeleteAll: '清空列表',
     cancel: '取消',
     close: '关闭',
     check: '勾选',

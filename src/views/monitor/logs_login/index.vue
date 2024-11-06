@@ -1,8 +1,21 @@
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsLoginSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation :deleteAll="true" :deleteAllAuth="'mon:monLogsLogin:delete'" v-model:columns="columnChecks"
+        :checked-row-keys="checkedRowKeys" :loading="loading" @delete="handleBatchDelete" @refresh="getData" />
+      <NDataTable v-model:checked-row-keys="checkedRowKeys" remote striped size="small" class="sm:h-full" :data="data"
+        :scroll-x="962" :columns="columns" :flex-height="!appStore.isMobile" :loading="loading" :single-line="false"
+        :row-key="row => row.id" :pagination="mobilePagination" />
+    </NCard>
+  </div>
+</template>
+
 <script setup lang="tsx">
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchGetLoginLogList } from '@/service/api';
+import { fetchClearLoginLogAll, fetchGetLoginLogList } from '@/service/api';
 import { useDict } from '@/hooks/business/dict';
 import LogsLoginSearch from './modules/login-search.vue';
 
@@ -94,34 +107,11 @@ const {
   ]
 });
 
-const { checkedRowKeys } = useTableOperate(data, getData);
-</script>
+const { checkedRowKeys, onDeleted } = useTableOperate(data, getData);
 
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsLoginSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation
-        v-model:columns="columnChecks"
-        :checked-row-keys="checkedRowKeys"
-        :loading="loading"
-        @refresh="getData"
-      />
-      <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
-        remote
-        striped
-        size="small"
-        class="sm:h-full"
-        :data="data"
-        :scroll-x="962"
-        :columns="columns"
-        :flex-height="!appStore.isMobile"
-        :loading="loading"
-        :single-line="false"
-        :row-key="row => row.id"
-        :pagination="mobilePagination"
-      />
-    </NCard>
-  </div>
-</template>
+async function handleBatchDelete() {
+  // request
+  const result: any = await fetchClearLoginLogAll();
+  if (result.data) onDeleted();
+}
+</script>

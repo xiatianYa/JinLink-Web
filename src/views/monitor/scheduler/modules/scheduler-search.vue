@@ -16,7 +16,7 @@ const emit = defineEmits<Emits>();
 
 const { formRef, validate, restoreValidation } = useNaiveForm();
 
-const model = defineModel<Api.MonitorManage.SchedulerSearchParams>('model', { required: true });
+const model = defineModel<Api.Monitor.SchedulerSearchParams>('model', { required: true });
 
 type RuleKey = Extract<
   keyof Api.SystemManage.UserSearchParams,

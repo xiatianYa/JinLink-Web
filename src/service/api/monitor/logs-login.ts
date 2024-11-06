@@ -8,3 +8,11 @@ export function fetchGetLoginLogList(params?: Api.Monitor.LoginLogSearchParams) 
     params
   });
 }
+
+/** clear login log All */
+export function fetchClearLoginLogAll() {
+  return request<Boolean>({
+    url: '/monLogsLogin/clearAll',
+    method: 'delete',
+  });
+}

@@ -1,3 +1,20 @@
+<template>
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <TableHeaderOperation v-model:checkedRowKeys="checkedRowKeys" :addAuth="'sys:role:save'"
+        :deleteAuth="'sys:role:delete'" :disabled-delete="checkedRowKeys.length === 0" :loading="loading"
+        @add="handleAdd" @delete="handleBatchDelete" @refresh="getData" />
+      <NDataTable v-model:checked-row-keys="checkedRowKeys" :columns="columns" :data="data" size="small"
+        :flex-height="!appStore.isMobile" :scroll-x="702" :loading="loading" remote :row-key="row => row.id"
+        :pagination="mobilePagination" class="sm:h-full" />
+      <RoleOperateDrawer v-model:visible="drawerVisible" :operate-type="operateType" :row-data="editingData"
+        @submitted="getDataByPage" />
+    </NCard>
+  </div>
+</template>
+
+
 <script setup lang="tsx">
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { fetchDeleteRoleById, fetchDeleteRoleByIds, fetchGetRoleList } from '@/service/api';
@@ -141,42 +158,5 @@ function edit(id: string) {
   handleEdit(id);
 }
 </script>
-
-<template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
-      <template #header-extra>
-        <TableHeaderOperation
-          v-model:columns="columnChecks"
-          :disabled-delete="checkedRowKeys.length === 0"
-          :loading="loading"
-          @add="handleAdd"
-          @delete="handleBatchDelete"
-          @refresh="getData"
-        />
-      </template>
-      <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
-        :columns="columns"
-        :data="data"
-        size="small"
-        :flex-height="!appStore.isMobile"
-        :scroll-x="702"
-        :loading="loading"
-        remote
-        :row-key="row => row.id"
-        :pagination="mobilePagination"
-        class="sm:h-full"
-      />
-      <RoleOperateDrawer
-        v-model:visible="drawerVisible"
-        :operate-type="operateType"
-        :row-data="editingData"
-        @submitted="getDataByPage"
-      />
-    </NCard>
-  </div>
-</template>
 
 <style scoped></style>
