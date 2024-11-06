@@ -4,7 +4,7 @@
     点击上传
   </n-upload>
 </template>
-<script lang="ts" setup>
+<script setup lang="tsx">
 import { defineProps, ref, defineEmits, onMounted } from 'vue'
 import { uploadImages } from '@/service/api';
 import { useMessage, NUpload, type UploadFileInfo } from 'naive-ui'
@@ -28,10 +28,12 @@ const props = defineProps({
     default: () => ["image/png", "image/jpg", "image/gif", "image/jpeg"],
   },
 })
+
 //文件列表
 const fileList = ref<UploadFileInfo[]>([])
 //提示框
 const message = useMessage()
+
 onMounted(() => {
   if (props.modelValue) {
     // 判断是不是数组

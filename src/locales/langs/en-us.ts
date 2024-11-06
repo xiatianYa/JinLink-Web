@@ -12,6 +12,7 @@ const local: App.I18n.Schema = {
     addSuccess: 'Add Success',
     backToHome: 'Back to home',
     batchDelete: 'Batch Delete',
+    batchDeleteAll: '清空列表',
     cancel: 'Cancel',
     close: 'Close',
     check: 'Check',

@@ -1,13 +1,13 @@
 <template>
   <n-upload action="/api/file/upload" :custom-request="customRequest" v-model:file-list="fileList"
     :show-retry-button="true" @before-upload="beforeUpload" @remove="handleRemove" :max="limit">
-    <n-button>上传文件</n-button>
+    <NButton type="primary">上传文件</NButton>
   </n-upload>
 </template>
-<script lang="ts" setup>
+<script setup lang="tsx">
 import { defineProps, ref, defineEmits, onMounted } from 'vue'
 import { uploadFiles } from '@/service/api';
-import { useMessage, NUpload, NButton, type UploadCustomRequestOptions, type UploadFileInfo } from 'naive-ui'
+import { useMessage, type UploadCustomRequestOptions, type UploadFileInfo } from 'naive-ui'
 const emit = defineEmits();
 //接收参数
 const props = defineProps({
@@ -28,6 +28,12 @@ const props = defineProps({
     default: () => ["video/mp4", "audio/mpeg"],
   },
 })
+
+//文件列表
+const fileList = ref<UploadFileInfo[]>([])
+//提示框
+const message = useMessage()
+
 onMounted(() => {
   if (props.modelValue) {
     // 判断是不是数组
@@ -60,11 +66,6 @@ onMounted(() => {
     return [];
   }
 })
-
-//文件列表
-const fileList = ref<UploadFileInfo[]>([])
-//提示框
-const message = useMessage()
 
 //上传文件函数
 function customRequest({

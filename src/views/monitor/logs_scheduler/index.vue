@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="tsx">
-import { NButton, NCard } from 'naive-ui';
+import { NCard } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
