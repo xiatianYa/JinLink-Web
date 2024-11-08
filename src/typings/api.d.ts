@@ -126,7 +126,7 @@ declare namespace Api {
     /** dict item search params */
     type DictItemSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.DictItem, 'dictId' | 'value' | 'zhCn' | 'enUs' | 'description'> &
-      Api.Common.CommonSearchParams
+        Api.Common.CommonSearchParams
     >;
 
     /** dict item page list */
@@ -167,7 +167,7 @@ declare namespace Api {
     /** user search params */
     type UserSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
-      CommonSearchParams
+        CommonSearchParams
     >;
 
     /** user list */
@@ -182,11 +182,11 @@ declare namespace Api {
     type MenuType = '1' | '2';
 
     /**
-* icon type
-*
-* - "1": iconify icon
-* - "2": local icon
-*/
+     * icon type
+     *
+     * - "1": iconify icon
+     * - "2": local icon
+     */
     type IconType = '1' | '2';
 
     type MenuPropsOfRoute = Pick<
@@ -250,7 +250,6 @@ declare namespace Api {
       /** role description */
       roleDesc: string;
     }>;
-
 
     /** user */
     type User = Common.CommonRecord<{
@@ -377,7 +376,7 @@ declare namespace Api {
         Api.Monitor.Scheduler,
         'jobName' | 'jobGroup' | 'triggerName' | 'triggerGroup' | 'cron' | 'jobClassName' | 'status'
       > &
-      CommonSearchParams
+        CommonSearchParams
     >;
 
     /** scheduler list */
@@ -385,6 +384,9 @@ declare namespace Api {
 
     /** error log list */
     type ErrorLogList = Common.PaginatingQueryRecord<ErrorLog>;
+
+    /** error log list */
+    type FileLogList = Common.PaginatingQueryRecord<FileLog>;
 
     /** error log search params */
     type ErrorLogSearchParams = CommonType.RecordNullable<
@@ -407,14 +409,11 @@ declare namespace Api {
     type SchedulerLogSearchParams = CommonType.RecordNullable<
       Pick<Api.Monitor.SchedulerLog, 'jobName'> & Api.Common.CommonSearchParams
     >;
-    /**
-     * login status
-     *
-     * - "0": "fail"
-     * - "1": "success"
-     */
+    /** login status */
     type LogsLoginStatus = '0' | '1';
 
+    /** login status */
+    type LogsFileStatus = '0' | '1';
 
     /** login log list */
     type LoginLogList = Common.PaginatingQueryRecord<LoginLog>;
@@ -424,6 +423,10 @@ declare namespace Api {
       Pick<Api.Monitor.LoginLog, 'userName' | 'userRealName'> & Api.Common.CommonSearchParams
     >;
 
+    /** login log search params */
+    type FileLogSearchParams = CommonType.RecordNullable<
+      Pick<Api.Monitor.FileLog, 'userName'> & Api.Common.CommonSearchParams
+    >;
 
     /** error log */
     type ErrorLog = Common.CommonRecord<
@@ -515,6 +518,20 @@ declare namespace Api {
       status: LogsLoginStatus;
       /** login message */
       message: string;
+    }>;
+
+    /** FileLog */
+    type FileLog = Common.CommonRecord<{
+      /** user id */
+      userId: number;
+      /** user name */
+      userName: string;
+      /** file url */
+      fileUrl: string;
+      /** file size */
+      fileSize: string;
+      /** login status */
+      status: LogsFileStatus;
     }>;
 
     /** Cache Redis */

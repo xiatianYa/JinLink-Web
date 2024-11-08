@@ -4,7 +4,7 @@ import { $t } from '@/locales';
 import { fetchGetUserNames } from '@/service/api';
 
 defineOptions({
-  name: 'LogsOperationSearch'
+  name: 'LogsFileSearch'
 });
 
 interface Emits {
@@ -14,7 +14,7 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-const model = defineModel<Api.Monitor.OperationLogSearchParams>('model', { required: true });
+const model = defineModel<Api.Monitor.FileLogSearchParams>('model', { required: true });
 
 function reset() {
   emit('reset');
@@ -48,7 +48,7 @@ onMounted(() => {
           <NGrid responsive="screen" item-responsive :x-gap="8">
             <NFormItemGi span="24 s:8 m:8" :label="$t('page.monitor.logs.operation.createUser')" path="createUser">
               <NSelect
-                v-model:value="model.createUser"
+                v-model:value="model.userName"
                 size="small"
                 clearable
                 filterable

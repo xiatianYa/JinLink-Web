@@ -172,7 +172,8 @@ const local: App.I18n.Schema = {
     manage_dict: '字典管理',
     monitor_logs_scheduler: '调度日志',
     monitor_logs_error: '异常日志',
-    monitor_logs_operation: '操作日志'
+    monitor_logs_operation: '操作日志',
+    monitor_logs_file: '文件日志'
   },
   page: {
     login: {
@@ -615,6 +616,20 @@ const local: App.I18n.Schema = {
           },
           form: {
             jobName: '请选择任务名称'
+          }
+        },
+        file: {
+          userId: '用户ID',
+          userName: '用户名称',
+          fileUrl: '文件路径',
+          fileSize: '文件大小',
+          status: '操作状态',
+          form: {
+            userId: '请输入用户ID',
+            userName: '请输入用户名称',
+            fileUrl: '请输入文件路径',
+            fileSize: '请输入文件大小',
+            status: '请选择操作状态'
           }
         }
       }

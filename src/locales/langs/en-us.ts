@@ -172,7 +172,8 @@ const local: App.I18n.Schema = {
     manage_dict: 'Dict Manage',
     monitor_logs_scheduler: 'Logs Scheduler Monitor',
     monitor_logs_error: 'Logs Error Monitor',
-    monitor_logs_operation: 'Logs Operation Monitor'
+    monitor_logs_operation: 'Logs Operation Monitor',
+    monitor_logs_file: 'Logs File Monitor'
   },
   page: {
     login: {
@@ -615,6 +616,20 @@ const local: App.I18n.Schema = {
           },
           form: {
             jobName: '请选择任务名称'
+          }
+        },
+        file: {
+          userId: '用户ID',
+          userName: '用户名称',
+          fileUrl: '用户名称',
+          fileSize: '用户名称',
+          status: '操作状态',
+          form: {
+            userId: '请输入用户ID',
+            userName: '请输入用户名称',
+            fileUrl: '请输入用户名称',
+            fileSize: '请输入用户名称',
+            status: '请选择操作状态'
           }
         }
       }

@@ -73,6 +73,8 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
 const isEdit = computed(() => props.operateType === 'edit');
 
 async function handleInitModel() {
+  console.log(model);
+
   Object.assign(model, createDefaultModel());
   if (props.operateType === 'edit' && props.id) {
     const { error, data } = await fetchGetEditDictItem(props.id);

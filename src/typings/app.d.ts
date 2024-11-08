@@ -839,6 +839,20 @@ declare namespace App {
                 jobName: string;
               };
             };
+            file: {
+              userId: string;
+              userName: string;
+              fileUrl: string;
+              fileSize: string;
+              status: string;
+              form: {
+                userId: string;
+                userName: string;
+                fileUrl: string;
+                fileSize: string;
+                status: string;
+              };
+            };
           };
         };
         tools: {
