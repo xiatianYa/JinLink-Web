@@ -4,11 +4,11 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { useAuth } from '@/hooks/business/auth';
 import { $t } from '@/locales';
-import { fetchDeleteCommunityById, fetchGetCommunityList } from '@/service/api';
-import CommunityOperateDrawer from './modules/community-operate-drawer.vue';
+import { fetchDeleteGameById, fetchGetGameList } from '@/service/api';
+import GameOperateDrawer from './modules/game-operate-drawer.vue';
 
 defineOptions({
-  name: 'GameCommunity'
+  name: 'GameGame'
 });
 
 const appStore = useAppStore();
@@ -16,7 +16,7 @@ const appStore = useAppStore();
 const { hasAuth } = useAuth();
 
 const { columns, columnChecks, data, loading, getDataByPage, getData, mobilePagination } = useTable({
-  apiFn: fetchGetCommunityList,
+  apiFn: fetchGetGameList,
   apiParams: {
     current: 1,
     size: 20
@@ -34,8 +34,8 @@ const { columns, columnChecks, data, loading, getDataByPage, getData, mobilePagi
       align: 'center'
     },
     {
-      key: 'communityName',
-      title: $t('page.game.community.communityName'),
+      key: 'gameName',
+      title: $t('page.game.game.gameName'),
       width: 64,
       align: 'center'
     },
@@ -46,12 +46,12 @@ const { columns, columnChecks, data, loading, getDataByPage, getData, mobilePagi
       width: 130,
       render: row => (
         <div class="flex-center gap-8px">
-          {hasAuth('game:gameCommunity:update') && (
+          {hasAuth('game:gameGame:update') && (
             <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
               {$t('common.edit')}
             </NButton>
           )}
-          {hasAuth('game:gameCommunity:delete') && (
+          {hasAuth('game:gameGame:delete') && (
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => $t('common.confirmDelete'),
@@ -76,7 +76,7 @@ const { drawerVisible, operateType, checkedRowKeys, editingData, handleAdd, hand
 
 async function handleDelete(id: string) {
   // request
-  const result: any = await fetchDeleteCommunityById(id);
+  const result: any = await fetchDeleteGameById(id);
   if (result.data) onDeleted();
 }
 
@@ -90,7 +90,7 @@ function edit(id: string) {
     <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
       <TableHeaderOperation
         v-model:columns="columnChecks"
-        add-auth="game:gameCommunity:save"
+        add-auth="game:gameGame:save"
         :checked-row-keys="checkedRowKeys"
         :loading="loading"
         @add="handleAdd"
@@ -111,7 +111,7 @@ function edit(id: string) {
         :row-key="row => row.id"
         :pagination="mobilePagination"
       />
-      <CommunityOperateDrawer
+      <GameOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"

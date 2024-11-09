@@ -15,3 +15,4 @@ export * from './monitor/logs-error';
 export * from './monitor/logs-file';
 export * from './file/index';
 export * from './game/community';
+export * from './game/game';

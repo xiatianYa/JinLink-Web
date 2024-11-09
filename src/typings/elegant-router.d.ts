@@ -23,6 +23,7 @@ declare module "@elegant-router/types" {
     "about": "/about";
     "game": "/game";
     "game_community": "/game/community";
+    "game_game": "/game/game";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
@@ -108,6 +109,7 @@ declare module "@elegant-router/types" {
     | "login"
     | "about"
     | "game_community"
+    | "game_game"
     | "home"
     | "manage_dict"
     | "manage_menu"

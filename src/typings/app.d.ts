@@ -942,6 +942,14 @@ declare namespace App {
               communityName: string;
             };
           };
+          game: {
+            gameName: string;
+            addGame: string;
+            editGame: string;
+            form: {
+              gameName: string;
+            };
+          };
         };
       };
       form: {
