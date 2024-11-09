@@ -170,6 +170,7 @@ const routeMap: RouteMap = {
   "game": "/game",
   "game_community": "/game/community",
   "game_game": "/game/game",
+  "game_mode": "/game/mode",
   "home": "/home",
   "iframe-page": "/iframe-page/:url",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",

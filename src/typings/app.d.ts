@@ -950,6 +950,14 @@ declare namespace App {
               gameName: string;
             };
           };
+          mode: {
+            modeName: string;
+            addMode: string;
+            editMode: string;
+            form: {
+              modeName: string;
+            };
+          };
         };
       };
       form: {

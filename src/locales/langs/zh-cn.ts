@@ -176,7 +176,8 @@ const local: App.I18n.Schema = {
     monitor_logs_file: '文件日志',
     game: '游戏管理',
     game_community: '游戏社区管理',
-    game_game: '游戏类型管理'
+    game_game: '游戏类型管理',
+    game_mode: '游戏模式管理'
   },
   page: {
     login: {
@@ -730,6 +731,14 @@ const local: App.I18n.Schema = {
         editGame: '编辑游戏名称',
         form: {
           gameName: '请输入游戏名称'
+        }
+      },
+      mode: {
+        modeName: '模式名称',
+        addMode: '添加模式名称',
+        editMode: '编辑模式名称',
+        form: {
+          modeName: '请输入模式名称'
         }
       }
     }

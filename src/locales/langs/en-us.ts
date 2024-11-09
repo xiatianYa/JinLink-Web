@@ -176,7 +176,8 @@ const local: App.I18n.Schema = {
     monitor_logs_file: 'Logs File Monitor',
     game: 'Game Manage',
     game_community: 'Community Manager',
-    game_game: 'Game Game Manage'
+    game_game: 'Game Game Manage',
+    game_mode: 'Game Mode Manage'
   },
   page: {
     login: {
@@ -730,6 +731,14 @@ const local: App.I18n.Schema = {
         editGame: 'Game Edit',
         form: {
           gameName: 'Game Name'
+        }
+      },
+      mode: {
+        modeName: 'Mode Name',
+        addMode: 'Mode Add',
+        editMode: 'Mode Edit',
+        form: {
+          modeName: 'Mode Name'
         }
       }
     }
