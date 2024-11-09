@@ -21,6 +21,8 @@ declare module "@elegant-router/types" {
     "404": "/404";
     "500": "/500";
     "about": "/about";
+    "game": "/game";
+    "game_community": "/game/community";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
@@ -76,6 +78,7 @@ declare module "@elegant-router/types" {
     | "404"
     | "500"
     | "about"
+    | "game"
     | "home"
     | "iframe-page"
     | "login"
@@ -104,6 +107,7 @@ declare module "@elegant-router/types" {
     | "iframe-page"
     | "login"
     | "about"
+    | "game_community"
     | "home"
     | "manage_dict"
     | "manage_menu"

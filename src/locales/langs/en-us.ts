@@ -173,7 +173,9 @@ const local: App.I18n.Schema = {
     monitor_logs_scheduler: 'Logs Scheduler Monitor',
     monitor_logs_error: 'Logs Error Monitor',
     monitor_logs_operation: 'Logs Operation Monitor',
-    monitor_logs_file: 'Logs File Monitor'
+    monitor_logs_file: 'Logs File Monitor',
+    game: 'Game Manage',
+    game_community: 'Community Manager'
   },
   page: {
     login: {
@@ -710,6 +712,16 @@ const local: App.I18n.Schema = {
         downloadZip: '下载 ZIP 压缩包',
         previous: '上一步',
         next: '下一步'
+      }
+    },
+    game: {
+      community: {
+        communityName: 'Community Name',
+        addCommunity: 'Community Add',
+        editCommunity: 'Community Edit',
+        form: {
+          communityName: '请输入社区名称'
+        }
       }
     }
   },

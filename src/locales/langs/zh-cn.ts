@@ -173,7 +173,9 @@ const local: App.I18n.Schema = {
     monitor_logs_scheduler: '调度日志',
     monitor_logs_error: '异常日志',
     monitor_logs_operation: '操作日志',
-    monitor_logs_file: '文件日志'
+    monitor_logs_file: '文件日志',
+    game: '游戏管理',
+    game_community: '游戏社区管理'
   },
   page: {
     login: {
@@ -710,6 +712,16 @@ const local: App.I18n.Schema = {
         downloadZip: '下载 ZIP 压缩包',
         previous: '上一步',
         next: '下一步'
+      }
+    },
+    game: {
+      community: {
+        communityName: '社区名称',
+        addCommunity: '添加社区',
+        editCommunity: '编辑社区',
+        form: {
+          communityName: '请输入社区名称'
+        }
       }
     }
   },

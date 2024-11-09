@@ -933,6 +933,16 @@ declare namespace App {
             next: string;
           };
         };
+        game: {
+          community: {
+            addCommunity: string;
+            editCommunity: string;
+            communityName: string;
+            form: {
+              communityName: string;
+            };
+          };
+        };
       };
       form: {
         required: string;
