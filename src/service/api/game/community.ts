@@ -34,3 +34,11 @@ export function fetchInsertCommunity(params: Api.Game.CommunityParams) {
     data: params
   });
 }
+
+/** 获取全部社区名称 */
+export function fetchGetCommunityNames() {
+  return request<CommonType.Option<string>[]>({
+    url: '/gameCommunity/allCommunityNames',
+    method: 'get'
+  });
+}

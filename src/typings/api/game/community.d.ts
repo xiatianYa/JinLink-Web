@@ -52,5 +52,57 @@ declare namespace Api {
       /** game name */
       modeName: string;
     };
+
+    /** server search params */
+    type ServerSearchParams = CommonType.RecordNullable<
+      Pick<Api.Game.Server, 'communityId' | 'modeId' | 'gameId'> & Api.Common.CommonSearchParams
+    >;
+
+    /** server list */
+    type ServerList = Common.PaginatingQueryRecord<ServerVo>;
+
+    /** server */
+    type Server = Common.CommonRecord<{
+      /** 社区ID */
+      communityId: string;
+      /** 模式ID */
+      modeId: string;
+      /** 游戏ID */
+      gameId: string;
+      /** IP */
+      ip: string;
+      /** 端口 */
+      port: string;
+    }>;
+
+    /** server params */
+    type ServerParams = {
+      /** 社区ID */
+      communityId: string;
+      /** 模式ID */
+      modeId: string;
+      /** 游戏ID */
+      gameId: string;
+    };
+
+    /** serverVo */
+    type ServerVo = Common.CommonRecord<{
+      /** 社区ID */
+      communityId: string;
+      /** 社区名称 */
+      communityName: string;
+      /** 模式ID */
+      modeId: string;
+      /** 模式名称 */
+      modeName: string;
+      /** 游戏ID */
+      gameId: string;
+      /** 游戏名称 */
+      gameName: string;
+      /** IP */
+      ip: string;
+      /** 端口 */
+      port: string;
+    }>;
   }
 }

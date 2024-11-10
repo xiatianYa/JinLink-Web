@@ -177,7 +177,8 @@ const local: App.I18n.Schema = {
     game: 'Game Manage',
     game_community: 'Community Manager',
     game_game: 'Game Game Manage',
-    game_mode: 'Game Mode Manage'
+    game_mode: 'Game Mode Manage',
+    game_server: 'Game Server Manage'
   },
   page: {
     login: {
@@ -739,6 +740,22 @@ const local: App.I18n.Schema = {
         editMode: 'Mode Edit',
         form: {
           modeName: 'Mode Name'
+        }
+      },
+      server: {
+        communityId: 'Community Id',
+        modeId: 'Mode Id',
+        gameId: 'Game Id',
+        ip: 'Ip',
+        port: 'Port',
+        addServer: 'Server Add',
+        editServer: 'Server Edit',
+        form: {
+          communityId: 'Please select community id',
+          modeId: 'Please select mode id',
+          gameId: 'Please select game id',
+          ip: 'Please enter ip',
+          port: 'Please enter port'
         }
       }
     }

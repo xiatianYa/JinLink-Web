@@ -34,3 +34,11 @@ export function fetchInsertGame(params: Api.Game.GameParams) {
     data: params
   });
 }
+
+/** 获取全部游戏名称 */
+export function fetchGetGameNames() {
+  return request<CommonType.Option<string>[]>({
+    url: '/gameGame/allGameNames',
+    method: 'get'
+  });
+}

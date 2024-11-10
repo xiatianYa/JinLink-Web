@@ -177,7 +177,8 @@ const local: App.I18n.Schema = {
     game: '游戏管理',
     game_community: '游戏社区管理',
     game_game: '游戏类型管理',
-    game_mode: '游戏模式管理'
+    game_mode: '游戏模式管理',
+    game_server: '服务器管理'
   },
   page: {
     login: {
@@ -739,6 +740,22 @@ const local: App.I18n.Schema = {
         editMode: '编辑模式名称',
         form: {
           modeName: '请输入模式名称'
+        }
+      },
+      server: {
+        communityId: '社区名称',
+        modeId: '模式名称',
+        gameId: '游戏名称',
+        ip: 'Ip',
+        port: '端口',
+        addServer: '添加游戏服务器',
+        editServer: '编辑游戏服务器',
+        form: {
+          communityId: '请选择社区名称',
+          modeId: '请选择模式名称',
+          gameId: '请选择游戏名称',
+          ip: '请输入游戏服务器IP',
+          port: '请输入游戏服务器端口'
         }
       }
     }

@@ -34,3 +34,11 @@ export function fetchInsertMode(params: Api.Game.ModeParams) {
     data: params
   });
 }
+
+/** 获取全部模式名称 */
+export function fetchGetModeNames() {
+  return request<CommonType.Option<string>[]>({
+    url: '/gameMode/allModeNames',
+    method: 'get'
+  });
+}

@@ -24,6 +24,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   game_community: () => import("@/views/game/community/index.vue"),
   game_game: () => import("@/views/game/game/index.vue"),
   game_mode: () => import("@/views/game/mode/index.vue"),
+  game_server: () => import("@/views/game/server/index.vue"),
   home: () => import("@/views/home/index.vue"),
   manage_dict: () => import("@/views/manage/dict/index.vue"),
   manage_menu: () => import("@/views/manage/menu/index.vue"),

@@ -958,6 +958,22 @@ declare namespace App {
               modeName: string;
             };
           };
+          server: {
+            communityId: string;
+            modeId: string;
+            gameId: string;
+            ip: string;
+            port: string;
+            addServer: string;
+            editServer: string;
+            form: {
+              communityId: string;
+              modeId: string;
+              gameId: string;
+              ip: string;
+              port: string;
+            };
+          };
         };
       };
       form: {
