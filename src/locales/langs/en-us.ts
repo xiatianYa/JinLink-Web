@@ -178,7 +178,9 @@ const local: App.I18n.Schema = {
     game_community: 'Community Manager',
     game_game: 'Game Game Manage',
     game_mode: 'Game Mode Manage',
-    game_server: 'Game Server Manage'
+    game_server: 'Game Server Manage',
+    game_map: 'Gaem Map Manage',
+    game_live: 'Game Live Manage'
   },
   page: {
     login: {
@@ -743,6 +745,7 @@ const local: App.I18n.Schema = {
         }
       },
       server: {
+        serverName: 'Server Name',
         communityId: 'Community Id',
         modeId: 'Mode Id',
         gameId: 'Game Id',
@@ -751,11 +754,45 @@ const local: App.I18n.Schema = {
         addServer: 'Server Add',
         editServer: 'Server Edit',
         form: {
+          serverName: 'Please enter server name',
           communityId: 'Please select community id',
           modeId: 'Please select mode id',
           gameId: 'Please select game id',
           ip: 'Please enter ip',
           port: 'Please enter port'
+        }
+      },
+      map: {
+        mapName: 'Map Name',
+        mapLabel: 'Map Label',
+        mapUrl: 'Map Url',
+        modeId: 'Mode Id',
+        type: 'Type',
+        tag: 'Tag',
+        artifact: 'Artifact',
+        addMap: 'Map Add',
+        editMap: 'Map Edit',
+        form: {
+          mapName: 'Please enter map name',
+          mapLabel: 'Please enter map label',
+          mapUrl: 'Please enter map url',
+          modeId: 'Please select mode id',
+          type: 'Please select type',
+          tag: 'Please select tag',
+          artifact: 'Please input artifact',
+          desc: 'Please input artifact desc'
+        }
+      },
+      live: {
+        uid: 'Uid',
+        avatar: 'Avatar',
+        bgUrl: 'Bg Url',
+        addLive: 'Live Add',
+        editLive: 'Live Edit',
+        form: {
+          uid: 'Please enter uid',
+          avatar: 'Please enter avatar',
+          bgUrl: 'Please enter bg url'
         }
       }
     }

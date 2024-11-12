@@ -1,5 +1,5 @@
+import type { UploadFileInfo } from 'naive-ui';
 import { request } from '@/service/request';
-import { UploadFileInfo } from 'naive-ui';
 
 // 上传图片
 export function uploadImages(file: UploadFileInfo) {
@@ -8,7 +8,7 @@ export function uploadImages(file: UploadFileInfo) {
     url: '/file/upload',
     method: 'post',
     data: file
-  })
+  });
 }
 // 上传文件
 export function uploadFiles(file: UploadFileInfo) {
@@ -17,5 +17,5 @@ export function uploadFiles(file: UploadFileInfo) {
     url: '/file/upload',
     method: 'post',
     data: file
-  })
+  });
 }

@@ -55,7 +55,7 @@ declare namespace Api {
 
     /** server search params */
     type ServerSearchParams = CommonType.RecordNullable<
-      Pick<Api.Game.Server, 'communityId' | 'modeId' | 'gameId'> & Api.Common.CommonSearchParams
+      Pick<Api.Game.Server, 'serverName' | 'communityId' | 'modeId' | 'gameId'> & Api.Common.CommonSearchParams
     >;
 
     /** server list */
@@ -63,6 +63,8 @@ declare namespace Api {
 
     /** server */
     type Server = Common.CommonRecord<{
+      /** 服务器名称 */
+      serverName: string;
       /** 社区ID */
       communityId: string;
       /** 模式ID */
@@ -73,10 +75,14 @@ declare namespace Api {
       ip: string;
       /** 端口 */
       port: string;
+      /** 排序值 */
+      sort: number;
     }>;
 
     /** server params */
     type ServerParams = {
+      /** 服务器名称 */
+      serverName: string;
       /** 社区ID */
       communityId: string;
       /** 模式ID */
@@ -87,6 +93,8 @@ declare namespace Api {
 
     /** serverVo */
     type ServerVo = Common.CommonRecord<{
+      /** 服务器名称 */
+      serverName: string;
       /** 社区ID */
       communityId: string;
       /** 社区名称 */
@@ -103,6 +111,110 @@ declare namespace Api {
       ip: string;
       /** 端口 */
       port: string;
+      /** 排序值 */
+      sort: number;
+    }>;
+
+    /** 神器列表 */
+    type Artifact = {
+      code: string;
+      desc: string;
+    };
+
+    /** map search params */
+    type MapSearchParams = CommonType.RecordNullable<
+      Pick<Api.Game.Map, 'mapName' | 'mapLabel' | 'modeId' | 'type' | 'tag'> & Api.Common.CommonSearchParams
+    >;
+
+    /** map list */
+    type MapList = Common.PaginatingQueryRecord<MapVo>;
+
+    /** map */
+    type Map = Common.CommonRecord<{
+      /** 地图名称 */
+      mapName: string;
+      /** 译名 */
+      mapLabel: string;
+      /** 图片路径 */
+      mapUrl: string;
+      /** 模式ID */
+      modeId: string;
+      /** 地图难度 */
+      type: string;
+      /** 地图标签 */
+      tag: string;
+      /** 地图神器 */
+      artifact: string;
+    }>;
+
+    /** map params */
+    type MapParams = {
+      /** 地图名称 */
+      mapName: string;
+      /** 译名 */
+      mapLabel: string;
+      /** 模式ID */
+      modeId: string;
+      /** 地图难度 */
+      type: string;
+      /** 地图标签 */
+      tag: Array<string>;
+      /** 地图神器 */
+      artifact: Artifact[];
+    };
+
+    /** mapVo */
+    type MapVo = Common.CommonRecord<{
+      /** 地图名称 */
+      mapName: string;
+      /** 译名 */
+      mapLabel: string;
+      /** 图片路径 */
+      mapUrl: string;
+      /** 模式ID */
+      modeId: string;
+      /** 地图难度 */
+      type: string;
+      /** 地图标签 */
+      tag: Array<string>;
+      /** 地图神器 */
+      artifact: Artifact[];
+    }>;
+
+    /** live search params */
+    type LiveSearchParams = CommonType.RecordNullable<Pick<Api.Game.Live, 'uid'> & Api.Common.CommonSearchParams>;
+
+    /** live list */
+    type LiveList = Common.PaginatingQueryRecord<LiveVo>;
+
+    /** live */
+    type Live = Common.CommonRecord<{
+      /** 用户uid */
+      uid: string;
+      /** 用户头像地址 */
+      avatar: string;
+      /** 背景地址 */
+      bgUrl: string;
+    }>;
+
+    /** live params */
+    type LiveParams = {
+      /** 用户uid */
+      uid: string;
+      /** 用户头像地址 */
+      avatar: string;
+      /** 背景地址 */
+      bgUrl: string;
+    };
+
+    /** liveVo */
+    type LiveVo = Common.CommonRecord<{
+      /** 用户uid */
+      uid: string;
+      /** 用户头像地址 */
+      avatar: string;
+      /** 背景地址 */
+      bgUrl: string;
     }>;
   }
 }

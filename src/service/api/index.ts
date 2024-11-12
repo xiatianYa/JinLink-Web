@@ -18,3 +18,5 @@ export * from './game/community';
 export * from './game/game';
 export * from './game/mode';
 export * from './game/server';
+export * from './game/map';
+export * from './game/live';

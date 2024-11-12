@@ -959,6 +959,7 @@ declare namespace App {
             };
           };
           server: {
+            serverName: string;
             communityId: string;
             modeId: string;
             gameId: string;
@@ -967,11 +968,45 @@ declare namespace App {
             addServer: string;
             editServer: string;
             form: {
+              serverName: string;
               communityId: string;
               modeId: string;
               gameId: string;
               ip: string;
               port: string;
+            };
+          };
+          map: {
+            mapName: string;
+            mapLabel: string;
+            mapUrl: string;
+            modeId: string;
+            type: string;
+            tag: string;
+            artifact: string;
+            addMap: string;
+            editMap: string;
+            form: {
+              mapName: string;
+              mapLabel: string;
+              mapUrl: string;
+              modeId: string;
+              type: string;
+              tag: string;
+              artifact: string;
+              desc: string;
+            };
+          };
+          live: {
+            uid: string;
+            avatar: string;
+            bgUrl: string;
+            addLive: string;
+            editLive: string;
+            form: {
+              uid: string;
+              avatar: string;
+              bgUrl: string;
             };
           };
         };

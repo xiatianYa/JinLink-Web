@@ -1,18 +1,3 @@
-<template>
-  <div ref="wrapperRef" class="flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
-      <TableHeaderOperation v-model:checkedRowKeys="checkedRowKeys" :addAuth="'sys:menu:save'"
-        :deleteAuth="'sys:menu:delete'" :disabled-delete="checkedRowKeys.length === 0" :loading="loading"
-        @add="handleAdd" @delete="handleBatchDelete" @refresh="getData" />
-      <NDataTable v-model:checked-row-keys="checkedRowKeys" :columns="columns" :data="data" size="small"
-        :flex-height="!appStore.isMobile" :scroll-x="1088" :loading="loading" :row-key="row => row.id" remote
-        :pagination="pagination" class="sm:h-full" />
-      <MenuOperateModal v-model:visible="visible" :operate-type="operateType" :row-data="editingData"
-        :all-pages="allPages" @submitted="getDataByPage" />
-    </NCard>
-  </div>
-</template>
-
 <script setup lang="tsx">
 import { ref } from 'vue';
 import type { Ref } from 'vue';
@@ -244,5 +229,42 @@ function init() {
 // init
 init();
 </script>
+
+<template>
+  <div ref="wrapperRef" class="flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+      <TableHeaderOperation
+        v-model:checked-row-keys="checkedRowKeys"
+        add-auth="sys:menu:save"
+        delete-auth="sys:menu:delete"
+        :disabled-delete="checkedRowKeys.length === 0"
+        :loading="loading"
+        @add="handleAdd"
+        @delete="handleBatchDelete"
+        @refresh="getData"
+      />
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        :columns="columns"
+        :data="data"
+        size="small"
+        :flex-height="!appStore.isMobile"
+        :scroll-x="1088"
+        :loading="loading"
+        :row-key="row => row.id"
+        remote
+        :pagination="pagination"
+        class="sm:h-full"
+      />
+      <MenuOperateModal
+        v-model:visible="visible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        :all-pages="allPages"
+        @submitted="getDataByPage"
+      />
+    </NCard>
+  </div>
+</template>
 
 <style scoped></style>

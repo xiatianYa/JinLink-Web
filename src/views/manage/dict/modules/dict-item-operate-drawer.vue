@@ -112,10 +112,10 @@ watch(visible, () => {
         <NFormItem :label="$t('page.manage.dictItem.value')" path="value">
           <NInput v-model:value="model.value" :placeholder="$t('page.manage.dictItem.form.value')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.dictItem.zhCN')" path="zhCN">
+        <NFormItem :label="$t('page.manage.dictItem.zhCN')" path="zhCn">
           <NInput v-model:value="model.zhCn" :placeholder="$t('page.manage.dictItem.form.zhCN')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.dictItem.enUS')" path="enUS">
+        <NFormItem :label="$t('page.manage.dictItem.enUS')" path="enUs">
           <NInput v-model:value="model.enUs" :placeholder="$t('page.manage.dictItem.form.enUS')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.dictItem.status')" path="status">

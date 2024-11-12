@@ -1,41 +1,24 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm } from 'naive-ui';
-import { onMounted, ref } from 'vue';
-import {
-  fetchDeleteServerById,
-  fetchGetCommunityNames,
-  fetchGetGameNames,
-  fetchGetModeNames,
-  fetchGetServerList
-} from '@/service/api';
+import { NButton, NImage, NPopconfirm } from 'naive-ui';
+import { fetchDeleteLiveById, fetchGetLiveList } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { useAuth } from '@/hooks/business/auth';
-import ServerOperateDrawer from './modules/server-operate-drawer.vue';
-import ServerSearch from './modules/server-search.vue';
+import LiveOperateDrawer from './modules/live-operate-drawer.vue';
+import LiveSearch from './modules/live-search.vue';
 
 const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
 
-// 社区配置项
-const communityOptions = ref<CommonType.Option<string>[]>([]);
-// 游戏配置项
-const gameOptions = ref<CommonType.Option<string>[]>([]);
-// 模式配置项
-const modeOptions = ref<CommonType.Option<string>[]>([]);
-
 const { columns, data, getData, getDataByPage, loading, mobilePagination, searchParams, resetSearchParams } = useTable({
-  apiFn: fetchGetServerList,
+  apiFn: fetchGetLiveList,
   showTotal: true,
   apiParams: {
     current: 1,
     size: 10,
-    serverName: null,
-    communityId: null,
-    gameId: null,
-    modeId: null
+    uid: null
   },
   columns: () => [
     {
@@ -44,46 +27,32 @@ const { columns, data, getData, getDataByPage, loading, mobilePagination, search
       width: 48
     },
     {
-      key: 'communityName',
-      title: $t('page.game.server.communityId'),
-      align: 'center',
-      minWidth: 100
+      key: 'uid',
+      title: $t('page.game.live.uid'),
+      width: 100,
+      align: 'center'
     },
     {
-      key: 'serverName',
-      title: $t('page.game.server.serverName'),
+      key: 'avatar',
+      title: $t('page.game.live.avatar'),
+      width: 100,
       align: 'center',
-      minWidth: 100
+      render: row => (
+        <div class="flex-center justify-center gap-8px">
+          <NImage src={row.avatar} />
+        </div>
+      )
     },
     {
-      key: 'gameName',
-      title: $t('page.game.server.gameId'),
+      key: 'bgUrl',
+      title: $t('page.game.live.bgUrl'),
+      width: 100,
       align: 'center',
-      minWidth: 100
-    },
-    {
-      key: 'modeName',
-      title: $t('page.game.server.modeId'),
-      align: 'center',
-      minWidth: 100
-    },
-    {
-      key: 'ip',
-      title: $t('page.game.server.ip'),
-      align: 'center',
-      minWidth: 100
-    },
-    {
-      key: 'port',
-      title: $t('page.game.server.port'),
-      align: 'center',
-      minWidth: 100
-    },
-    {
-      key: 'sort',
-      title: $t('page.manage.dict.sort'),
-      align: 'center',
-      minWidth: 100
+      render: row => (
+        <div class="flex-center justify-center gap-8px">
+          <NImage src={row.bgUrl} />
+        </div>
+      )
     },
     {
       key: 'operate',
@@ -92,12 +61,12 @@ const { columns, data, getData, getDataByPage, loading, mobilePagination, search
       width: 130,
       render: row => (
         <div class="flex-center gap-8px">
-          {hasAuth('game:gameServer:update') && (
+          {hasAuth('game:gameLive:update') && (
             <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
               {$t('common.edit')}
             </NButton>
           )}
-          {hasAuth('game:gameServer:delete') && (
+          {hasAuth('game:gameLive:delete') && (
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => $t('common.confirmDelete'),
@@ -128,50 +97,24 @@ const {
 
 async function handleDelete(id: string) {
   // request
-  const result: any = await fetchDeleteServerById(id);
+  const result: any = await fetchDeleteLiveById(id);
   if (result.data) onDeleted();
 }
 
 function edit(id: string) {
   handleEdit(id);
 }
-
-async function initOptions() {
-  const communityNames = await fetchGetCommunityNames();
-  if (communityNames.data) {
-    communityOptions.value = communityNames.data;
-  }
-  const gameNames = await fetchGetGameNames();
-  if (gameNames.data) {
-    gameOptions.value = gameNames.data;
-  }
-  const modeNames = await fetchGetModeNames();
-  if (modeNames.data) {
-    modeOptions.value = modeNames.data;
-  }
-}
-
-onMounted(() => {
-  initOptions();
-});
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <ServerSearch
-      v-model:model="searchParams"
-      :community-options="communityOptions"
-      :game-options="gameOptions"
-      :mode-options="modeOptions"
-      @reset="resetSearchParams"
-      @search="getDataByPage"
-    />
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LiveSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
     <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <TableHeaderOperation
         v-model:checked-row-keys="checkedRowKeys"
         :disabled-delete="checkedRowKeys.length === 0"
         :loading="loading"
-        add-auth="game:gameServer:save"
+        add-auth="game:gameLive:save"
         @add="handleAdd"
         @refresh="getData"
       />
@@ -188,11 +131,8 @@ onMounted(() => {
         :pagination="mobilePagination"
         class="sm:h-full"
       />
-      <ServerOperateDrawer
+      <LiveOperateDrawer
         v-model:visible="drawerVisible"
-        :community-options="communityOptions"
-        :game-options="gameOptions"
-        :mode-options="modeOptions"
         :operate-type="operateType"
         :row-data="editingData"
         @submitted="getDataByPage"

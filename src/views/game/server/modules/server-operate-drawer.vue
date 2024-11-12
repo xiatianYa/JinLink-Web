@@ -44,7 +44,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.Game.Server, 'communityId' | 'modeId' | 'gameId' | 'ip' | 'port'>;
+type Model = Pick<Api.Game.Server, 'serverName' | 'communityId' | 'modeId' | 'gameId' | 'ip' | 'port' | 'sort'>;
 
 const model: Model = reactive(createDefaultModel());
 
@@ -56,21 +56,25 @@ const modeOption = ref<CommonType.Option[]>([]);
 
 function createDefaultModel(): Model {
   return {
+    serverName: '',
     communityId: '',
     modeId: '',
     gameId: '',
     ip: '',
-    port: ''
+    port: '',
+    sort: 0
   };
 }
 
-type RuleKey = Extract<keyof Model, 'communityId' | 'gameId' | 'ip' | 'port'>;
+type RuleKey = Extract<keyof Model, 'serverName' | 'communityId' | 'gameId' | 'ip' | 'port' | 'sort'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
+  serverName: defaultRequiredRule,
   communityId: defaultRequiredRule,
   gameId: defaultRequiredRule,
   ip: defaultRequiredRule,
-  port: defaultRequiredRule
+  port: defaultRequiredRule,
+  sort: defaultRequiredRule
 };
 
 function handleInitModel() {
@@ -113,6 +117,13 @@ watch(visible, () => {
   <NDrawer v-model:show="visible" display-directive="show" :width="360">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <NForm ref="formRef" :model="model" :rules="rules">
+        <NFormItem :label="$t('page.game.server.serverName')" path="serverName">
+          <NInput
+            v-model:value="model.serverName"
+            :options="communityOption"
+            :placeholder="$t('page.game.server.form.serverName')"
+          />
+        </NFormItem>
         <NFormItem :label="$t('page.game.server.communityId')" path="communityId">
           <NSelect
             v-model:value="model.communityId"
@@ -139,6 +150,9 @@ watch(visible, () => {
         </NFormItem>
         <NFormItem :label="$t('page.game.server.port')" path="port">
           <NInput v-model:value="model.port" :placeholder="$t('page.game.server.form.port')" />
+        </NFormItem>
+        <NFormItem :label="$t('page.manage.dict.sort')" path="sort">
+          <NInputNumber v-model:value="model.sort" :placeholder="$t('page.manage.dict.form.sort')" />
         </NFormItem>
       </NForm>
       <template #footer>

@@ -1,29 +1,14 @@
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsOperationSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation v-model:columns="columnChecks" :deleteAll="true"
-        :deleteAllAuth="'mon:monLogsOperation:delete'" :checked-row-keys="checkedRowKeys" :loading="loading"
-        @delete="handleBatchDelete" @refresh="getData" />
-      <NDataTable v-model:checked-row-keys="checkedRowKeys" remote striped size="small" class="sm:h-full" :data="data"
-        :scroll-x="962" :columns="columns" :flex-height="!appStore.isMobile" :loading="loading" :single-line="false"
-        :row-key="row => row.id" :pagination="mobilePagination" />
-      <OperationOperateModal v-model:visible="visible" :operate-type="operateType" :row-data="editingData"
-        @submitted="getDataByPage" />
-    </NCard>
-  </div>
-</template>
-
 <script setup lang="tsx">
 import { NButton, NCard } from 'naive-ui';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchGetOperationLogList, fetchClearOperationLogAll } from '@/service/api';
+import { fetchClearOperationLogAll, fetchGetOperationLogList } from '@/service/api';
+import { useBoolean } from '~/packages/hooks/src';
 import LogsOperationSearch from './modules/operation-search.vue';
 import OperationOperateModal, { type OperateType } from './modules/operation-operate-modal.vue';
-import { useBoolean } from '~/packages/hooks/src';
-import { Ref, ref } from 'vue';
 
 const { bool: visible, setTrue: openModal } = useBoolean();
 
@@ -67,19 +52,19 @@ const {
       key: 'createTime',
       title: $t('page.monitor.logs.operation.createTime'),
       align: 'center',
-      width: 200
+      width: 160
     },
     {
       key: 'ip',
       title: $t('page.monitor.logs.operation.ip'),
       align: 'center',
-      width: 140
+      width: 110
     },
     {
       key: 'ipAddr',
       title: $t('page.monitor.logs.operation.ipAddr'),
       align: 'center',
-      width: 200,
+      width: 150,
       ellipsis: {
         tooltip: true
       }
@@ -88,7 +73,7 @@ const {
       key: 'userAgent',
       title: $t('page.monitor.logs.operation.userAgent'),
       align: 'center',
-      width: 200,
+      width: 170,
       ellipsis: {
         tooltip: true
       }
@@ -97,7 +82,7 @@ const {
       key: 'requestUri',
       title: $t('page.monitor.logs.operation.requestUri'),
       align: 'center',
-      width: 200,
+      width: 150,
       ellipsis: {
         tooltip: true
       }
@@ -118,7 +103,7 @@ const {
       key: 'methodName',
       title: $t('page.monitor.logs.operation.methodName'),
       align: 'center',
-      width: 200,
+      width: 80,
       ellipsis: {
         tooltip: true
       }
@@ -127,7 +112,7 @@ const {
       key: 'operation',
       title: $t('page.monitor.logs.operation.operation'),
       align: 'center',
-      width: 250,
+      width: 120,
       ellipsis: {
         tooltip: true
       }
@@ -139,7 +124,9 @@ const {
       width: 130,
       render: row => (
         <div class="flex-center gap-8px">
-          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row)}>查看请求参数</NButton>
+          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row)}>
+            查看请求参数
+          </NButton>
         </div>
       )
     },
@@ -171,3 +158,41 @@ async function handleBatchDelete() {
   if (result.data) onDeleted();
 }
 </script>
+
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsOperationSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation
+        v-model:columns="columnChecks"
+        :delete-all="true"
+        delete-all-auth="mon:monLogsOperation:delete"
+        :checked-row-keys="checkedRowKeys"
+        :loading="loading"
+        @delete="handleBatchDelete"
+        @refresh="getData"
+      />
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        remote
+        striped
+        size="small"
+        class="sm:h-full"
+        :data="data"
+        :scroll-x="962"
+        :columns="columns"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :single-line="false"
+        :row-key="row => row.id"
+        :pagination="mobilePagination"
+      />
+      <OperationOperateModal
+        v-model:visible="visible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
+    </NCard>
+  </div>
+</template>

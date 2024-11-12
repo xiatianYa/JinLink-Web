@@ -24,6 +24,8 @@ declare module "@elegant-router/types" {
     "game": "/game";
     "game_community": "/game/community";
     "game_game": "/game/game";
+    "game_live": "/game/live";
+    "game_map": "/game/map";
     "game_mode": "/game/mode";
     "game_server": "/game/server";
     "home": "/home";
@@ -112,6 +114,8 @@ declare module "@elegant-router/types" {
     | "about"
     | "game_community"
     | "game_game"
+    | "game_live"
+    | "game_map"
     | "game_mode"
     | "game_server"
     | "home"

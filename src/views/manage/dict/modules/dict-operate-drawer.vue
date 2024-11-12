@@ -51,7 +51,7 @@ function createDefaultModel(): Model {
     code: '',
     type: '1',
     description: '',
-    sort: 1,
+    sort: 0,
     status: '1'
   };
 }

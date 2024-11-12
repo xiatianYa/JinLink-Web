@@ -170,6 +170,8 @@ const routeMap: RouteMap = {
   "game": "/game",
   "game_community": "/game/community",
   "game_game": "/game/game",
+  "game_live": "/game/live",
+  "game_map": "/game/map",
   "game_mode": "/game/mode",
   "game_server": "/game/server",
   "home": "/home",

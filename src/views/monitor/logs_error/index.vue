@@ -1,30 +1,14 @@
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsErrorSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation v-model:columns="columnChecks" :deleteAll="true"
-        :deleteAllAuth="'mon:monLogsOperation:delete'" :checked-row-keys="checkedRowKeys" :loading="loading"
-        @delete="handleBatchDelete" @refresh="getData" />
-      <NDataTable v-model:checked-row-keys="checkedRowKeys" :deleteAll="true" :deleteAllAuth="'mon:monLogsError:delete'"
-        remote striped size="small" class="sm:h-full" :data="data" :scroll-x="962" :columns="columns"
-        :flex-height="!appStore.isMobile" :loading="loading" :single-line="false" :row-key="row => row.id"
-        :pagination="mobilePagination" />
-      <ErrorOperateModal v-model:visible="visible" :operate-type="operateType" :row-data="editingData"
-        @submitted="getDataByPage" />
-    </NCard>
-  </div>
-</template>
-
 <script setup lang="tsx">
 import { NButton, NCard } from 'naive-ui';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchGetErrorLogList, fetchClearErrorLogAll } from '@/service/api';
+import { fetchClearErrorLogAll, fetchGetErrorLogList } from '@/service/api';
+import { useBoolean } from '~/packages/hooks/src';
 import LogsErrorSearch from './modules/error-search.vue';
 import ErrorOperateModal, { type OperateType } from './modules/error-operate-modal.vue';
-import { useBoolean } from '~/packages/hooks/src';
-import { Ref, ref } from 'vue';
 
 defineOptions({
   name: 'MonitorLogsError'
@@ -68,7 +52,7 @@ const {
       key: 'createTime',
       title: $t('page.monitor.logs.error.createTime'),
       align: 'center',
-      width: 180
+      width: 160
     },
     {
       key: 'ip',
@@ -110,7 +94,7 @@ const {
       key: 'methodName',
       title: $t('page.monitor.logs.error.methodName'),
       align: 'center',
-      width: 150,
+      width: 80,
       ellipsis: {
         tooltip: true
       }
@@ -131,7 +115,9 @@ const {
       width: 120,
       render: row => (
         <div class="flex-center gap-8px">
-          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row)}>查看请求参数</NButton>
+          <NButton type="primary" ghost size="small" onClick={() => handleEdit(row)}>
+            查看请求参数
+          </NButton>
         </div>
       )
     },
@@ -139,7 +125,7 @@ const {
       key: 'exceptionMessage',
       title: $t('page.monitor.logs.error.exceptionMessage'),
       align: 'center',
-      width: 250,
+      width: 150,
       ellipsis: {
         tooltip: true
       }
@@ -148,7 +134,7 @@ const {
       key: 'exceptionClass',
       title: $t('page.monitor.logs.error.exceptionClass'),
       align: 'center',
-      width: 200,
+      width: 100,
       ellipsis: {
         tooltip: true
       }
@@ -157,7 +143,7 @@ const {
       key: 'line',
       title: $t('page.monitor.logs.error.line'),
       align: 'center',
-      width: 100
+      width: 80
     },
     {
       key: 'useTime',
@@ -187,3 +173,43 @@ async function handleBatchDelete() {
   if (result.data) onDeleted();
 }
 </script>
+
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsErrorSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation
+        v-model:columns="columnChecks"
+        :delete-all="true"
+        delete-all-auth="mon:monLogsOperation:delete"
+        :checked-row-keys="checkedRowKeys"
+        :loading="loading"
+        @delete="handleBatchDelete"
+        @refresh="getData"
+      />
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        :delete-all="true"
+        delete-all-auth="mon:monLogsError:delete"
+        remote
+        striped
+        size="small"
+        class="sm:h-full"
+        :data="data"
+        :scroll-x="962"
+        :columns="columns"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :single-line="false"
+        :row-key="row => row.id"
+        :pagination="mobilePagination"
+      />
+      <ErrorOperateModal
+        v-model:visible="visible"
+        :operate-type="operateType"
+        :row-data="editingData"
+        @submitted="getDataByPage"
+      />
+    </NCard>
+  </div>
+</template>

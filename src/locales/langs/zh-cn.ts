@@ -178,7 +178,9 @@ const local: App.I18n.Schema = {
     game_community: '游戏社区管理',
     game_game: '游戏类型管理',
     game_mode: '游戏模式管理',
-    game_server: '服务器管理'
+    game_server: '游戏服务器管理',
+    game_map: '游戏地图管理',
+    game_live: '游戏直播管理'
   },
   page: {
     login: {
@@ -743,6 +745,7 @@ const local: App.I18n.Schema = {
         }
       },
       server: {
+        serverName: '服务器名称',
         communityId: '社区名称',
         modeId: '模式名称',
         gameId: '游戏名称',
@@ -751,11 +754,45 @@ const local: App.I18n.Schema = {
         addServer: '添加游戏服务器',
         editServer: '编辑游戏服务器',
         form: {
+          serverName: '请输入服务器名称',
           communityId: '请选择社区名称',
           modeId: '请选择模式名称',
           gameId: '请选择游戏名称',
           ip: '请输入游戏服务器IP',
           port: '请输入游戏服务器端口'
+        }
+      },
+      map: {
+        mapName: '地图名称',
+        mapLabel: '地图译名',
+        mapUrl: '地图图片',
+        modeId: '模式名称',
+        type: '地图类型',
+        tag: '地图标签',
+        artifact: '神器',
+        addMap: '添加地图',
+        editMap: '编辑地图',
+        form: {
+          mapName: '请输入地图名称',
+          mapLabel: '请输入地图标签',
+          mapUrl: '请上传地图图片',
+          modeId: '请选择模式名称',
+          type: '请选择地图类型',
+          tag: '请选择地图标签',
+          artifact: '请输入神器名称',
+          desc: '请输入神器描述'
+        }
+      },
+      live: {
+        uid: 'uid',
+        avatar: '头像',
+        bgUrl: '背景图',
+        addLive: '添加直播',
+        editLive: '编辑直播',
+        form: {
+          uid: '请输入uid',
+          avatar: '请上传头像',
+          bgUrl: '请上传背景图'
         }
       }
     }

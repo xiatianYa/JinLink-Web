@@ -78,6 +78,24 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'game_live',
+        path: '/game/live',
+        component: 'view.game_live',
+        meta: {
+          title: 'game_live',
+          i18nKey: 'route.game_live'
+        }
+      },
+      {
+        name: 'game_map',
+        path: '/game/map',
+        component: 'view.game_map',
+        meta: {
+          title: 'game_map',
+          i18nKey: 'route.game_map'
+        }
+      },
+      {
         name: 'game_mode',
         path: '/game/mode',
         component: 'view.game_mode',
