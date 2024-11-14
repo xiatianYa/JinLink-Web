@@ -38,13 +38,15 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.Game.Community, 'communityName'>;
+type Model = Pick<Api.Game.Community, 'communityName' | 'logo' | 'website'>;
 
 const model: Model = reactive(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
-    communityName: ''
+    communityName: '',
+    logo: '',
+    website: ''
   };
 }
 
@@ -93,6 +95,17 @@ watch(visible, () => {
       <NForm ref="formRef" :model="model" :rules="rules">
         <NFormItem :label="$t('page.game.community.communityName')" path="communityName">
           <NInput v-model:value="model.communityName" :placeholder="$t('page.game.community.form.communityName')" />
+        </NFormItem>
+        <NFormItem :label="$t('page.game.community.website')" path="website">
+          <NInput v-model:value="model.website" :placeholder="$t('page.game.community.form.website')" />
+        </NFormItem>
+        <NFormItem :label="$t('page.game.community.logo')" path="logo">
+          <ImgUpload
+            v-model:model-value="model.logo"
+            :limit="1"
+            :file-type="['image/png', 'image/jpeg']"
+            :file-size="50"
+          ></ImgUpload>
         </NFormItem>
       </NForm>
       <template #footer>

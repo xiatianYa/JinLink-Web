@@ -34,3 +34,12 @@ export function fetchInsertServer(params: Api.Game.ServerParams) {
     data: params
   });
 }
+
+// 查询所有服务器数据(依据SteamApi)(分页)
+export function fetchGetServerAllBySteam(params?: Api.Game.ServerSearchParams) {
+  return request<Api.Game.SteamServerVoList>({
+    url: '/gameServer/getServerAll',
+    method: 'get',
+    params
+  });
+}

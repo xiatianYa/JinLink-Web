@@ -47,6 +47,8 @@ declare module "@elegant-router/types" {
     "monitor_logs_scheduler": "/monitor/logs/scheduler";
     "monitor_scheduler": "/monitor/scheduler";
     "monitor_system": "/monitor/system";
+    "server": "/server";
+    "server_csgo": "/server/csgo";
     "user-center": "/user-center";
   };
 
@@ -89,6 +91,7 @@ declare module "@elegant-router/types" {
     | "login"
     | "manage"
     | "monitor"
+    | "server"
     | "user-center"
   >;
 
@@ -132,6 +135,7 @@ declare module "@elegant-router/types" {
     | "monitor_logs_scheduler"
     | "monitor_scheduler"
     | "monitor_system"
+    | "server_csgo"
     | "user-center"
   >;
 

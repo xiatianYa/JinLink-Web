@@ -318,6 +318,26 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'server',
+    path: '/server',
+    component: 'layout.base',
+    meta: {
+      title: 'server',
+      i18nKey: 'route.server'
+    },
+    children: [
+      {
+        name: 'server_csgo',
+        path: '/server/csgo',
+        component: 'view.server_csgo',
+        meta: {
+          title: 'server_csgo',
+          i18nKey: 'route.server_csgo'
+        }
+      }
+    ]
+  },
+  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',

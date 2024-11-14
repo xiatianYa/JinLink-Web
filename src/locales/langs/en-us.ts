@@ -180,7 +180,9 @@ const local: App.I18n.Schema = {
     game_mode: 'Game Mode Manage',
     game_server: 'Game Server Manage',
     game_map: 'Gaem Map Manage',
-    game_live: 'Game Live Manage'
+    game_live: 'Game Live Manage',
+    server: 'Server Query',
+    server_csgo: 'Counter-Strike 2'
   },
   page: {
     login: {
@@ -722,10 +724,14 @@ const local: App.I18n.Schema = {
     game: {
       community: {
         communityName: 'Community Name',
+        logo: 'Community Logo',
+        website: 'Community Website',
         addCommunity: 'Community Add',
         editCommunity: 'Community Edit',
         form: {
-          communityName: '请输入社区名称'
+          communityName: 'Please enter community name',
+          logo: 'Please upload community logo',
+          website: 'Please enter community website'
         }
       },
       game: {
@@ -794,6 +800,11 @@ const local: App.I18n.Schema = {
           avatar: 'Please enter avatar',
           bgUrl: 'Please enter bg url'
         }
+      }
+    },
+    server: {
+      csgo2: {
+        title: 'Counter-Strike 2'
       }
     }
   },

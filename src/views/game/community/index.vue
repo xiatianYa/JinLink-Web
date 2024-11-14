@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { NButton, NCard, NPopconfirm } from 'naive-ui';
+import { NButton, NCard, NImage, NPopconfirm } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { useAuth } from '@/hooks/business/auth';
@@ -36,6 +36,23 @@ const { columns, columnChecks, data, loading, getDataByPage, getData, mobilePagi
     {
       key: 'communityName',
       title: $t('page.game.community.communityName'),
+      width: 64,
+      align: 'center'
+    },
+    {
+      key: 'logo',
+      title: $t('page.game.community.logo'),
+      width: 64,
+      align: 'center',
+      render: row => (
+        <div class="flex-center justify-center gap-8px">
+          <NImage src={row.logo} />
+        </div>
+      )
+    },
+    {
+      key: 'website',
+      title: $t('page.game.community.website'),
       width: 64,
       align: 'center'
     },

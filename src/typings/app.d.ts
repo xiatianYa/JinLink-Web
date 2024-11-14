@@ -938,8 +938,12 @@ declare namespace App {
             addCommunity: string;
             editCommunity: string;
             communityName: string;
+            logo: string;
+            website: string;
             form: {
               communityName: string;
+              logo: string;
+              website: string;
             };
           };
           game: {
@@ -1008,6 +1012,11 @@ declare namespace App {
               avatar: string;
               bgUrl: string;
             };
+          };
+        };
+        server: {
+          csgo2: {
+            title: string;
           };
         };
       };

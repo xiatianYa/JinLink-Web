@@ -157,7 +157,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+  <div class="min-h-500px flex-col-stretch gap-16px lt-sm:overflow-auto">
     <ServerSearch
       v-model:model="searchParams"
       :community-options="communityOptions"
@@ -166,7 +166,7 @@ onMounted(() => {
       @reset="resetSearchParams"
       @search="getDataByPage"
     />
-    <NCard :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
       <TableHeaderOperation
         v-model:checked-row-keys="checkedRowKeys"
         :disabled-delete="checkedRowKeys.length === 0"

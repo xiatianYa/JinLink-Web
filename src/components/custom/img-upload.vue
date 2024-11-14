@@ -73,7 +73,7 @@ function uploadedSuccessfully() {
 // 文件删除函数
 function handleRemove(data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) {
   // 使用 filter 方法移除 batchId 相同的元素
-  fileList.value = fileList.value.filter(item => item.batchId !== data.file.batchId);
+  fileList.value = fileList.value.filter(item => item.id !== data.file.id);
   // 数据同步
   uploadedSuccessfully();
   message.success('删除成功');

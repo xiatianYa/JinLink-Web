@@ -193,6 +193,8 @@ const routeMap: RouteMap = {
   "monitor_logs_scheduler": "/monitor/logs/scheduler",
   "monitor_scheduler": "/monitor/scheduler",
   "monitor_system": "/monitor/system",
+  "server": "/server",
+  "server_csgo": "/server/csgo",
   "user-center": "/user-center"
 };
 

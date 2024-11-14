@@ -11,6 +11,7 @@ import { useAuthStore } from '@/store/modules/auth';
 import { useRouteStore } from '@/store/modules/route';
 import { localStg } from '@/utils/storage';
 import { useDictStore } from '@/store/modules/dict';
+import { useGameStore } from '@/store/modules/game';
 
 /**
  * create route guard
@@ -97,6 +98,7 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   const authStore = useAuthStore();
   const routeStore = useRouteStore();
   const dictStore = useDictStore();
+  const gameStore = useGameStore();
 
   const notFoundRoute: RouteKey = 'not-found';
   const isNotFoundRoute = to.name === notFoundRoute;
@@ -169,6 +171,9 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
   // initialize the dict item
   await dictStore.init();
+
+  // initialize the websocket
+  await gameStore.initWebSocket();
 
   // the route is captured by the "not-found" route because the auth route is not initialized
   // after the auth route is initialized, redirect to the original route
