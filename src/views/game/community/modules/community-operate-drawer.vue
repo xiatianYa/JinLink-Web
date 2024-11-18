@@ -103,7 +103,7 @@ watch(visible, () => {
           <ImgUpload
             v-model:model-value="model.logo"
             :limit="1"
-            :file-type="['image/png', 'image/jpeg']"
+            :file-type="['image/png', 'image/jpg', 'image/gif', 'image/jpeg', 'image/svg+xml']"
             :file-size="50"
           ></ImgUpload>
         </NFormItem>

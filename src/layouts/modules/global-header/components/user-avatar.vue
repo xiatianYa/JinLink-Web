@@ -65,12 +65,15 @@ function logout() {
 }
 
 function handleDropdown(key: DropdownKey) {
+  console.log(key);
+
   if (key === 'logout') {
+    console.log(key);
+
     logout();
   } else {
     // If your other options are jumps from other routes, they will be directly supported here
     routerPushByKey(key);
-    logout();
   }
 }
 </script>

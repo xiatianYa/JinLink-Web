@@ -32,7 +32,7 @@ const {
   apiFn: fetchGetErrorLogList,
   apiParams: {
     current: 1,
-    size: 20,
+    size: 10,
     createUser: null
   },
   columns: () => [

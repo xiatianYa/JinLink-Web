@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { NTag } from 'naive-ui';
+import { NTag, useMessage } from 'naive-ui';
 import { onMounted, ref, watch } from 'vue';
 import { useDict } from '@/hooks/business/dict';
+import { useGameStore } from '@/store/modules/game';
+import websocket from '@/utils/websocket';
 
 defineOptions({
   name: 'ServerCard'
@@ -14,34 +16,31 @@ interface Props {
   gameServerVo: Api.Game.SteamServer;
 }
 
+// 定义props
 const props = defineProps<Props>();
 
-const gameServer = ref<Api.Game.SteamServer>({
-  serverName: '',
-  communityId: '',
-  communityName: '',
-  modeId: '',
-  modeName: '',
-  gameId: '',
-  gameName: '',
-  ip: '',
-  port: '',
-  sort: 0,
-  serverVo: {
-    mapName: '',
-    mapLabel: '',
-    mapUrl: '',
-    type: '',
-    tag: [],
-    players: 0,
-    maxPlayers: 0
-  }
-});
+// 提示消息对象
+const message = useMessage();
 
+// 自动挤服 / 挂机模式 抽屉
+const automaticDialog = ref(false);
+
+// 游戏仓库
+const gameStore = useGameStore();
+
+// 定义游戏服务器数据
+const gameServer = ref<Api.Game.SteamServer | null>();
+
+// 定义标签数据
 const tagOptions = ref<Api.SystemManage.DictOptions[]>([]);
 
+// 初始化游戏服务器数据
 function handleInitModel() {
-  Object.assign(gameServer.value, props.gameServerVo);
+  if (gameServer.value && props.gameServerVo) {
+    Object.assign(gameServer.value, props.gameServerVo);
+  } else {
+    gameServer.value = { ...props.gameServerVo };
+  }
 }
 
 // 注册tag颜色
@@ -106,18 +105,81 @@ const renderTypeName = (typeName: string) => {
 
 // 计算进度颜色
 const getOnLineColor = (server: Api.Game.SteamServer) => {
-  if (server.serverVo.players <= 20) {
-    return `background-color: #00f91a;height: ${(server.serverVo.players / server.serverVo.maxPlayers) * 100}%;`;
-  } else if (server.serverVo.players <= 40) {
-    return `background-color: #5470ee;height: ${(server.serverVo.players / server.serverVo.maxPlayers) * 100}%;`;
-  } else if (server.serverVo.players <= 60) {
-    return `background-color: #ffa325;height: ${(server.serverVo.players / server.serverVo.maxPlayers) * 100}%;`;
-  } else if (server.serverVo.players <= 80) {
-    return `background-color: #ff4f00;height: ${(server.serverVo.players / server.serverVo.maxPlayers) * 100}%;`;
+  if (!server) return '';
+  if (server.players <= 20) {
+    return `background-color: #00f91a;height: ${(server.players / server.maxPlayers) * 100}%;`;
+  } else if (server.players <= 40) {
+    return `background-color: #5470ee;height: ${(server.players / server.maxPlayers) * 100}%;`;
+  } else if (server.players <= 60) {
+    return `background-color: #ffa325;height: ${(server.players / server.maxPlayers) * 100}%;`;
+  } else if (server.players <= 80) {
+    return `background-color: #ff4f00;height: ${(server.players / server.maxPlayers) * 100}%;`;
   }
-  return `background-color: #ff0000;height: ${(server.serverVo.players / server.serverVo.maxPlayers) * 100}%;`;
+  return `background-color: #ff0000;height: ${(server.players / server.maxPlayers) * 100}%;`;
 };
 
+// 计算进度颜色
+const getProgressColor = (progress: any) => {
+  if (progress <= 20) {
+    return '#00f91a';
+  } else if (progress <= 40) {
+    return '#5470ee';
+  } else if (progress <= 60) {
+    return '#ffa325';
+  } else if (progress <= 80) {
+    return '#ff4f00';
+  }
+  return '#ff0000';
+};
+
+// 加入服务器
+const joinServer = (server: Api.Game.SteamServer) => {
+  const aLink = document.createElement('a');
+  aLink.href = `steam://rungame/730/76561198977557298/+connect ${server.addr}`;
+  aLink.click();
+  message.success('连接成功');
+};
+
+// 复制服务器地址
+const copyServerAddr = (server: Api.Game.SteamServer) => {
+  navigator.clipboard.writeText(`connect ${server.addr}`);
+  message.success('复制成功');
+};
+
+// 打开自动挤服窗口
+const onAutoJoinMap = (server: Api.Game.SteamServer) => {
+  automaticDialog.value = true;
+  gameStore.automaticInfo = server;
+  gameStore.automaticInfo!.minPlayers = server.maxPlayers - 1;
+};
+
+// 开启自动挤服
+const handleAutomaticPersonnel = (value: boolean) => {
+  // 关闭挤服
+  if (!value) {
+    // 清除挤服次数
+    gameStore.automaticCount = 0;
+    gameStore.isAutomatic = value;
+    return;
+  }
+  // 未填写挤服人数
+  if (!gameStore.automaticInfo?.minPlayers) {
+    message.warning('请填最小玩家数!');
+    return;
+  }
+  // 发送消息 开始主动挤服
+  gameStore.isAutomatic = value;
+  websocket.sendJoinServer(gameStore.automaticInfo);
+};
+
+// 抽屉关闭的回调函数
+const handleDrawerClose = () => {
+  gameStore.automaticInfo = null;
+  gameStore.isAutomatic = false;
+  gameStore.automaticCount = 0;
+};
+
+// 监听props变化
 watch(
   props,
   () => {
@@ -135,53 +197,107 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="server-card flex overflow-hidden" :style="{ backgroundImage: `url(${gameServer.serverVo.mapUrl})` }">
+  <div class="server-card flex overflow-hidden" :style="{ backgroundImage: `url(${gameServer?.mapUrl})` }">
     <div class="server-card-mask"></div>
-    <div class="server-online" :style="`${getOnLineColor(gameServer)}`"></div>
+    <div class="server-online" :style="`${getOnLineColor(gameServer!)}`"></div>
     <div class="server-card-left">
-      <div class="server-card-name ml-5px mt-3px">{{ gameServer.serverName }}</div>
-      <div class="server-card-onLine ml-5px mt-3px flex-y-center">
-        <SvgIcon icon="ion:game-controller-outline" class="mr-6px text-20px" />
-        <NEllipsis>
-          {{ gameServer.serverVo.players }}/{{ gameServer.serverVo.maxPlayers }} | {{ gameServer.serverVo.mapLabel }}({{
-            gameServer.serverVo.mapName
-          }})
+      <div class="server-card-name ml-5px mt-10px">
+        <NEllipsis :line-clamp="1">
+          {{ gameServer?.serverName }}
         </NEllipsis>
-        <NTag :color="renderColor(gameServer.serverVo.type)" size="small" class="ml-5px mr-5px">
-          {{ renderTypeName(gameServer.serverVo.type) }}
-        </NTag>
       </div>
-      <div class="server-card-tag ml-5px mt-3px">
-        <NTag
-          v-for="(tag, index) in gameServer.serverVo.tag"
-          :key="index"
-          size="small"
-          round
-          class="ml-3px"
-          type="success"
-        >
+      <div class="server-card-onLine flex-space-between ml-5px flex-y-center">
+        <div class="flex-y-center">
+          <SvgIcon icon="material-symbols:map-outline" class="mr-6px text-20px" />
+          <NEllipsis :line-clamp="1">
+            {{ gameServer?.players }}/{{ gameServer?.maxPlayers }} | {{ gameServer?.mapLabel }}({{
+              gameServer?.mapName
+            }})
+          </NEllipsis>
+        </div>
+        <div>
+          <NTag v-if="gameServer?.type" :color="renderColor(gameServer?.type ?? '-1')" size="small" strong
+            class="ml-5px mr-10px">
+            {{ renderTypeName(gameServer?.type ?? '-1') }}
+          </NTag>
+        </div>
+      </div>
+      <div class="server-card-tag ml-5px mt-10px">
+        <NTag v-for="(tag, index) in gameServer?.tag" :key="index" size="small" round class="mr-3px" type="success">
           {{ tagOptions.find((item: any) => item.value === tag)?.label }}
         </NTag>
       </div>
     </div>
     <div class="server-card-right">
-      <div class="one-btn">
+      <div class="one-btn" @click="joinServer(gameServer!)">
         <SvgIcon icon="iconamoon:enter" class="text-20px" />
       </div>
-      <div class="two-btn">
+      <div class="two-btn" @click="copyServerAddr(gameServer!)">
         <SvgIcon icon="solar:copy-outline" class="text-20px" />
       </div>
-      <div class="three-btn">
+      <div class="three-btn" @click="onAutoJoinMap(gameServer!)">
         <SvgIcon icon="material-symbols:alarm-smart-wake-outline" class="text-20px" />
       </div>
     </div>
+    <NDrawer v-model:show="automaticDialog" :width="400" placement="right" :on-after-leave="handleDrawerClose">
+      <NDrawerContent closable>
+        <template #header>
+          <NEllipsis class="flex-y-center text-16px" :line-clamp="1">
+            {{ gameStore.automaticInfo?.serverName }}
+          </NEllipsis>
+        </template>
+        <NCard :bordered="false">
+          <NSpace class="mb-10px" vertical>
+            <span>地图名称 : {{ gameStore.automaticInfo?.mapName }}</span>
+            <span>译名 : {{ gameStore.automaticInfo?.mapLabel }}</span>
+          </NSpace>
+          <NSpace class="mb-10px flex-y-center">
+            <NImage v-if="gameStore.automaticInfo?.mapUrl" width="170" :src="gameStore.automaticInfo?.mapUrl" />
+            <NProgress type="circle" :color="getProgressColor(
+              ((gameStore.automaticInfo?.players ?? 0) / (gameStore.automaticInfo?.maxPlayers ?? 1)) * 100
+            )
+              "
+              :percentage="((gameStore.automaticInfo?.players ?? 0) / (gameStore.automaticInfo?.maxPlayers ?? 1)) * 100">
+              <span>当前在线人数:{{ gameStore.automaticInfo?.players ?? 0 }}</span>
+            </NProgress>
+          </NSpace>
+          <NSpace class="mb-10px" vertical>
+            <NInputNumber v-model:value="gameStore.automaticInfo!.minPlayers" class="mb-5" placeholder="(小于或等于时自动进入服务器)"
+              :min="0" :max="(gameStore.automaticInfo?.maxPlayers ?? 1) - 1" clearable>
+              <template #minus-icon>
+                <SvgIcon icon="ion:arrow-down-circle-outline" class="text-20px" />
+              </template>
+              <template #add-icon>
+                <SvgIcon icon="ion:arrow-up-circle-outline" class="text-20px" />
+              </template>
+            </NInputNumber>
+          </NSpace>
+          <NSpace class="mb-10px">
+            <div class="flex-y-center">
+              <span class="mr-5px">自动挤服</span>
+              <NSwitch v-model:value="gameStore.isAutomatic" size="large" :on-update:value="handleAutomaticPersonnel">
+                <template #checked-icon>
+                  <SvgIcon icon="ion:caret-back-circle-outline" class="text-20px" />
+                </template>
+                <template #unchecked-icon>
+                  <SvgIcon icon="ion:caret-forward-circle-outline" class="text-20px" />
+                </template>
+              </NSwitch>
+            </div>
+          </NSpace>
+          <NSpace>
+            <span>尝试次数 : {{ gameStore.automaticCount }}</span>
+          </NSpace>
+        </NCard>
+      </NDrawerContent>
+    </NDrawer>
   </div>
 </template>
 
 <style scoped lang="scss">
 .server-card {
   position: relative;
-  min-width: 300px;
+  min-width: 150px;
   height: 120px;
   background-size: cover;
   background-position: center;
@@ -195,7 +311,7 @@ onMounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     opacity: 1;
     transition: opacity 0.5s ease;
   }
@@ -242,7 +358,7 @@ onMounted(() => {
       align-items: center;
       flex: 3;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.8);
       cursor: pointer;
       border-radius: 12px 0 0 0;
 

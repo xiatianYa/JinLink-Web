@@ -19,7 +19,7 @@ const { columns, columnChecks, data, loading, getDataByPage, getData, mobilePagi
   apiFn: fetchGetCommunityList,
   apiParams: {
     current: 1,
-    size: 20
+    size: 10
   },
   columns: () => [
     {

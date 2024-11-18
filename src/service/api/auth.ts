@@ -46,3 +46,21 @@ export function fetchRefreshToken(refreshToken: string) {
 export function fetchCustomBackendError(code: string, msg: string) {
   return request({ url: '/auth/error', params: { code, msg } });
 }
+
+/**
+ * Login
+ *
+ * @param userName User name
+ * @param password Password
+ */
+export function fetchOAuthLogin(accessToken: string, openId: string, type: number) {
+  return request<Api.Auth.LoginToken>({
+    url: '/auth/oauth2/qq/login',
+    method: 'post',
+    data: {
+      accessToken,
+      openId,
+      type
+    }
+  });
+}

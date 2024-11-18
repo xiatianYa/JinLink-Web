@@ -51,6 +51,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'community',
+    path: '/community',
+    component: 'layout.base$view.community',
+    meta: {
+      title: 'community',
+      i18nKey: 'route.community'
+    }
+  },
+  {
     name: 'game',
     path: '/game',
     component: 'layout.base',
@@ -140,6 +149,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'live',
+    path: '/live',
+    component: 'layout.base$view.live',
+    meta: {
+      title: 'live',
+      i18nKey: 'route.live'
+    }
+  },
+  {
     name: 'login',
     path: '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
     component: 'layout.blank$view.login',
@@ -223,6 +241,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       }
     ]
+  },
+  {
+    name: 'map',
+    path: '/map',
+    component: 'layout.base$view.map',
+    meta: {
+      title: 'map',
+      i18nKey: 'route.map'
+    }
   },
   {
     name: 'monitor',
@@ -333,6 +360,26 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'server_csgo',
           i18nKey: 'route.server_csgo'
+        }
+      }
+    ]
+  },
+  {
+    name: 'tool',
+    path: '/tool',
+    component: 'layout.base',
+    meta: {
+      title: 'tool',
+      i18nKey: 'route.tool'
+    },
+    children: [
+      {
+        name: 'tool_bind',
+        path: '/tool/bind',
+        component: 'view.tool_bind',
+        meta: {
+          title: 'tool_bind',
+          i18nKey: 'route.tool_bind'
         }
       }
     ]

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { $t } from '@/locales';
+import { useGameStore } from '@/store/modules/game';
+
+// 游戏仓库
+const gameStore = useGameStore();
 
 defineOptions({
   name: 'CreativityBanner'
@@ -7,10 +11,17 @@ defineOptions({
 </script>
 
 <template>
-  <NCard :title="$t('page.home.creativity')" :bordered="false" size="small" class="h-full card-wrapper">
-    <div class="h-full flex-center">
-      <icon-local-banner class="text-400px text-primary sm:text-320px" />
-    </div>
+  <NCard :title="$t('page.home.onlineUser')" :bordered="false" size="small" class="h-full card-wrapper">
+    <NGrid :y-gap="15" :x-gap="20" :cols="10" responsive="screen" :item-responsive="true">
+      <NGridItem v-for="(user, index) in gameStore.onlineUserList" :key="index">
+        <NTooltip trigger="hover">
+          <template #trigger>
+            <NAvatar round size="medium" :src="user.avatar" />
+          </template>
+          {{ user.nickName }}
+        </NTooltip>
+      </NGridItem>
+    </NGrid>
   </NCard>
 </template>
 

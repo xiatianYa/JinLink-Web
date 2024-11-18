@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   limit: 1,
   fileSize: 50,
-  fileType: () => ['video/mp4', 'audio/mpeg']
+  fileType: () => ['image/png', 'image/jpg', 'image/gif', 'image/jpeg', 'image/svg+xml']
 });
 
 const model: Model = reactive(props);
@@ -60,6 +60,7 @@ function beforeUpload(data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
     message.error(`上传文件大小不能超过 ${props.fileSize} MB!`);
     return false;
   }
+  console.log(data.file.file?.type);
   if (!props.fileType.includes(data.file.file?.type ?? '')) {
     message.error(`文件类型不匹配,请上传${props.fileType}类型的文件`);
     return false;

@@ -167,6 +167,7 @@ const routeMap: RouteMap = {
   "404": "/404",
   "500": "/500",
   "about": "/about",
+  "community": "/community",
   "game": "/game",
   "game_community": "/game/community",
   "game_game": "/game/game",
@@ -176,6 +177,7 @@ const routeMap: RouteMap = {
   "game_server": "/game/server",
   "home": "/home",
   "iframe-page": "/iframe-page/:url",
+  "live": "/live",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
   "manage": "/manage",
   "manage_dict": "/manage/dict",
@@ -183,6 +185,7 @@ const routeMap: RouteMap = {
   "manage_role": "/manage/role",
   "manage_user": "/manage/user",
   "manage_user-detail": "/manage/user-detail/:id",
+  "map": "/map",
   "monitor": "/monitor",
   "monitor_cache": "/monitor/cache",
   "monitor_logs": "/monitor/logs",
@@ -195,6 +198,8 @@ const routeMap: RouteMap = {
   "monitor_system": "/monitor/system",
   "server": "/server",
   "server_csgo": "/server/csgo",
+  "tool": "/tool",
+  "tool_bind": "/tool/bind",
   "user-center": "/user-center"
 };
 

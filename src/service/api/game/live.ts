@@ -34,3 +34,11 @@ export function fetchInsertLive(params: Api.Game.LiveParams) {
     data: params
   });
 }
+
+// 获取全部游戏直播列表
+export function fetchGetLiveListAll() {
+  return request<Array<Api.Game.LiveVo>>({
+    url: '/gameLive/listAll',
+    method: 'get'
+  });
+}

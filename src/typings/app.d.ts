@@ -420,9 +420,7 @@ declare namespace App {
             register: string;
             otherAccountLogin: string;
             otherLoginMode: string;
-            superAdmin: string;
-            admin: string;
-            user: string;
+            qq: string;
           };
           codeLogin: {
             title: string;
@@ -458,32 +456,15 @@ declare namespace App {
           devDep: string;
         };
         home: {
-          branchDesc: string;
           greeting: string;
-          weatherDesc: string;
-          projectCount: string;
-          todo: string;
-          message: string;
-          downloadCount: string;
-          registerCount: string;
-          schedule: string;
-          study: string;
-          work: string;
-          rest: string;
-          entertainment: string;
-          visitCount: string;
-          turnover: string;
-          dealCount: string;
+          webSiteDesc: string;
+          pieChart: string;
           projectNews: {
             title: string;
             moreNews: string;
             desc1: string;
-            desc2: string;
-            desc3: string;
-            desc4: string;
-            desc5: string;
           };
-          creativity: string;
+          onlineUser: string;
         };
         manage: {
           common: {

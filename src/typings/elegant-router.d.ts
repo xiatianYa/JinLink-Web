@@ -21,6 +21,7 @@ declare module "@elegant-router/types" {
     "404": "/404";
     "500": "/500";
     "about": "/about";
+    "community": "/community";
     "game": "/game";
     "game_community": "/game/community";
     "game_game": "/game/game";
@@ -30,6 +31,7 @@ declare module "@elegant-router/types" {
     "game_server": "/game/server";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
+    "live": "/live";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "manage": "/manage";
     "manage_dict": "/manage/dict";
@@ -37,6 +39,7 @@ declare module "@elegant-router/types" {
     "manage_role": "/manage/role";
     "manage_user": "/manage/user";
     "manage_user-detail": "/manage/user-detail/:id";
+    "map": "/map";
     "monitor": "/monitor";
     "monitor_cache": "/monitor/cache";
     "monitor_logs": "/monitor/logs";
@@ -49,6 +52,8 @@ declare module "@elegant-router/types" {
     "monitor_system": "/monitor/system";
     "server": "/server";
     "server_csgo": "/server/csgo";
+    "tool": "/tool";
+    "tool_bind": "/tool/bind";
     "user-center": "/user-center";
   };
 
@@ -85,13 +90,17 @@ declare module "@elegant-router/types" {
     | "404"
     | "500"
     | "about"
+    | "community"
     | "game"
     | "home"
     | "iframe-page"
+    | "live"
     | "login"
     | "manage"
+    | "map"
     | "monitor"
     | "server"
+    | "tool"
     | "user-center"
   >;
 
@@ -115,6 +124,7 @@ declare module "@elegant-router/types" {
     | "iframe-page"
     | "login"
     | "about"
+    | "community"
     | "game_community"
     | "game_game"
     | "game_live"
@@ -122,11 +132,13 @@ declare module "@elegant-router/types" {
     | "game_mode"
     | "game_server"
     | "home"
+    | "live"
     | "manage_dict"
     | "manage_menu"
     | "manage_role"
     | "manage_user-detail"
     | "manage_user"
+    | "map"
     | "monitor_cache"
     | "monitor_logs_error"
     | "monitor_logs_file"
@@ -136,6 +148,7 @@ declare module "@elegant-router/types" {
     | "monitor_scheduler"
     | "monitor_system"
     | "server_csgo"
+    | "tool_bind"
     | "user-center"
   >;
 

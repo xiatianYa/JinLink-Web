@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin } from '@/service/api';
+import { fetchGetUserInfo, fetchLogin, fetchOAuthLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useRouteStore } from '../route';
@@ -92,6 +92,53 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     endLoading();
   }
 
+  /**
+   * Login
+   *
+   * @param accessToken Access token
+   * @param openId Open ID
+   * @param type 0:QQ 1:微信
+   * @param [redirect=true] Whether to redirect after login. Default is `true`
+   */
+  async function oAuthLogin({
+    accessToken,
+    openId,
+    type,
+    redirect = true
+  }: {
+    accessToken: string;
+    openId: string;
+    type: number;
+    redirect?: boolean;
+  }) {
+    startLoading();
+
+    const { data: loginToken, error } = await fetchOAuthLogin(accessToken, openId, type);
+
+    if (!error) {
+      const pass = await loginByToken(loginToken);
+
+      if (pass) {
+        await routeStore.initAuthRoute();
+
+        await dictStore.init();
+
+        await redirectFromLogin(redirect);
+
+        if (routeStore.isInitAuthRoute) {
+          window.$notification?.success({
+            title: $t('page.login.common.loginSuccess'),
+            content: $t('page.login.common.welcomeBack', { userName: userInfo.userName }),
+            duration: 4500
+          });
+        }
+      }
+    } else {
+      resetStore();
+    }
+    endLoading();
+  }
+
   async function loginByToken(loginToken: Api.Auth.LoginToken) {
     // 1. stored in the localStorage, the later requests need it in headers
     localStg.set('token', loginToken.token);
@@ -142,6 +189,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     loginLoading,
     resetStore,
     login,
+    oAuthLogin,
     initUserInfo
   };
 });

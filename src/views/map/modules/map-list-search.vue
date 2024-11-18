@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { $t } from '@/locales';
+import { useDict } from '@/hooks/business/dict';
 
 defineOptions({
-  name: 'ServerSearch'
+  name: 'MapListSearch'
 });
-
-interface Props {
-  /** the community name options */
-  communityOptions?: CommonType.Option[] | [];
-}
-
-const props = defineProps<Props>();
 
 interface Emits {
   (e: 'reset'): void;
@@ -20,9 +13,9 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-const model = defineModel<Api.Game.ServerSearchParams>('model', { required: true });
+const { dictOptions } = useDict();
 
-const communityOption = ref<CommonType.Option[]>([]);
+const model = defineModel<Api.Game.MapSearchParams>('model', { required: true });
 
 function reset() {
   emit('reset');
@@ -31,21 +24,6 @@ function reset() {
 function search() {
   emit('search');
 }
-
-function handleInitModel() {
-  Object.assign(communityOption.value, props.communityOptions);
-}
-
-watch(
-  props,
-  () => {
-    handleInitModel();
-  },
-  {
-    deep: true,
-    immediate: true
-  }
-);
 </script>
 
 <template>
@@ -54,16 +32,24 @@ watch(
       <NCollapseItem :title="$t('common.search')" name="role-search">
         <NForm :model="model" label-placement="left" :label-width="80">
           <NGrid responsive="screen" item-responsive>
-            <NFormItemGi
-              span="24 s:12 m:6"
-              :label="$t('page.game.server.communityId')"
-              path="communityId"
-              class="pr-24px"
-            >
+            <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.map.mapName')" path="mapName" class="pr-24px">
+              <NInput v-model:value="model.mapName" :placeholder="$t('page.game.map.form.mapName')" />
+            </NFormItemGi>
+            <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.map.mapLabel')" path="mapLabel" class="pr-24px">
+              <NInput v-model:value="model.mapLabel" :placeholder="$t('page.game.map.form.mapLabel')" />
+            </NFormItemGi>
+            <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.map.type')" path="modeId" class="pr-24px">
               <NSelect
-                v-model:value="model.communityId"
-                :options="communityOption"
-                :placeholder="$t('page.game.server.form.communityId')"
+                v-model:value="model.type"
+                :options="dictOptions('game_type')"
+                :placeholder="$t('page.game.map.form.type')"
+              />
+            </NFormItemGi>
+            <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.map.modeId')" path="modeId" class="pr-24px">
+              <NSelect
+                v-model:value="model.modeId"
+                :options="dictOptions('game_mode')"
+                :placeholder="$t('page.game.map.form.modeId')"
               />
             </NFormItemGi>
             <NFormItemGi span="24 s:12 m:6">

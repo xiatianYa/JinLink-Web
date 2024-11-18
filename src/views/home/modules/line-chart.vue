@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { watch } from 'vue';
-import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useEcharts } from '@/hooks/common/echarts';
+import { fetchGetLineChart } from '@/service/api';
 
 defineOptions({
   name: 'LineChart'
@@ -21,7 +21,7 @@ const { domRef, updateOptions } = useEcharts(() => ({
     }
   },
   legend: {
-    data: [$t('page.home.downloadCount'), $t('page.home.registerCount')]
+    data: ['ZED', 'EXG', 'FYS', '93X', 'UB']
   },
   grid: {
     left: '3%',
@@ -39,8 +39,8 @@ const { domRef, updateOptions } = useEcharts(() => ({
   },
   series: [
     {
-      color: '#8e9dff',
-      name: $t('page.home.downloadCount'),
+      color: '#37A2FF',
+      name: 'ZED',
       type: 'line',
       smooth: true,
       stack: 'Total',
@@ -54,7 +54,7 @@ const { domRef, updateOptions } = useEcharts(() => ({
           colorStops: [
             {
               offset: 0.25,
-              color: '#8e9dff'
+              color: '#37A2FF'
             },
             {
               offset: 1,
@@ -69,8 +69,8 @@ const { domRef, updateOptions } = useEcharts(() => ({
       data: [] as number[]
     },
     {
-      color: '#26deca',
-      name: $t('page.home.registerCount'),
+      color: '#80FFA5',
+      name: 'EXG',
       type: 'line',
       smooth: true,
       stack: 'Total',
@@ -84,7 +84,97 @@ const { domRef, updateOptions } = useEcharts(() => ({
           colorStops: [
             {
               offset: 0.25,
-              color: '#26deca'
+              color: '#80FFA5'
+            },
+            {
+              offset: 1,
+              color: '#fff'
+            }
+          ]
+        }
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      color: '#FF0087',
+      name: 'FYS',
+      type: 'line',
+      smooth: true,
+      stack: 'Total',
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0.25,
+              color: '#FF0087'
+            },
+            {
+              offset: 1,
+              color: '#fff'
+            }
+          ]
+        }
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      color: '#FFBF00',
+      name: '93X',
+      type: 'line',
+      smooth: true,
+      stack: 'Total',
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0.25,
+              color: '#FFBF00'
+            },
+            {
+              offset: 1,
+              color: '#fff'
+            }
+          ]
+        }
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      color: '#00DDFF',
+      name: 'UB',
+      type: 'line',
+      smooth: true,
+      stack: 'Total',
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0.25,
+              color: '#00DDFF'
             },
             {
               offset: 1,
@@ -102,15 +192,15 @@ const { domRef, updateOptions } = useEcharts(() => ({
 }));
 
 async function mockData() {
-  await new Promise(resolve => {
-    setTimeout(resolve, 1000);
-  });
-
+  const { data } = await fetchGetLineChart();
   updateOptions(opts => {
-    opts.xAxis.data = ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '24:00'];
-    opts.series[0].data = [4623, 6145, 6268, 6411, 1890, 4251, 2978, 3880, 3606, 4311];
-    opts.series[1].data = [2208, 2016, 2916, 4512, 8281, 2008, 1963, 2367, 2956, 678];
-
+    opts.legend.data = data?.communityNames ?? [];
+    opts.xAxis.data = data?.timeMinutes ?? [];
+    opts.series[0].data = data?.communityStatistics?.[0] ?? [];
+    opts.series[1].data = data?.communityStatistics?.[1] ?? [];
+    opts.series[2].data = data?.communityStatistics?.[2] ?? [];
+    opts.series[3].data = data?.communityStatistics?.[3] ?? [];
+    opts.series[4].data = data?.communityStatistics?.[4] ?? [];
     return opts;
   });
 }

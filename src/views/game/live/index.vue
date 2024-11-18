@@ -27,6 +27,12 @@ const { columns, data, getData, getDataByPage, loading, mobilePagination, search
       width: 48
     },
     {
+      key: 'index',
+      title: $t('common.index'),
+      width: 64,
+      align: 'center'
+    },
+    {
       key: 'uid',
       title: $t('page.game.live.uid'),
       width: 100,

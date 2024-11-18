@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'Soybean 管理系统',
+    title: '蔚蓝档案登录器',
     updateTitle: '系统版本更新通知',
     updateContent: '检测到系统有新版本发布，是否立即刷新页面？',
     updateConfirm: '立即刷新',
@@ -182,7 +182,12 @@ const local: App.I18n.Schema = {
     game_map: '游戏地图管理',
     game_live: '游戏直播管理',
     server: '服务器查询',
-    server_csgo: 'Counter-Strike 2'
+    server_csgo: 'Counter-Strike 2',
+    live: '直播推荐',
+    tool: '工具',
+    tool_bind: '按键助手',
+    community: '社区导航',
+    map: '地图列表'
   },
   page: {
     login: {
@@ -207,9 +212,7 @@ const local: App.I18n.Schema = {
         register: '注册账号',
         otherAccountLogin: '其他账号登录',
         otherLoginMode: '其他登录方式',
-        superAdmin: '超级管理员',
-        admin: '管理员',
-        user: '普通用户'
+        qq: 'QQ登陆'
       },
       codeLogin: {
         title: '验证码登录',
@@ -233,7 +236,7 @@ const local: App.I18n.Schema = {
     },
     about: {
       title: '关于',
-      introduction: `SoybeanAdmin 是一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。SoybeanAdmin 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。`,
+      introduction: `本登录器基于SoybeanAdmin开发而来,后端借于Panis重构开发,使用了SpringBoot3,MybatisFlex开发,非常感谢SoybeanAdmin和Panis的作者。`,
       projectInfo: {
         title: '项目信息',
         version: '版本',
@@ -245,33 +248,15 @@ const local: App.I18n.Schema = {
       devDep: '开发依赖'
     },
     home: {
-      branchDesc:
-        '为了方便大家开发和更新合并，我们对main分支的代码进行了精简，只保留了首页菜单，其余内容已移至example分支进行维护。预览地址显示的内容即为example分支的内容。',
       greeting: '早安，{userName}, 今天又是充满活力的一天!',
-      weatherDesc: '今日多云转晴，20℃ - 25℃!',
-      projectCount: '项目数',
-      todo: '待办',
-      message: '消息',
-      downloadCount: '下载量',
-      registerCount: '注册量',
-      schedule: '作息安排',
-      study: '学习',
-      work: '工作',
-      rest: '休息',
-      entertainment: '娱乐',
-      visitCount: '访问量',
-      turnover: '成交额',
-      dealCount: '成交量',
+      webSiteDesc: '欢迎光临蔚蓝档案登录器！🌈',
+      pieChart: '社区在线饼图',
       projectNews: {
         title: '项目动态',
         moreNews: '更多动态',
-        desc1: 'Soybean 在2021年5月28日创建了开源项目 soybean-admin!',
-        desc2: 'Yanbowe 向 soybean-admin 提交了一个bug，多标签栏不会自适应。',
-        desc3: 'Soybean 准备为 soybean-admin 的发布做充分的准备工作!',
-        desc4: 'Soybean 正在忙于为soybean-admin写项目说明文档！',
-        desc5: 'Soybean 刚才把工作台页面随便写了一些，凑合能看了！'
+        desc1: '夏天于2024年11月18日重构了蔚蓝档案登录器!'
       },
-      creativity: '创意'
+      onlineUser: '在线用户'
     },
     manage: {
       common: {

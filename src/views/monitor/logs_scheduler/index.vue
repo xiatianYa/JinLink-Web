@@ -1,17 +1,3 @@
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsSchedulerSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation v-model:columns="columnChecks" :deleteAll="true"
-        :deleteAllAuth="'mon:monLogsScheduler:delete'" :checked-row-keys="checkedRowKeys" :loading="loading"
-        @delete="handleBatchDelete" @refresh="getData" />
-      <NDataTable v-model:checked-row-keys="checkedRowKeys" remote striped size="small" class="sm:h-full" :data="data"
-        :scroll-x="962" :columns="columns" :flex-height="!appStore.isMobile" :loading="loading" :single-line="false"
-        :row-key="row => row.id" :pagination="mobilePagination" />
-    </NCard>
-  </div>
-</template>
-
 <script setup lang="tsx">
 import { NCard } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
@@ -43,7 +29,7 @@ const {
   apiFn: fetchGetSchedulerLogList,
   apiParams: {
     current: 1,
-    size: 20,
+    size: 10,
     jobName: null
   },
   columns: () => [
@@ -120,12 +106,11 @@ const {
       title: $t('page.monitor.logs.scheduler.stackTrace'),
       align: 'center',
       width: 100
-    },
+    }
   ]
 });
 
 const { checkedRowKeys, onDeleted } = useTableOperate(data, getData);
-
 
 async function handleBatchDelete() {
   // request
@@ -133,3 +118,35 @@ async function handleBatchDelete() {
   if (result.data) onDeleted();
 }
 </script>
+
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsSchedulerSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation
+        v-model:columns="columnChecks"
+        :delete-all="true"
+        delete-all-auth="mon:monLogsScheduler:delete"
+        :checked-row-keys="checkedRowKeys"
+        :loading="loading"
+        @delete="handleBatchDelete"
+        @refresh="getData"
+      />
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        remote
+        striped
+        size="small"
+        class="sm:h-full"
+        :data="data"
+        :scroll-x="962"
+        :columns="columns"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :single-line="false"
+        :row-key="row => row.id"
+        :pagination="mobilePagination"
+      />
+    </NCard>
+  </div>
+</template>

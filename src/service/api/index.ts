@@ -20,3 +20,4 @@ export * from './game/mode';
 export * from './game/server';
 export * from './game/map';
 export * from './game/live';
+export * from './game/statistics';

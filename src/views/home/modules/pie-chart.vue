@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { watch } from 'vue';
 import { $t } from '@/locales';
-import { useAppStore } from '@/store/modules/app';
 import { useEcharts } from '@/hooks/common/echarts';
+import { fetchGetPieChart } from '@/service/api';
 
 defineOptions({
   name: 'PieChart'
 });
-
-const appStore = useAppStore();
 
 const { domRef, updateOptions } = useEcharts(() => ({
   tooltip: {
@@ -23,8 +20,8 @@ const { domRef, updateOptions } = useEcharts(() => ({
   },
   series: [
     {
-      color: ['#5da8ff', '#8e9dff', '#fedc69', '#26deca'],
-      name: $t('page.home.schedule'),
+      color: ['#37A2FF', '#80FFA5', '#FF0087', '#FFBF00', '#00DDFF'],
+      name: $t('page.home.pieChart'),
       type: 'pie',
       radius: ['45%', '75%'],
       avoidLabelOverlap: false,
@@ -52,35 +49,10 @@ const { domRef, updateOptions } = useEcharts(() => ({
 }));
 
 async function mockData() {
-  await new Promise(resolve => {
-    setTimeout(resolve, 1000);
-  });
+  const { data } = await fetchGetPieChart();
 
   updateOptions(opts => {
-    opts.series[0].data = [
-      { name: $t('page.home.study'), value: 20 },
-      { name: $t('page.home.entertainment'), value: 10 },
-      { name: $t('page.home.work'), value: 40 },
-      { name: $t('page.home.rest'), value: 30 }
-    ];
-
-    return opts;
-  });
-}
-
-function updateLocale() {
-  updateOptions((opts, factory) => {
-    const originOpts = factory();
-
-    opts.series[0].name = originOpts.series[0].name;
-
-    opts.series[0].data = [
-      { name: $t('page.home.study'), value: 20 },
-      { name: $t('page.home.entertainment'), value: 10 },
-      { name: $t('page.home.work'), value: 40 },
-      { name: $t('page.home.rest'), value: 30 }
-    ];
-
+    opts.series[0].data = data ?? [];
     return opts;
   });
 }
@@ -88,13 +60,6 @@ function updateLocale() {
 async function init() {
   mockData();
 }
-
-watch(
-  () => appStore.locale,
-  () => {
-    updateLocale();
-  }
-);
 
 // init
 init();

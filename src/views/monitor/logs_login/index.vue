@@ -1,16 +1,3 @@
-<template>
-  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <LogsLoginSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
-      <TableHeaderOperation :deleteAll="true" :deleteAllAuth="'mon:monLogsLogin:delete'" v-model:columns="columnChecks"
-        :checked-row-keys="checkedRowKeys" :loading="loading" @delete="handleBatchDelete" @refresh="getData" />
-      <NDataTable v-model:checked-row-keys="checkedRowKeys" remote striped size="small" class="sm:h-full" :data="data"
-        :scroll-x="962" :columns="columns" :flex-height="!appStore.isMobile" :loading="loading" :single-line="false"
-        :row-key="row => row.id" :pagination="mobilePagination" />
-    </NCard>
-  </div>
-</template>
-
 <script setup lang="tsx">
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
@@ -41,7 +28,7 @@ const {
   apiFn: fetchGetLoginLogList,
   apiParams: {
     current: 1,
-    size: 20,
+    size: 10,
     userName: null,
     userRealName: null
   },
@@ -115,3 +102,35 @@ async function handleBatchDelete() {
   if (result.data) onDeleted();
 }
 </script>
+
+<template>
+  <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
+    <LogsLoginSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
+      <TableHeaderOperation
+        v-model:columns="columnChecks"
+        :delete-all="true"
+        delete-all-auth="mon:monLogsLogin:delete"
+        :checked-row-keys="checkedRowKeys"
+        :loading="loading"
+        @delete="handleBatchDelete"
+        @refresh="getData"
+      />
+      <NDataTable
+        v-model:checked-row-keys="checkedRowKeys"
+        remote
+        striped
+        size="small"
+        class="sm:h-full"
+        :data="data"
+        :scroll-x="962"
+        :columns="columns"
+        :flex-height="!appStore.isMobile"
+        :loading="loading"
+        :single-line="false"
+        :row-key="row => row.id"
+        :pagination="mobilePagination"
+      />
+    </NCard>
+  </div>
+</template>

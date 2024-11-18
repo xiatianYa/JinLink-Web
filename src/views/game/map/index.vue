@@ -33,7 +33,7 @@ const {
   apiFn: fetchGetMapList,
   apiParams: {
     current: 1,
-    size: 20,
+    size: 10,
     mapName: null,
     mapLabel: null,
     modeId: null,

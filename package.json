@@ -1,7 +1,7 @@
 {
-  "name": "soybean-admin",
+  "name": "blue-archive",
   "type": "module",
-  "version": "1.3.7",
+  "version": "1.0.0",
   "description": "A fresh and elegant admin template, based on Vue3、Vite3、TypeScript、NaiveUI and UnoCSS. 一个基于Vue3、Vite3、TypeScript、NaiveUI and UnoCSS的清新优雅的中后台模版。",
   "author": {
     "name": "Soybean",
@@ -9,12 +9,12 @@
     "url": "https://github.com/soybeanjs"
   },
   "license": "MIT",
-  "homepage": "https://github.com/soybeanjs/soybean-admin",
+  "homepage": "https://github.com/xiatianYa",
   "repository": {
     "url": "https://github.com/soybeanjs/soybean-admin.git"
   },
   "bugs": {
-    "url": "https://github.com/soybeanjs/soybean-admin/issues"
+    "url": "https://www.bluearchive.top"
   },
   "keywords": [
     "Vue3 admin ",

@@ -45,41 +45,24 @@ declare namespace Api {
     type SteamServer = {
       /** 服务器名称 */
       serverName: string;
-      /** 社区ID */
-      communityId: string;
-      /** 社区名称 */
-      communityName: string;
-      /** 模式ID */
-      modeId: string;
-      /** 模式名称 */
-      modeName: string;
-      /** 游戏ID */
-      gameId: string;
-      /** 游戏名称 */
-      gameName: string;
-      /** IP */
-      ip: string;
-      /** 端口 */
-      port: string;
-      /** 排序值 */
-      sort: number;
-      /** 服务器数据 */
-      serverVo: {
-        /** 地图名称 */
-        mapName: string;
-        /** 地图标签 */
-        mapLabel: string;
-        /** 图片路径 */
-        mapUrl: string;
-        /** 地图类型 */
-        type: string;
-        /** 地图标签 */
-        tag: Array<string>;
-        /** 在线玩家数 */
-        players: number;
-        /** 最大在线玩家数 */
-        maxPlayers: number;
-      };
+      /** 服务器地址 */
+      addr: string;
+      /** 地图名称 */
+      mapName: string;
+      /** 地图标签 */
+      mapLabel: string;
+      /** 图片路径 */
+      mapUrl: string;
+      /** 地图类型 */
+      type: string;
+      /** 地图标签 */
+      tag: Array<string>;
+      /** 在线玩家数 */
+      players: number;
+      /** 最大在线玩家数 */
+      maxPlayers: number;
+      /** 最小在线玩家数 */
+      minPlayers: number;
     };
 
     /** serverVo */
