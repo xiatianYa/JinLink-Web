@@ -4,12 +4,14 @@ import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin, fetchOAuthLogin } from '@/service/api';
+import { fetchGetUserInfo, fetchLogin, fetchLogout, fetchOAuthLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
+import QC from '@/utils/js/qqAuth.js';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
 import { useDictStore } from '../dict';
+import { useGameStore } from '../game';
 import { clearAuthStorage, getToken } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
@@ -17,7 +19,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const routeStore = useRouteStore();
   const dictStore = useDictStore();
   const tabStore = useTabStore();
-  const { toLogin, redirectFromLogin } = useRouterPush(false);
+  const gameStore = useGameStore();
+  const { redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
   const token = ref(getToken());
@@ -25,6 +28,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const userInfo: Api.Auth.UserInfo = reactive({
     userId: '',
     userName: '',
+    avatar: '',
     roles: [],
     buttons: []
   });
@@ -41,18 +45,26 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   /** Reset auth store */
   async function resetStore() {
+    await fetchLogout();
+
     const authStore = useAuthStore();
 
     clearAuthStorage();
 
     authStore.$reset();
 
-    if (!route.meta.constant) {
-      await toLogin();
-    }
+    gameStore.closeWebSocket();
 
     tabStore.cacheTabs();
     routeStore.resetStore();
+
+    // 清除第三方登录
+    QC.Login.signOut();
+
+    // 无论怎么样 都给我滚去登录页
+    if (!route.meta.constant) {
+      await redirectFromLogin(false);
+    }
   }
 
   /**
@@ -74,6 +86,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
         await routeStore.initAuthRoute();
 
         await dictStore.init();
+
+        // initialize the websocket
+        await gameStore.initWebSocket();
 
         await redirectFromLogin(redirect);
 
@@ -122,6 +137,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
         await routeStore.initAuthRoute();
 
         await dictStore.init();
+
+        // initialize the websocket
+        await gameStore.initWebSocket();
 
         await redirectFromLogin(redirect);
 

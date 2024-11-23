@@ -64,3 +64,11 @@ export function fetchOAuthLogin(accessToken: string, openId: string, type: numbe
     }
   });
 }
+
+/** Logout */
+export function fetchLogout() {
+  return request<string>({
+    url: '/auth/logout',
+    method: 'post'
+  });
+}

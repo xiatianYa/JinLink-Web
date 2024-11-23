@@ -45,6 +45,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   monitor_scheduler: () => import("@/views/monitor/scheduler/index.vue"),
   monitor_system: () => import("@/views/monitor/system/index.vue"),
   server_csgo: () => import("@/views/server/csgo/index.vue"),
+  server_projectzombie: () => import("@/views/server/projectZombie/index.vue"),
   tool_bind: () => import("@/views/tool/bind/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),
 };

@@ -198,6 +198,7 @@ const routeMap: RouteMap = {
   "monitor_system": "/monitor/system",
   "server": "/server",
   "server_csgo": "/server/csgo",
+  "server_projectzombie": "/server/projectzombie",
   "tool": "/tool",
   "tool_bind": "/tool/bind",
   "user-center": "/user-center"

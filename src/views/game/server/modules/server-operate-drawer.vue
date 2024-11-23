@@ -58,7 +58,7 @@ function createDefaultModel(): Model {
   return {
     serverName: '',
     communityId: '',
-    modeId: '',
+    modeId: null,
     gameId: '',
     ip: '',
     port: '',

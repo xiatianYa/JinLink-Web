@@ -1,7 +1,7 @@
 import { createDiscreteApi } from 'naive-ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
-const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
+const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
 const Websocket: any = {
   websocket: null,
   // 连接地址
@@ -31,7 +31,7 @@ const Websocket: any = {
       });
       return;
     }
-    if (!authStore.token) {
+    if (!authStore.isLogin) {
       Websocket.notification.error({
         content: '认证失败',
         meta: 'Token不存在',
@@ -82,7 +82,7 @@ const Websocket: any = {
           Websocket.notification.success({
             content: '连接成功',
             meta: '游戏服务连接成功',
-            duration: 1500,
+            duration: 1000,
             keepAliveOnHover: true
           });
           break;
@@ -108,6 +108,14 @@ const Websocket: any = {
     };
     // 连接断开时触发
     Websocket.websocket.onclose = () => {
+      // 如果当前用户退出登录 则不进行重新连接
+      if (!authStore.isLogin) return;
+      Websocket.notification.warning({
+        content: '服务器连接断开',
+        meta: '自动尝试重新连接中 或 刷新浏览器!',
+        duration: 4000,
+        keepAliveOnHover: true
+      });
       Websocket.onClose();
     };
     // 连接成功
@@ -139,6 +147,16 @@ const Websocket: any = {
   // 重新连接
   reconnect: () => {
     Websocket.init();
+  },
+  // 关闭Websocket连接
+  close: () => {
+    if (Websocket.websocket) {
+      // 关闭websocket
+      Websocket.websocket.close();
+    }
+    // 清除定时器任务
+    clearTimeout(Websocket.reconnectTimer);
+    Websocket.reconnectTimer = null;
   }
 };
 export default Websocket;

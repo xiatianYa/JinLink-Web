@@ -187,7 +187,8 @@ const local: App.I18n.Schema = {
     tool: 'Tool',
     tool_bind: 'Bind Key',
     community: 'Community',
-    map: 'Map'
+    map: 'Map',
+    server_projectzombie: 'Project Zombie'
   },
   page: {
     login: {
@@ -744,6 +745,8 @@ const local: App.I18n.Schema = {
         port: 'Port',
         addServer: 'Server Add',
         editServer: 'Server Edit',
+        players: 'Players',
+        addr: 'Addr',
         form: {
           serverName: 'Please enter server name',
           communityId: 'Please select community id',
@@ -763,6 +766,7 @@ const local: App.I18n.Schema = {
         artifact: 'Artifact',
         addMap: 'Map Add',
         editMap: 'Map Edit',
+        mapCd: 'Map Cd',
         form: {
           mapName: 'Please enter map name',
           mapLabel: 'Please enter map label',

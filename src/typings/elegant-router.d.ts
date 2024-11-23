@@ -52,6 +52,7 @@ declare module "@elegant-router/types" {
     "monitor_system": "/monitor/system";
     "server": "/server";
     "server_csgo": "/server/csgo";
+    "server_projectzombie": "/server/projectzombie";
     "tool": "/tool";
     "tool_bind": "/tool/bind";
     "user-center": "/user-center";
@@ -148,6 +149,7 @@ declare module "@elegant-router/types" {
     | "monitor_scheduler"
     | "monitor_system"
     | "server_csgo"
+    | "server_projectzombie"
     | "tool_bind"
     | "user-center"
   >;

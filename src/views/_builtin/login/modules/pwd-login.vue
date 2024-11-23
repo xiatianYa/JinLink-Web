@@ -18,8 +18,8 @@ interface FormModel {
 }
 
 const model: FormModel = reactive({
-  userName: 'admin',
-  password: 'kt123456'
+  userName: '',
+  password: ''
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
@@ -53,7 +53,7 @@ async function checkLogin() {
       // 成功获取用户openId
       if (openId) {
         // 调用后台接口 把用户存入数据库 并且返回token
-        await authStore.oAuthLogin({ accessToken, openId, type: 0 });
+        await authStore.oAuthLogin({ accessToken, openId, type: 0, redirect: false });
       }
     });
   }

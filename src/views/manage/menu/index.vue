@@ -21,7 +21,7 @@ const { bool: visible, setTrue: openModal } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
-const { columns, data, loading, pagination, getData, getDataByPage } = useTable({
+const { columns, columnChecks, data, loading, pagination, getData, getDataByPage } = useTable({
   apiFn: fetchGetMenuList,
   columns: () => [
     {
@@ -232,9 +232,15 @@ init();
 
 <template>
   <div ref="wrapperRef" class="flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+    <NCard
+      :title="$t('page.manage.menu.title')"
+      :bordered="false"
+      class="sm:flex-1-hidden card-wrapper"
+      content-class="flex-col"
+    >
       <TableHeaderOperation
         v-model:checked-row-keys="checkedRowKeys"
+        v-model:columns="columnChecks"
         add-auth="sys:menu:save"
         delete-auth="sys:menu:delete"
         :disabled-delete="checkedRowKeys.length === 0"

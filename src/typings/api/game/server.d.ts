@@ -8,8 +8,14 @@ declare namespace Api {
     /** server list */
     type ServerList = Common.PaginatingQueryRecord<ServerVo>;
 
-    /** server list */
-    type SteamServerVoList = Array<SteamServerVo>;
+    /** server vo list */
+    type SteamServerVoList = Array<SourceServerVo>;
+
+    /** server vo page */
+    type SteamServerVoPage = Common.PaginatingQueryRecord<SteamServerVo>;
+
+    /** server vo */
+    type SteamServerOnLineUser = Array<SourcePlayer>;
 
     /** server */
     type Server = Common.CommonRecord<{
@@ -18,7 +24,7 @@ declare namespace Api {
       /** 社区ID */
       communityId: string;
       /** 模式ID */
-      modeId: string;
+      modeId: string | null;
       /** 游戏ID */
       gameId: string;
       /** IP */
@@ -36,33 +42,9 @@ declare namespace Api {
       /** 社区ID */
       communityId: string;
       /** 模式ID */
-      modeId: string;
+      modeId: string | null;
       /** 游戏ID */
       gameId: string;
-    };
-
-    /** server server */
-    type SteamServer = {
-      /** 服务器名称 */
-      serverName: string;
-      /** 服务器地址 */
-      addr: string;
-      /** 地图名称 */
-      mapName: string;
-      /** 地图标签 */
-      mapLabel: string;
-      /** 图片路径 */
-      mapUrl: string;
-      /** 地图类型 */
-      type: string;
-      /** 地图标签 */
-      tag: Array<string>;
-      /** 在线玩家数 */
-      players: number;
-      /** 最大在线玩家数 */
-      maxPlayers: number;
-      /** 最小在线玩家数 */
-      minPlayers: number;
     };
 
     /** serverVo */
@@ -90,13 +72,55 @@ declare namespace Api {
     }>;
 
     /** steam server vo */
-    type SteamServerVo = Common.CommonRecord<{
+    type SteamServerVo = {
+      /** 服务器名称 */
+      serverName: string;
+      /** 服务器地址 */
+      addr: string;
+      /** 服务器IP */
+      ip: string;
+      /** 服务器端口 */
+      port: string;
+      /** 模式ID */
+      modeId: number;
+      /** 游戏ID */
+      gameId: string;
+      /** 地图名称 */
+      mapName: string;
+      /** 地图标签 */
+      mapLabel: string;
+      /** 图片路径 */
+      mapUrl: string;
+      /** 地图类型 */
+      type: string;
+      /** 地图标签 */
+      tag: Array<string>;
+      /** 在线玩家数 */
+      players: number;
+      /** 最大在线玩家数 */
+      maxPlayers: number;
+      /** 最小在线玩家数 */
+      minPlayers: number;
+      /** 在线玩家 */
+      sourcePlayers: Array<SourcePlayer>;
+    };
+    type SourcePlayer = {
+      /** 索引 */
+      index: number;
+      /** 名称 */
+      name: string;
+      /** 分数 */
+      score: number;
+      /** 持续时间 */
+      duration: number;
+    };
+    type SourceServerVo = {
       /** 社区对象 */
-      gameCommunityVo: Game.Community;
-      /** 在线人数 */
-      onlineCount: number;
-      /** 社区服务器数据 */
-      gameServerVoList: Array<Game.SteamServer>;
-    }>;
+      gameCommunity: Game.Community;
+      /** 社区在线人数 */
+      onLineUserNumber: number;
+      /** 服务器列表 */
+      gameServerVoList: Array<SteamServerVo>;
+    };
   }
 }

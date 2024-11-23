@@ -9,6 +9,8 @@ defineOptions({
 interface Props {
   /** the community name options */
   communityOptions?: CommonType.Option[] | [];
+  /** the mode name options */
+  modeOptions?: CommonType.Option[] | [];
 }
 
 const props = defineProps<Props>();
@@ -24,6 +26,8 @@ const model = defineModel<Api.Game.ServerSearchParams>('model', { required: true
 
 const communityOption = ref<CommonType.Option[]>([]);
 
+const modeOption = ref<CommonType.Option[]>([]);
+
 function reset() {
   emit('reset');
 }
@@ -34,6 +38,7 @@ function search() {
 
 function handleInitModel() {
   Object.assign(communityOption.value, props.communityOptions);
+  Object.assign(modeOption.value, props.modeOptions);
 }
 
 watch(
@@ -64,6 +69,13 @@ watch(
                 v-model:value="model.communityId"
                 :options="communityOption"
                 :placeholder="$t('page.game.server.form.communityId')"
+              />
+            </NFormItemGi>
+            <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.server.modeId')" path="modeId" class="pr-24px">
+              <NSelect
+                v-model:value="model.modeId"
+                :options="modeOption"
+                :placeholder="$t('page.game.server.form.modeId')"
               />
             </NFormItemGi>
             <NFormItemGi span="24 s:12 m:6">

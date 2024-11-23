@@ -13,7 +13,17 @@ const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
 
-const { columns, data, loading, getData, getDataByPage, mobilePagination, searchParams, resetSearchParams } = useTable({
+const {
+  columns,
+  data,
+  loading,
+  columnChecks,
+  getData,
+  getDataByPage,
+  mobilePagination,
+  searchParams,
+  resetSearchParams
+} = useTable({
   apiFn: fetchGetRoleList,
   apiParams: {
     current: 1,
@@ -135,8 +145,14 @@ function edit(id: string) {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+    <NCard
+      :title="$t('page.manage.role.title')"
+      :bordered="false"
+      class="sm:flex-1-hidden card-wrapper"
+      content-class="flex-col"
+    >
       <TableHeaderOperation
+        v-model:columns="columnChecks"
         v-model:checked-row-keys="checkedRowKeys"
         add-auth="sys:role:save"
         delete-auth="sys:role:delete"

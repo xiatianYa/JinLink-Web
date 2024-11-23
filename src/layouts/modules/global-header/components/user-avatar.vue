@@ -65,11 +65,7 @@ function logout() {
 }
 
 function handleDropdown(key: DropdownKey) {
-  console.log(key);
-
   if (key === 'logout') {
-    console.log(key);
-
     logout();
   } else {
     // If your other options are jumps from other routes, they will be directly supported here
@@ -85,7 +81,7 @@ function handleDropdown(key: DropdownKey) {
   <NDropdown v-else placement="bottom" trigger="click" :options="options" @select="handleDropdown">
     <div>
       <ButtonIcon>
-        <SvgIcon icon="ph:user-circle" class="text-icon-large" />
+        <NAvatar :src="authStore.userInfo.avatar" round size="small" />
         <span class="text-16px font-medium">{{ authStore.userInfo.userName }}</span>
       </ButtonIcon>
     </div>

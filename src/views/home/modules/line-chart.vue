@@ -43,7 +43,6 @@ const { domRef, updateOptions } = useEcharts(() => ({
       name: 'ZED',
       type: 'line',
       smooth: true,
-      stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -73,7 +72,6 @@ const { domRef, updateOptions } = useEcharts(() => ({
       name: 'EXG',
       type: 'line',
       smooth: true,
-      stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -103,7 +101,6 @@ const { domRef, updateOptions } = useEcharts(() => ({
       name: 'FYS',
       type: 'line',
       smooth: true,
-      stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -133,7 +130,6 @@ const { domRef, updateOptions } = useEcharts(() => ({
       name: '93X',
       type: 'line',
       smooth: true,
-      stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -163,7 +159,6 @@ const { domRef, updateOptions } = useEcharts(() => ({
       name: 'UB',
       type: 'line',
       smooth: true,
-      stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',

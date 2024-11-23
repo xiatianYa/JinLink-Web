@@ -64,7 +64,7 @@ const {
               {row.fileUrl}
             </a>
           )}
-          {getFileTypeByExtension(row.fileUrl) === 'image' && <NImage src={row.fileUrl}>图片</NImage>}
+          {getFileTypeByExtension(row.fileUrl) === 'image' && <NImage src={row.fileUrl}></NImage>}
           {getFileTypeByExtension(row.fileUrl) === 'video' && (
             <a href={row.fileUrl} target="_blank">
               {row.fileUrl}

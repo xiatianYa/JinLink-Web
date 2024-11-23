@@ -13,7 +13,7 @@ const { dictOptions } = useDict();
 
 interface Props {
   /** 社区服务器数据 */
-  gameServerVo: Api.Game.SteamServer;
+  gameServerVo: Api.Game.SteamServerVo;
 }
 
 // 定义props
@@ -29,7 +29,7 @@ const automaticDialog = ref(false);
 const gameStore = useGameStore();
 
 // 定义游戏服务器数据
-const gameServer = ref<Api.Game.SteamServer | null>();
+const gameServer = ref<Api.Game.SteamServerVo | null>();
 
 // 定义标签数据
 const tagOptions = ref<Api.SystemManage.DictOptions[]>([]);
@@ -104,7 +104,7 @@ const renderTypeName = (typeName: string) => {
 };
 
 // 计算进度颜色
-const getOnLineColor = (server: Api.Game.SteamServer) => {
+const getOnLineColor = (server: Api.Game.SteamServerVo) => {
   if (!server) return '';
   if (server.players <= 20) {
     return `background-color: #00f91a;height: ${(server.players / server.maxPlayers) * 100}%;`;
@@ -133,7 +133,7 @@ const getProgressColor = (progress: any) => {
 };
 
 // 加入服务器
-const joinServer = (server: Api.Game.SteamServer) => {
+const joinServer = (server: Api.Game.SteamServerVo) => {
   const aLink = document.createElement('a');
   aLink.href = `steam://rungame/730/76561198977557298/+connect ${server.addr}`;
   aLink.click();
@@ -141,13 +141,13 @@ const joinServer = (server: Api.Game.SteamServer) => {
 };
 
 // 复制服务器地址
-const copyServerAddr = (server: Api.Game.SteamServer) => {
+const copyServerAddr = (server: Api.Game.SteamServerVo) => {
   navigator.clipboard.writeText(`connect ${server.addr}`);
   message.success('复制成功');
 };
 
 // 打开自动挤服窗口
-const onAutoJoinMap = (server: Api.Game.SteamServer) => {
+const onAutoJoinMap = (server: Api.Game.SteamServerVo) => {
   automaticDialog.value = true;
   gameStore.automaticInfo = server;
   gameStore.automaticInfo!.minPlayers = server.maxPlayers - 1;
@@ -197,7 +197,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="server-card flex overflow-hidden" :style="{ backgroundImage: `url(${gameServer?.mapUrl})` }">
+  <div
+    class="server-card flex overflow-hidden"
+    :style="{
+      backgroundImage: `url(${gameServer?.mapUrl ? gameServer?.mapUrl : 'https://www.bluearchive.top/statics/2024/11/21/noImg.jpg'})`
+    }"
+  >
     <div class="server-card-mask"></div>
     <div class="server-online" :style="`${getOnLineColor(gameServer!)}`"></div>
     <div class="server-card-left">
@@ -216,8 +221,13 @@ onMounted(() => {
           </NEllipsis>
         </div>
         <div>
-          <NTag v-if="gameServer?.type" :color="renderColor(gameServer?.type ?? '-1')" size="small" strong
-            class="ml-5px mr-10px">
+          <NTag
+            v-if="gameServer?.type"
+            :color="renderColor(gameServer?.type ?? '-1')"
+            size="small"
+            strong
+            class="ml-5px mr-10px"
+          >
             {{ renderTypeName(gameServer?.type ?? '-1') }}
           </NTag>
         </div>
@@ -252,18 +262,36 @@ onMounted(() => {
             <span>译名 : {{ gameStore.automaticInfo?.mapLabel }}</span>
           </NSpace>
           <NSpace class="mb-10px flex-y-center">
-            <NImage v-if="gameStore.automaticInfo?.mapUrl" width="170" :src="gameStore.automaticInfo?.mapUrl" />
-            <NProgress type="circle" :color="getProgressColor(
-              ((gameStore.automaticInfo?.players ?? 0) / (gameStore.automaticInfo?.maxPlayers ?? 1)) * 100
-            )
+            <NImage
+              width="170"
+              :src="
+                gameStore.automaticInfo?.mapUrl
+                  ? gameStore.automaticInfo?.mapUrl
+                  : 'https://www.bluearchive.top/statics/2024/11/21/noImg.jpg'
               "
-              :percentage="((gameStore.automaticInfo?.players ?? 0) / (gameStore.automaticInfo?.maxPlayers ?? 1)) * 100">
+            />
+            <NProgress
+              type="circle"
+              :color="
+                getProgressColor(
+                  ((gameStore.automaticInfo?.players ?? 0) / (gameStore.automaticInfo?.maxPlayers ?? 1)) * 100
+                )
+              "
+              :percentage="((gameStore.automaticInfo?.players ?? 0) / (gameStore.automaticInfo?.maxPlayers ?? 1)) * 100"
+            >
               <span>当前在线人数:{{ gameStore.automaticInfo?.players ?? 0 }}</span>
             </NProgress>
           </NSpace>
           <NSpace class="mb-10px" vertical>
-            <NInputNumber v-model:value="gameStore.automaticInfo!.minPlayers" class="mb-5" placeholder="(小于或等于时自动进入服务器)"
-              :min="0" :max="(gameStore.automaticInfo?.maxPlayers ?? 1) - 1" clearable>
+            <NInputNumber
+              v-model:value="gameStore.automaticInfo!.minPlayers"
+              class="mb-5"
+              placeholder="(小于或等于时自动进入服务器)"
+              :min="0"
+              :max="(gameStore.automaticInfo?.maxPlayers ?? 1) - 1"
+              :disabled="gameStore.isAutomatic"
+              clearable
+            >
               <template #minus-icon>
                 <SvgIcon icon="ion:arrow-down-circle-outline" class="text-20px" />
               </template>

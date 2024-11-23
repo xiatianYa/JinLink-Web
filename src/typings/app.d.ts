@@ -952,6 +952,8 @@ declare namespace App {
             port: string;
             addServer: string;
             editServer: string;
+            players: string;
+            addr: string;
             form: {
               serverName: string;
               communityId: string;
@@ -971,6 +973,7 @@ declare namespace App {
             artifact: string;
             addMap: string;
             editMap: string;
+            mapCd: string;
             form: {
               mapName: string;
               mapLabel: string;

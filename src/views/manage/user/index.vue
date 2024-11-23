@@ -13,7 +13,17 @@ const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
 
-const { columns, data, getData, getDataByPage, loading, mobilePagination, searchParams, resetSearchParams } = useTable({
+const {
+  columns,
+  data,
+  columnChecks,
+  getData,
+  getDataByPage,
+  loading,
+  mobilePagination,
+  searchParams,
+  resetSearchParams
+} = useTable({
   apiFn: fetchGetUserList,
   showTotal: true,
   apiParams: {
@@ -164,13 +174,19 @@ function edit(id: string) {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <UserSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :title="$t('page.manage.user.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+    <NCard
+      :title="$t('page.manage.user.title')"
+      :bordered="false"
+      class="sm:flex-1-hidden card-wrapper"
+      content-class="flex-col"
+    >
       <TableHeaderOperation
-        v-model:checked-row-keys="checkedRowKeys"
-        :disabled-delete="checkedRowKeys.length === 0"
+        v-model:columns="columnChecks"
+        :delete-all="true"
+        delete-all-auth="sys:user:delete"
+        :checked-row-keys="checkedRowKeys"
         :loading="loading"
         add-auth="sys:user:save"
-        delete-auth="sys:user:delete"
         @add="handleAdd"
         @delete="handleBatchDelete"
         @refresh="getData"

@@ -47,14 +47,8 @@ onMounted(async () => {
         </NCollapse>
       </NCard>
       <NCard size="small">
-        <NGrid :y-gap="20" :x-gap="15" responsive="screen" item-responsive>
-          <NGridItem
-            v-for="(live, index) in liveList"
-            :key="index"
-            span="24 s:12 m:6"
-            class="live"
-            @click="goHref(live.biliVo.liveUrl)"
-          >
+        <NGrid :x-gap="10" :y-gap="10" cols="1 s:2 m:2 l:3 xl:4 2xl:5 " responsive="screen">
+          <NGridItem v-for="(live, index) in liveList" :key="index" class="live" @click="goHref(live.biliVo.liveUrl)">
             <div
               class="image-container"
               @mouseover="showStatusId = live.biliVo.roomId"

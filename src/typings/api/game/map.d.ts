@@ -64,6 +64,23 @@ declare namespace Api {
       tag: Array<string>;
       /** 地图神器 */
       artifact: Artifact[];
+      /** 地图CD */
+      mapCd: string;
+      /** 扩展地图 */
+      exgMap: {
+        /** 地图名称 */
+        Name: string;
+        /** 地图名称(翻译) */
+        CnName: string;
+        /** 地图名称(最后运行时间) */
+        LastRun: string;
+        /** 冷却时间(分钟) */
+        CooldownMinute: number;
+        /** 冷却截止 */
+        deadline: string;
+        /** 是否可预定 */
+        isOrder: boolean;
+      };
     }>;
   }
 }

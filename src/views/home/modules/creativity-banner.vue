@@ -12,7 +12,7 @@ defineOptions({
 
 <template>
   <NCard :title="$t('page.home.onlineUser')" :bordered="false" size="small" class="h-full card-wrapper">
-    <NGrid :y-gap="15" :x-gap="20" :cols="10" responsive="screen" :item-responsive="true">
+    <NGrid cols="4 s:6 m:8 l:10 xl:12 2xl:14" responsive="screen">
       <NGridItem v-for="(user, index) in gameStore.onlineUserList" :key="index">
         <NTooltip trigger="hover">
           <template #trigger>

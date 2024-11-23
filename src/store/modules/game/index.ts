@@ -9,7 +9,7 @@ export const useGameStore = defineStore(SetupStoreId.Game, () => {
   // 是否自动挤服
   const isAutomatic = ref<boolean>(false);
   // 挤服信息
-  const automaticInfo = ref<Api.Game.SteamServer | null>(null);
+  const automaticInfo = ref<Api.Game.SteamServerVo | null>(null);
   // 检测次数
   const automaticCount = ref<number>(0);
   // 在线用户列表
@@ -20,8 +20,16 @@ export const useGameStore = defineStore(SetupStoreId.Game, () => {
     Websocket.init();
   }
 
+  /** Close WebSocket connection */
+  function closeWebSocket() {
+    if (Websocket.websocket) {
+      Websocket.close();
+    }
+  }
+
   return {
     initWebSocket,
+    closeWebSocket,
     autoMapReceiveList,
     automaticInfo,
     automaticCount,

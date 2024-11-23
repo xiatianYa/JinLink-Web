@@ -1,8 +1,7 @@
 <script setup lang="tsx">
 import { onMounted, ref, watch } from 'vue';
-import { fetchGetCommunityNames, fetchGetModeNames, fetchGetServerAllBySteam, fetchGetServerList } from '@/service/api';
+import { fetchGetCommunityNames, fetchGetModeNames, fetchGetServerAllBySteam } from '@/service/api';
 import { useGameStore } from '@/store/modules/game';
-import { useTable } from '@/hooks/common/table';
 import ServerCard from '../modules/serverCard.vue';
 import ServerSearch from '../modules/server-search.vue';
 
@@ -16,19 +15,25 @@ const serverDataList = ref<Api.Game.SteamServerVoList>([]);
 const gameStore = useGameStore();
 // 加载状态
 const loading = ref(true);
-
 // 搜索参数
-const { searchParams, resetSearchParams } = useTable({
-  apiFn: fetchGetServerList,
-  showTotal: true,
-  apiParams: {
+const searchParams = ref<Api.Game.ServerSearchParams>({
+  current: 1,
+  size: 10,
+  communityId: null,
+  modeId: null,
+  gameId: '1'
+});
+
+// 重置搜索参数
+const resetSearchParams = () => {
+  searchParams.value = {
     current: 1,
     size: 10,
     communityId: null,
-    modeId: null
-  },
-  columns: () => []
-});
+    modeId: null,
+    gameId: '1'
+  };
+};
 
 // 初始化社区和模式数据
 async function initOptions() {
@@ -44,7 +49,8 @@ async function initOptions() {
 
 // 初始化服务器数据
 async function initServer() {
-  const { error, data } = await fetchGetServerAllBySteam(searchParams);
+  loading.value = true;
+  const { error, data } = await fetchGetServerAllBySteam(searchParams.value);
   if (!error) {
     serverDataList.value = data;
   }
@@ -69,14 +75,20 @@ watch(
     for (const currentCommunity of serverDataList.value) {
       // 在新数据中查找匹配的社区
       const matchingSteamServer = newAutoMapReceiveList.find(
-        server => server.gameCommunityVo.id === currentCommunity.gameCommunityVo.id
+        server => server.gameCommunity.id === currentCommunity.gameCommunity.id
       );
 
       // 如果找到了匹配的社区，则更新当前社区的数据
       if (matchingSteamServer) {
-        currentCommunity.gameCommunityVo = matchingSteamServer.gameCommunityVo;
-        currentCommunity.onlineCount = matchingSteamServer.onlineCount;
-        currentCommunity.gameServerVoList = matchingSteamServer.gameServerVoList;
+        Object.assign(currentCommunity, matchingSteamServer);
+        // 过滤掉不匹配的游戏模式
+        if (searchParams.value.modeId) {
+          const gameServerVoListResult = currentCommunity.gameServerVoList.filter(
+            server => Number(server.modeId) === Number(searchParams.value.modeId)
+          );
+          if (gameServerVoListResult && gameServerVoListResult.length > 0)
+            currentCommunity.gameServerVoList = gameServerVoListResult;
+        }
       }
 
       // 更新当前是否在自动挤服 下来地图数据 实时更新地图数据
@@ -102,27 +114,28 @@ watch(
     <NSpin :show="loading" size="large" class="min-h-500px">
       <ServerSearch
         v-model:model="searchParams"
+        class="mb-15px"
         :community-options="communityOptions"
         :mode-options="modeOptions"
         @reset="resetSearchParams"
         @search="initServer"
       />
-      <NCard v-for="community in serverDataList" :key="community.id" size="small">
+      <NCard v-for="community in serverDataList" :key="community.gameCommunity.id" size="small" class="mb-15px">
         <template #header>
           <NTag>
-            {{ community.gameCommunityVo.communityName }}
-            <template v-if="community.gameCommunityVo.logo" #avatar>
-              <NAvatar :src="community.gameCommunityVo.logo" />
+            {{ community.gameCommunity.communityName }}
+            <template v-if="community.gameCommunity.logo" #avatar>
+              <NAvatar :src="community.gameCommunity.logo" />
             </template>
           </NTag>
         </template>
         <template #header-extra>
           <NStatistic label="在线人数" tabular-nums>
-            <NNumberAnimation :from="0" :to="community.onlineCount" :duration="2000" />
+            <NNumberAnimation :from="0" :to="community.onLineUserNumber" :duration="2000" />
           </NStatistic>
         </template>
-        <NGrid :y-gap="20" :x-gap="15" responsive="screen" :item-responsive="true">
-          <NGridItem v-for="(server, index) in community.gameServerVoList" :key="index" span="24 s:12 m:6">
+        <NGrid :x-gap="10" :y-gap="10" cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen">
+          <NGridItem v-for="(server, index) in community.gameServerVoList" :key="index">
             <ServerCard :game-server-vo="server" />
           </NGridItem>
         </NGrid>

@@ -67,6 +67,7 @@ declare namespace Api {
     interface UserInfo {
       userId: string;
       userName: string;
+      avatar: string;
       roles: string[];
       buttons: string[];
     }
@@ -528,6 +529,8 @@ declare namespace Api {
       userName: string;
       /** file url */
       fileUrl: string;
+      /** file name */
+      fileName: string;
       /** file size */
       fileSize: string;
       /** login status */

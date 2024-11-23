@@ -361,6 +361,15 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'server_csgo',
           i18nKey: 'route.server_csgo'
         }
+      },
+      {
+        name: 'server_projectzombie',
+        path: '/server/projectzombie',
+        component: 'view.server_projectzombie',
+        meta: {
+          title: 'server_projectzombie',
+          i18nKey: 'route.server_projectzombie'
+        }
       }
     ]
   },

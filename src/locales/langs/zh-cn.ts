@@ -187,7 +187,8 @@ const local: App.I18n.Schema = {
     tool: '工具',
     tool_bind: '按键助手',
     community: '社区导航',
-    map: '地图列表'
+    map: '地图列表',
+    server_projectzombie: 'Project Zombie'
   },
   page: {
     login: {
@@ -744,6 +745,8 @@ const local: App.I18n.Schema = {
         port: '端口',
         addServer: '添加游戏服务器',
         editServer: '编辑游戏服务器',
+        players: '玩家数',
+        addr: '服务器地址',
         form: {
           serverName: '请输入服务器名称',
           communityId: '请选择社区名称',
@@ -763,6 +766,7 @@ const local: App.I18n.Schema = {
         artifact: '神器',
         addMap: '添加地图',
         editMap: '编辑地图',
+        mapCd: '地图CD',
         form: {
           mapName: '请输入地图名称',
           mapLabel: '请输入地图标签',
