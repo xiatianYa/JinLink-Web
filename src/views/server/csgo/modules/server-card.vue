@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { NTag, useMessage } from 'naive-ui';
+import { NTag, createDiscreteApi, useMessage } from 'naive-ui';
 import { onMounted, ref, watch } from 'vue';
 import { useDict } from '@/hooks/business/dict';
 import { useGameStore } from '@/store/modules/game';
 import websocket from '@/utils/websocket';
+const { notification } = createDiscreteApi(['notification']);
 
 defineOptions({
   name: 'ServerCard'
@@ -148,9 +149,47 @@ const copyServerAddr = (server: Api.Game.SteamServerVo) => {
 
 // 打开自动挤服窗口
 const onAutoJoinMap = (server: Api.Game.SteamServerVo) => {
-  automaticDialog.value = true;
-  gameStore.automaticInfo = server;
-  gameStore.automaticInfo!.minPlayers = server.maxPlayers - 1;
+  if (gameStore.isAutomatic && gameStore.automaticInfo?.addr === server.addr) {
+    automaticDialog.value = true;
+  } else {
+    gameStore.isAutomatic = false;
+    automaticDialog.value = true;
+    const {
+      serverName,
+      addr,
+      ip,
+      port,
+      modeId,
+      gameId,
+      mapName,
+      mapLabel,
+      mapUrl,
+      type,
+      tag,
+      players,
+      maxPlayers,
+      minPlayers,
+      sourcePlayers
+    } = server;
+    gameStore.automaticInfo = {
+      serverName,
+      addr,
+      ip,
+      port,
+      modeId,
+      gameId,
+      mapName,
+      mapLabel,
+      mapUrl,
+      type,
+      tag,
+      players,
+      maxPlayers,
+      minPlayers,
+      sourcePlayers
+    };
+    gameStore.automaticInfo!.minPlayers = server.maxPlayers - 1;
+  }
 };
 
 // 开启自动挤服
@@ -174,9 +213,12 @@ const handleAutomaticPersonnel = (value: boolean) => {
 
 // 抽屉关闭的回调函数
 const handleDrawerClose = () => {
-  gameStore.automaticInfo = null;
-  gameStore.isAutomatic = false;
-  gameStore.automaticCount = 0;
+  notification.warning({
+    content: '自动挤服框已隐藏',
+    meta: '未关闭的自动挤服,将继续尝试挤服',
+    duration: 4000,
+    keepAliveOnHover: true
+  });
 };
 
 // 监听props变化

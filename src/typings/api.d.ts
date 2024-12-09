@@ -31,10 +31,10 @@ declare namespace Api {
     /**
      * enable status
      *
-     * - "1": enabled
-     * - "2": disabled
+     * - "0": enabled
+     * - "1": disabled
      */
-    type EnableStatus = '1' | '2';
+    type EnableStatus = '0' | '1' | '2';
 
     /** common record */
     type CommonRecord<T = any> = {
@@ -67,9 +67,30 @@ declare namespace Api {
     interface UserInfo {
       userId: string;
       userName: string;
+      userPhone: string;
+      userEmail: string;
+      userGender: string;
       avatar: string;
       roles: string[];
       buttons: string[];
+    }
+
+    interface UserOneSelf {
+      userName: string;
+      userPhone: string;
+      userEmail: string;
+      userGender: string | null;
+    }
+
+    interface UserPassword {
+      oldPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    }
+
+    interface UserRestart {
+      userName: string;
+      password: string;
     }
   }
 
@@ -272,6 +293,8 @@ declare namespace Api {
     type UserVo = {
       /** user name */
       userName: string;
+      /** user avatar */
+      userAvatar: string;
       /** user gender */
       userGender: UserGender | null;
       /** user nick name */
@@ -284,6 +307,19 @@ declare namespace Api {
       status: Api.Common.EnableStatus | null;
       /** user role code collection */
       userRoles: string[];
+    };
+
+    /** user password edit model */
+    type UserPasswordVo = {
+      oldPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    };
+
+    /** user info edit model */
+    type UserInfoVo = {
+      userName: string;
+      password: string;
     };
 
     /** roleVo */

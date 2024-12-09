@@ -345,6 +345,26 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'reservation',
+    path: '/reservation',
+    component: 'layout.base',
+    meta: {
+      title: 'reservation',
+      i18nKey: 'route.reservation'
+    },
+    children: [
+      {
+        name: 'reservation_feedback',
+        path: '/reservation/feedback',
+        component: 'view.reservation_feedback',
+        meta: {
+          title: 'reservation_feedback',
+          i18nKey: 'route.reservation_feedback'
+        }
+      }
+    ]
+  },
+  {
     name: 'server',
     path: '/server',
     component: 'layout.base',
@@ -354,12 +374,30 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'server_7daystodie',
+        path: '/server/7daystodie',
+        component: 'view.server_7daystodie',
+        meta: {
+          title: 'server_7daystodie',
+          i18nKey: 'route.server_7daystodie'
+        }
+      },
+      {
         name: 'server_csgo',
         path: '/server/csgo',
         component: 'view.server_csgo',
         meta: {
           title: 'server_csgo',
           i18nKey: 'route.server_csgo'
+        }
+      },
+      {
+        name: 'server_minecraft',
+        path: '/server/minecraft',
+        component: 'view.server_minecraft',
+        meta: {
+          title: 'server_minecraft',
+          i18nKey: 'route.server_minecraft'
         }
       },
       {
@@ -389,6 +427,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'tool_bind',
           i18nKey: 'route.tool_bind'
+        }
+      },
+      {
+        name: 'tool_maporder',
+        path: '/tool/maporder',
+        component: 'view.tool_maporder',
+        meta: {
+          title: 'tool_maporder',
+          i18nKey: 'route.tool_maporder'
         }
       }
     ]

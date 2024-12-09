@@ -51,3 +51,28 @@ export function fetchGetUserNames() {
     method: 'get'
   });
 }
+
+/** update user info */
+export function fetchUpdateUserInfo(params: Api.Auth.UserOneSelf) {
+  return request({
+    url: '/sysUser/updateUserInfo',
+    method: 'put',
+    data: params
+  });
+}
+/** update user password */
+export function fetchUpdatePassword(params: Api.Auth.UserPassword) {
+  return request({
+    url: '/sysUser/updatePassword',
+    method: 'put',
+    data: params
+  });
+}
+/** restart user info */
+export function fetchRestartUserInfo(params: Api.Auth.UserRestart) {
+  return request({
+    url: '/sysUser/reset',
+    method: 'put',
+    data: params
+  });
+}

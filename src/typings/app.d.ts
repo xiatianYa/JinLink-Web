@@ -326,6 +326,7 @@ declare namespace App {
         update: string;
         updateSuccess: string;
         userCenter: string;
+        resetUserName: string;
         yesOrNo: {
           yes: string;
           no: string;
@@ -402,8 +403,10 @@ declare namespace App {
           common: {
             loginOrRegister: string;
             userNamePlaceholder: string;
+            userNickNamePlaceholder: string;
             phonePlaceholder: string;
             codePlaceholder: string;
+            getCodePlaceholder: string;
             passwordPlaceholder: string;
             confirmPasswordPlaceholder: string;
             codeLogin: string;
@@ -412,6 +415,7 @@ declare namespace App {
             validateSuccess: string;
             loginSuccess: string;
             welcomeBack: string;
+            registerSuccess: string;
           };
           pwdLogin: {
             title: string;
@@ -459,12 +463,38 @@ declare namespace App {
           greeting: string;
           webSiteDesc: string;
           pieChart: string;
+          sponsor: {
+            title: string;
+            sponsorRecord: string;
+            name: string;
+            amount: string;
+            time: string;
+            desc: string;
+          };
           projectNews: {
             title: string;
             moreNews: string;
             desc1: string;
+            desc2: string;
+            desc3: string;
+            desc4: string;
+            desc5: string;
           };
           onlineUser: string;
+        };
+        tool: {
+          bind: {
+            key: string;
+            value: string;
+          };
+          mapOrder: {
+            add: string;
+            test: string;
+            mapName: string;
+            form: {
+              mapName: string;
+            };
+          };
         };
         manage: {
           common: {
@@ -859,60 +889,6 @@ declare namespace App {
               notBetween: string;
             };
           };
-          generateTable: {
-            tableName: string;
-            tableComment: string;
-            tablePrefix: string;
-            parentPackage: string;
-            moduleName: string;
-            parentMenuName: string;
-            author: string;
-            status: string;
-            form: {
-              tableName: string;
-              tableNameSelect: string;
-              tableComment: string;
-              tablePrefix: string;
-              parentPackage: string;
-              moduleName: string;
-              parentMenuName: string;
-              author: string;
-            };
-            addGenerate: string;
-            editGenerate: string;
-            isNotDevEnvTip: string;
-          };
-          generateTableColumn: {
-            ordinalPosition: string;
-            columnName: string;
-            propertyName: string;
-            columnComment: string;
-            dataType: string;
-            javaType: string;
-            typescriptType: string;
-            list: string;
-            search: string;
-            searchType: string;
-            required: string;
-            added: string;
-            edit: string;
-            renderType: string;
-            dictCode: string;
-            status: string;
-            cleanColumns: string;
-            cleanColumnsConfirm: string;
-            cleanSuccess: string;
-            syncColumns: string;
-            syncColumnsConfirm: string;
-            syncSuccess: string;
-            baseInfo: string;
-            columnInfo: string;
-            resultInfo: string;
-            generateSuccess: string;
-            downloadZip: string;
-            previous: string;
-            next: string;
-          };
         };
         game: {
           community: {
@@ -954,6 +930,7 @@ declare namespace App {
             editServer: string;
             players: string;
             addr: string;
+            version: string;
             form: {
               serverName: string;
               communityId: string;
@@ -991,6 +968,9 @@ declare namespace App {
             bgUrl: string;
             addLive: string;
             editLive: string;
+            notLive: string;
+            enterLive: string;
+            joinLive: string;
             form: {
               uid: string;
               avatar: string;
@@ -1003,10 +983,57 @@ declare namespace App {
             title: string;
           };
         };
+        feedback: {
+          userName: string;
+          content: string;
+          image: string;
+          type: string;
+          status: string;
+          addFeedback: string;
+          editFeedback: string;
+          form: {
+            content: string;
+            image: string;
+            type: string;
+            status: string;
+          };
+        };
+        userCenter: {
+          userInfo: {
+            userName: string;
+            password: string;
+            nickName: string;
+            phone: string;
+            email: string;
+            gender: string;
+            communityPreference: string;
+            modePreference: string;
+            personalInfo: string;
+            changePassword: string;
+            gameConfig: string;
+            basicInfo: string;
+            edit: string;
+            oldPassword: string;
+            newPassword: string;
+            confirmPassword: string;
+            restartUserName: string;
+            restartUserNameConfirm: string;
+            form: {
+              userName: string;
+              password: string;
+              communityPreferencePlaceholder: string;
+              modePreferencePlaceholder: string;
+              oldPasswordPlaceholder: string;
+              newPasswordPlaceholder: string;
+              confirmPasswordPlaceholder: string;
+            };
+          };
+        };
       };
       form: {
         required: string;
         userName: FormMsg;
+        nickName: FormMsg;
         phone: FormMsg;
         pwd: FormMsg;
         confirmPwd: FormMsg;

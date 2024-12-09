@@ -43,7 +43,7 @@ onMounted(async () => {
     <NSpin :show="loading" size="large" class="min-h-500px">
       <NCard v-if="hasAuth('game:gameLive:save')" class="mb-10px card-wrapper" :bordered="false" size="small">
         <NCollapse>
-          <NButton strong secondary type="info" @click="openJoin">主播入驻</NButton>
+          <NButton strong secondary type="info" @click="openJoin">{{ $t('page.game.live.joinLive') }}</NButton>
         </NCollapse>
       </NCard>
       <NCard size="small">
@@ -64,8 +64,12 @@ onMounted(async () => {
                 "
               ></div>
               <div class="status">
-                <span v-if="showStatusId === live.biliVo.roomId && live.biliVo.liveStatus === 1">进入直播间</span>
-                <span v-if="!live.biliVo.liveStatus || live.biliVo.liveStatus === 2">未开播</span>
+                <span v-if="showStatusId === live.biliVo.roomId && live.biliVo.liveStatus === 1">
+                  {{ $t('page.game.live.enterLive') }}
+                </span>
+                <span v-if="!live.biliVo.liveStatus || live.biliVo.liveStatus === 2">
+                  {{ $t('page.game.live.notLive') }}
+                </span>
               </div>
               <div class="gameType">
                 <span>

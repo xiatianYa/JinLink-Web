@@ -1,7 +1,6 @@
 <script setup lang="tsx">
-import { ref } from 'vue';
 import { NButton, useMessage } from 'naive-ui';
-import { fetchGetServerAllByPage, fetchGetServerOnlineUser } from '@/service/api';
+import { fetchGetMinecraftPage } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
@@ -10,24 +9,20 @@ const appStore = useAppStore();
 
 // 提示消息对象
 const message = useMessage();
-// 展示的服务器数据
-const serverData = ref<Api.Game.SteamServerVo>();
-// 是否展示在线玩家
-const showOnlineUser = ref(false);
 
 // 复制服务器地址
-const copyServerAddr = (server: Api.Game.SteamServerVo) => {
+const copyServerAddr = (server: Api.Game.MinecraftServerVo) => {
   navigator.clipboard.writeText(`connect ${server.addr}`);
   message.success('复制成功');
 };
 
 const { columns, data, columnChecks, getData, loading, mobilePagination } = useTable({
-  apiFn: fetchGetServerAllByPage,
+  apiFn: fetchGetMinecraftPage,
   showTotal: true,
   apiParams: {
     current: 1,
     size: 30,
-    gameId: '2'
+    gameId: '6'
   },
   columns: () => [
     {
@@ -37,10 +32,13 @@ const { columns, data, columnChecks, getData, loading, mobilePagination } = useT
       align: 'center'
     },
     {
-      key: 'serverName',
+      key: 'description',
       title: $t('page.game.server.serverName'),
       align: 'center',
-      minWidth: 100
+      minWidth: 100,
+      render: row => {
+        return <span>{JSON.parse(row.description).text}</span>;
+      }
     },
     {
       key: 'addr',
@@ -49,12 +47,21 @@ const { columns, data, columnChecks, getData, loading, mobilePagination } = useT
       minWidth: 100
     },
     {
+      key: 'version',
+      title: $t('page.game.server.version'),
+      align: 'center',
+      minWidth: 100,
+      render: row => {
+        return <span>{row.version.name}</span>;
+      }
+    },
+    {
       key: 'players',
       title: $t('page.game.server.players'),
       align: 'center',
       minWidth: 100,
       render: row => {
-        return <span>{`${row.players} / ${row.maxPlayers}`}</span>;
+        return <span>{`${row.players.online} / ${row.players.max}`}</span>;
       }
     },
     {
@@ -66,24 +73,11 @@ const { columns, data, columnChecks, getData, loading, mobilePagination } = useT
           <NButton type="primary" ghost size="small" onClick={() => copyServerAddr(row)}>
             复制地址
           </NButton>
-          <NButton type="info" ghost size="small" onClick={() => getOnlineUser(row)}>
-            在线玩家
-          </NButton>
         </div>
       )
     }
   ]
 });
-
-// 获取在线玩家
-async function getOnlineUser(server: Api.Game.SteamServerVo) {
-  message.info('获取中...');
-  const onlineUserResult = await fetchGetServerOnlineUser(server.addr);
-  showOnlineUser.value = true;
-  // 更新数据
-  server.sourcePlayers = onlineUserResult.data || [];
-  serverData.value = server;
-}
 </script>
 
 <template>
@@ -102,24 +96,6 @@ async function getOnlineUser(server: Api.Game.SteamServerVo) {
         :pagination="mobilePagination"
         class="sm:h-full"
       />
-      <NDrawer v-model:show="showOnlineUser" :width="300">
-        <NDrawerContent :title="serverData?.serverName">
-          <NTable :bordered="false" :single-line="false">
-            <thead>
-              <tr>
-                <th>用户名称</th>
-                <th>在线时长</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in serverData?.sourcePlayers" :key="item.name">
-                <td>{{ item.name }}</td>
-                <td>{{ Math.floor(item.duration / 60) }}分钟</td>
-              </tr>
-            </tbody>
-          </NTable>
-        </NDrawerContent>
-      </NDrawer>
     </NCard>
   </div>
 </template>

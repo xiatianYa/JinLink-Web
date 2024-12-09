@@ -48,7 +48,8 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: '是',
       no: '否'
-    }
+    },
+    resetUserName: '重置账号'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -188,13 +189,19 @@ const local: App.I18n.Schema = {
     tool_bind: '按键助手',
     community: '社区导航',
     map: '地图列表',
-    server_projectzombie: 'Project Zombie'
+    server_projectzombie: 'Project Zombie',
+    server_7daystodie: '7 Days To Die',
+    tool_maporder: '地图订阅',
+    reservation: '服务需求',
+    reservation_feedback: '意见反馈',
+    server_minecraft: 'Minecraft'
   },
   page: {
     login: {
       common: {
         loginOrRegister: '登录 / 注册',
-        userNamePlaceholder: '请输入用户名',
+        userNamePlaceholder: '请输入账号名',
+        userNickNamePlaceholder: '请输入昵称',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',
         passwordPlaceholder: '请输入密码',
@@ -204,7 +211,9 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName} ！'
+        welcomeBack: '欢迎回来，{userName} ！',
+        getCodePlaceholder: '获取验证码',
+        registerSuccess: '注册成功'
       },
       pwdLogin: {
         title: '密码登录',
@@ -255,9 +264,21 @@ const local: App.I18n.Schema = {
       projectNews: {
         title: '项目动态',
         moreNews: '更多动态',
-        desc1: '夏天于2024年11月18日重构了蔚蓝档案登录器!'
+        desc1: '夏天重构了蔚蓝档案登录器!',
+        desc2: '优化自动挤服,挤服框关闭后将继续尝试挤服',
+        desc3: '新增地图订阅功能',
+        desc4: '新增意见反馈',
+        desc5: '新增个人中心,可前往重置账号,设置默认社区偏好,模式偏好等'
       },
-      onlineUser: '在线用户'
+      onlineUser: '在线用户',
+      sponsor: {
+        title: '赞赏码',
+        name: '名称',
+        amount: '赞赏金额',
+        time: '赞赏时间',
+        desc: '赞助的费用将用于(网站维护,机器人维护)和请我吃KFC,O(∩_∩)O,感谢各位大佬的赞助。',
+        sponsorRecord: '赞赏记录'
+      }
     },
     manage: {
       common: {
@@ -651,60 +672,6 @@ const local: App.I18n.Schema = {
           between: '在区间内',
           notBetween: '不在区间内'
         }
-      },
-      generateTable: {
-        tableName: '表名',
-        tableComment: '表注释',
-        tablePrefix: '表前缀',
-        parentPackage: '生成父包名',
-        moduleName: '模块名',
-        parentMenuName: '上级菜单',
-        author: '作者',
-        status: '状态',
-        form: {
-          tableName: '请输入表名',
-          tableNameSelect: '请选择表名',
-          tableComment: '请输入表注释',
-          tablePrefix: '请输入表前缀',
-          parentPackage: '请输入生成父包名',
-          moduleName: '请输入模块名',
-          parentMenuName: '请选择上级菜单',
-          author: '请输入作者'
-        },
-        addGenerate: '新增生成',
-        editGenerate: '编辑生成表：{tableName}',
-        isNotDevEnvTip: '当前为非开发环境，不允许新增编辑数据'
-      },
-      generateTableColumn: {
-        ordinalPosition: '表序号',
-        columnName: '字段名称',
-        propertyName: '属性名称',
-        columnComment: '字段注释',
-        dataType: '数据类型',
-        javaType: 'Java类型',
-        typescriptType: 'TypeScript类型',
-        list: '列表',
-        search: '查询',
-        searchType: '查询条件',
-        required: '必填',
-        added: '新增',
-        edit: '编辑',
-        renderType: '渲染类型',
-        dictCode: '数据字典',
-        status: '启用状态',
-        cleanColumns: '清空字段',
-        cleanColumnsConfirm: '你确定要清空生成表字段？它会删除现有配置字段，可二次同步数据库字段即可。',
-        cleanSuccess: '清空成功',
-        syncColumns: '同步数据库字段',
-        syncColumnsConfirm: '你确定要同步数据库字段？',
-        syncSuccess: '同步成功',
-        baseInfo: '基础信息',
-        columnInfo: '字段信息',
-        resultInfo: '结果信息',
-        generateSuccess: '生成成功',
-        downloadZip: '下载 ZIP 压缩包',
-        previous: '上一步',
-        next: '下一步'
       }
     },
     game: {
@@ -743,6 +710,7 @@ const local: App.I18n.Schema = {
         gameId: '游戏名称',
         ip: 'Ip',
         port: '端口',
+        version: '版本',
         addServer: '添加游戏服务器',
         editServer: '编辑游戏服务器',
         players: '玩家数',
@@ -784,6 +752,9 @@ const local: App.I18n.Schema = {
         bgUrl: '背景图',
         addLive: '添加直播',
         editLive: '编辑直播',
+        notLive: '未开播',
+        enterLive: '进入直播间',
+        joinLive: '主播入驻',
         form: {
           uid: '请输入uid',
           avatar: '请上传头像',
@@ -794,6 +765,66 @@ const local: App.I18n.Schema = {
     server: {
       csgo2: {
         title: 'Counter-Strike 2'
+      }
+    },
+    tool: {
+      bind: {
+        key: '请选择按键',
+        value: '请选择指令'
+      },
+      mapOrder: {
+        add: '新增订阅',
+        test: '测试通知',
+        mapName: '地图名称',
+        form: {
+          mapName: '请输入地图名称'
+        }
+      }
+    },
+    feedback: {
+      userName: '用户名',
+      content: '反馈内容',
+      image: '反馈图片',
+      type: '反馈类型',
+      status: '反馈状态',
+      addFeedback: '新增反馈',
+      editFeedback: '编辑反馈',
+      form: {
+        content: '请输入反馈内容',
+        image: '请输入地图链接',
+        type: '请选择反馈类型',
+        status: '请选择反馈状态'
+      }
+    },
+    userCenter: {
+      userInfo: {
+        edit: '编辑用户信息',
+        userName: '用户名',
+        password: '密码',
+        nickName: '用户昵称',
+        phone: '手机号',
+        email: '邮箱',
+        gender: '性别',
+        communityPreference: '社区偏好',
+        modePreference: '模式偏好',
+        personalInfo: '个人信息',
+        changePassword: '修改密码',
+        gameConfig: '游戏配置',
+        basicInfo: '基本信息',
+        oldPassword: '旧密码',
+        newPassword: '新密码',
+        confirmPassword: '确认密码',
+        restartUserName: '重置用户信息',
+        restartUserNameConfirm: '你只有一次机会,重置后用户名作为你的登陆账号,请确认是否继续',
+        form: {
+          userName: '请输入用户名',
+          password: '请输入密码',
+          communityPreferencePlaceholder: '请选择社区偏好',
+          modePreferencePlaceholder: '请选择模式偏好',
+          oldPasswordPlaceholder: '请输入旧密码',
+          newPasswordPlaceholder: '请输入新密码',
+          confirmPasswordPlaceholder: '请输入确认密码'
+        }
       }
     }
   },
@@ -822,6 +853,10 @@ const local: App.I18n.Schema = {
     email: {
       required: '请输入邮箱',
       invalid: '邮箱格式不正确'
+    },
+    nickName: {
+      required: '请输入昵称',
+      invalid: '昵称格式不正确'
     }
   },
   dropdown: {

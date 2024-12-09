@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAppStore } from '@/store/modules/app';
+import { $t } from '@/locales';
 import HeaderBanner from './modules/header-banner.vue';
 import LineChart from './modules/line-chart.vue';
 import PieChart from './modules/pie-chart.vue';
@@ -39,25 +40,25 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
       <NGi span="24 s:24 m:14">
         <NCard class="sponsor mb-10">
           <NSpace class="mb-5px">
-            <NText class="text-16px font-semibold">赞赏码</NText>
+            <NText class="text-16px font-semibold">{{ $t('page.home.sponsor.title') }}</NText>
           </NSpace>
           <NSpace>
-            <NImage class="h-250px" src="http://127.0.0.1:8080/statics/2024/11/18/pay.png" />
+            <NImage class="h-250px" src="https://www.bluearchive.top/statics/2024/11/18/pay.png" />
           </NSpace>
         </NCard>
       </NGi>
       <NGi span="24 s:24 m:10">
         <NCard class="sponsor mb-10">
           <NSpace class="mb-5px">
-            <NText class="text-16px font-semibold">赞赏记录</NText>
+            <NText class="text-16px font-semibold">{{ $t('page.home.sponsor.sponsorRecord') }}</NText>
           </NSpace>
           <NInfiniteScroll class="h-300px">
             <NTable :bordered="true" :single-line="false">
               <thead>
                 <tr>
-                  <th>名称</th>
-                  <th>赞赏金额</th>
-                  <th>赞赏时间</th>
+                  <th>{{ $t('page.home.sponsor.name') }}</th>
+                  <th>{{ $t('page.home.sponsor.amount') }}</th>
+                  <th>{{ $t('page.home.sponsor.time') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -136,10 +137,55 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
                   <td>50元</td>
                   <td>2024-11-09</td>
                 </tr>
+                <tr>
+                  <td>Yayoiiii</td>
+                  <td>5元</td>
+                  <td>2024-11-20</td>
+                </tr>
+                <tr>
+                  <td>幻觉表</td>
+                  <td>5元</td>
+                  <td>2024-11-23</td>
+                </tr>
+                <tr>
+                  <td>满山猴子我腚最红</td>
+                  <td>3元</td>
+                  <td>2024-11-23</td>
+                </tr>
+                <tr>
+                  <td>安年</td>
+                  <td>3元</td>
+                  <td>2024-11-24</td>
+                </tr>
+                <tr>
+                  <td>星空·夜想曲</td>
+                  <td>6.66元</td>
+                  <td>2024-11-24</td>
+                </tr>
+                <tr>
+                  <td>冰雪羊</td>
+                  <td>10元</td>
+                  <td>2024-11-29</td>
+                </tr>
+                <tr>
+                  <td>Error</td>
+                  <td>3元</td>
+                  <td>2024-11-30</td>
+                </tr>
+                <tr>
+                  <td>橙大猫</td>
+                  <td>66元</td>
+                  <td>2024-12-02</td>
+                </tr>
+                <tr>
+                  <td>深海潜水</td>
+                  <td>2.33元</td>
+                  <td>2024-12-06</td>
+                </tr>
               </tbody>
             </NTable>
           </NInfiniteScroll>
-          <NSpace class="mt-5">赞助的费用将用于(网站维护,机器人维护)和请我吃KFC,O(∩_∩)O,感谢各位大佬的赞助。</NSpace>
+          <NSpace class="mt-5">{{ $t('page.home.sponsor.desc') }}</NSpace>
         </NCard>
       </NGi>
     </NGrid>

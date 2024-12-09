@@ -1,7 +1,13 @@
 <script setup lang="tsx">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { NButton, useMessage } from 'naive-ui';
-import { fetchGetServerAllByPage, fetchGetServerOnlineUser } from '@/service/api';
+import {
+  fetchGetCommunityNames,
+  fetchGetGameNames,
+  fetchGetModeNames,
+  fetchGetServerAllByPage,
+  fetchGetServerOnlineUser
+} from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
@@ -10,6 +16,12 @@ const appStore = useAppStore();
 
 // 提示消息对象
 const message = useMessage();
+// 社区配置项
+const communityOptions = ref<CommonType.Option<string>[]>([]);
+// 游戏配置项
+const gameOptions = ref<CommonType.Option<string>[]>([]);
+// 模式配置项
+const modeOptions = ref<CommonType.Option<string>[]>([]);
 // 展示的服务器数据
 const serverData = ref<Api.Game.SteamServerVo>();
 // 是否展示在线玩家
@@ -27,7 +39,7 @@ const { columns, data, columnChecks, getData, loading, mobilePagination } = useT
   apiParams: {
     current: 1,
     size: 30,
-    gameId: '2'
+    gameId: '5'
   },
   columns: () => [
     {
@@ -84,6 +96,25 @@ async function getOnlineUser(server: Api.Game.SteamServerVo) {
   server.sourcePlayers = onlineUserResult.data || [];
   serverData.value = server;
 }
+
+// 初始化配置项
+async function initOptions() {
+  const communityNames = await fetchGetCommunityNames();
+  if (communityNames.data) {
+    communityOptions.value = communityNames.data;
+  }
+  const gameNames = await fetchGetGameNames();
+  if (gameNames.data) {
+    gameOptions.value = gameNames.data;
+  }
+  const modeNames = await fetchGetModeNames();
+  if (modeNames.data) {
+    modeOptions.value = modeNames.data;
+  }
+}
+onMounted(() => {
+  initOptions();
+});
 </script>
 
 <template>

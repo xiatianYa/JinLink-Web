@@ -1,62 +1,74 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { $t } from '@/locales';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
-import { useCaptcha } from '@/hooks/business/captcha';
-
+import { fetchGetCode, fetchRegister } from '@/service/api/auth';
 defineOptions({
   name: 'Register'
 });
 
-const { toggleLoginModule } = useRouterPush();
+const { toggleLoginModule, toLogin } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
-const { label, isCounting, loading, getCaptcha } = useCaptcha();
+
+const codeUrl = ref<string | null>(null);
 
 interface FormModel {
-  phone: string;
-  code: string;
+  userName: string;
+  nickName: string;
   password: string;
   confirmPassword: string;
+  code: string;
 }
 
 const model: FormModel = reactive({
-  phone: '',
-  code: '',
+  userName: '',
+  nickName: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  code: ''
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   const { formRules, createConfirmPwdRule } = useFormRules();
 
   return {
-    phone: formRules.phone,
-    code: formRules.code,
+    userName: formRules.userName,
+    nickName: formRules.nickName,
     password: formRules.pwd,
-    confirmPassword: createConfirmPwdRule(model.password)
+    confirmPassword: createConfirmPwdRule(model.password),
+    code: formRules.code
   };
 });
 
 async function handleSubmit() {
   await validate();
-  // request to register
-  window.$message?.success($t('page.login.common.validateSuccess'));
+  const { error } = await fetchRegister(model);
+  if (error) {
+    window.$message?.error(error?.response?.data?.msg || 'Failed to register');
+  } else {
+    window.$message?.success($t('page.login.common.registerSuccess'));
+    toLogin();
+  }
+}
+
+async function getCode() {
+  const { data, error } = await fetchGetCode(model.userName);
+  if (error) {
+    window.$message?.error(error?.response?.data?.msg || 'Failed to get code');
+  } else {
+    codeUrl.value = data;
+  }
 }
 </script>
 
 <template>
   <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false" @keyup.enter="handleSubmit">
-    <NFormItem path="phone">
-      <NInput v-model:value="model.phone" :placeholder="$t('page.login.common.phonePlaceholder')" />
+    <NFormItem path="userName">
+      <NInput v-model:value="model.userName" :placeholder="$t('page.login.common.userNamePlaceholder')" />
     </NFormItem>
-    <NFormItem path="code">
-      <div class="w-full flex-y-center gap-16px">
-        <NInput v-model:value="model.code" :placeholder="$t('page.login.common.codePlaceholder')" />
-        <NButton size="large" :disabled="isCounting" :loading="loading" @click="getCaptcha(model.phone)">
-          {{ label }}
-        </NButton>
-      </div>
+    <NFormItem path="nickName">
+      <NInput v-model:value="model.nickName" :placeholder="$t('page.login.common.userNickNamePlaceholder')" />
     </NFormItem>
     <NFormItem path="password">
       <NInput
@@ -73,6 +85,20 @@ async function handleSubmit() {
         show-password-on="click"
         :placeholder="$t('page.login.common.confirmPasswordPlaceholder')"
       />
+    </NFormItem>
+    <NFormItem path="code">
+      <NInput
+        v-model:value="model.code"
+        type="text"
+        :placeholder="$t('page.login.common.codePlaceholder')"
+        class="mr-10px"
+      />
+      <div class="flex items-center">
+        <NButton v-if="!codeUrl" type="primary" @click="getCode">
+          {{ $t('page.login.common.getCodePlaceholder') }}
+        </NButton>
+        <NImage :src="codeUrl ? `data:image/png;base64,${codeUrl}` : ''" preview-disabled @click="getCode" />
+      </div>
     </NFormItem>
     <NSpace vertical :size="18" class="w-full">
       <NButton type="primary" size="large" round block @click="handleSubmit">

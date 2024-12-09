@@ -50,11 +50,16 @@ declare module "@elegant-router/types" {
     "monitor_logs_scheduler": "/monitor/logs/scheduler";
     "monitor_scheduler": "/monitor/scheduler";
     "monitor_system": "/monitor/system";
+    "reservation": "/reservation";
+    "reservation_feedback": "/reservation/feedback";
     "server": "/server";
+    "server_7daystodie": "/server/7daystodie";
     "server_csgo": "/server/csgo";
+    "server_minecraft": "/server/minecraft";
     "server_projectzombie": "/server/projectzombie";
     "tool": "/tool";
     "tool_bind": "/tool/bind";
+    "tool_maporder": "/tool/maporder";
     "user-center": "/user-center";
   };
 
@@ -100,6 +105,7 @@ declare module "@elegant-router/types" {
     | "manage"
     | "map"
     | "monitor"
+    | "reservation"
     | "server"
     | "tool"
     | "user-center"
@@ -148,9 +154,13 @@ declare module "@elegant-router/types" {
     | "monitor_logs_scheduler"
     | "monitor_scheduler"
     | "monitor_system"
+    | "reservation_feedback"
+    | "server_7daystodie"
     | "server_csgo"
+    | "server_minecraft"
     | "server_projectzombie"
     | "tool_bind"
+    | "tool_maporder"
     | "user-center"
   >;
 

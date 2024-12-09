@@ -1,7 +1,11 @@
+import dayjs from 'dayjs';
 import { createDiscreteApi } from 'naive-ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
+import { fetchUpdateMapOrder } from '@/service/api/game/map';
+import { isMoreThanTwoHours } from '@/utils/time';
 const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
+// const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
 const Websocket: any = {
   websocket: null,
   // 连接地址
@@ -52,8 +56,8 @@ const Websocket: any = {
         case '200':
           Websocket.notification.success({
             content: '连接服务器成功',
-            meta: '登录器反馈群号 -> 901243791, 登录器问题反馈请加群!',
-            duration: 4000,
+            meta: '登录器反馈群号 -> 901243791, 登录器软件版下载,问题反馈请加群!',
+            duration: 6000,
             keepAliveOnHover: true
           });
           break;
@@ -62,6 +66,9 @@ const Websocket: any = {
           // 重新设置全局挤服对象人数信息
           gameStore.automaticInfo!.players = data.players ?? gameStore.automaticInfo!.players;
           gameStore.automaticInfo!.maxPlayers = data.maxPlayers ?? gameStore.automaticInfo!.players;
+          // 重新设置服务器信息
+          gameStore.automaticInfo!.ip = data.ip;
+          gameStore.automaticInfo!.port = data.port;
           // 全局isAutomatic 为 false
           if (!gameStore.isAutomatic) return;
           // 如果返回状态为 true 则继续挤服
@@ -69,14 +76,14 @@ const Websocket: any = {
             gameStore.automaticCount += 1;
             setTimeout(() => {
               Websocket.sendJoinServer(gameStore.automaticInfo);
-            }, 100);
+            }, 70);
             return;
           }
           // 清空数据
           gameStore.isAutomatic = false;
           gameStore.automaticCount = 0;
           const aLink = document.createElement('a');
-          aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo!.addr}`;
+          aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`;
           aLink.click();
           // 发送消息
           Websocket.notification.success({
@@ -90,6 +97,8 @@ const Websocket: any = {
         // 获取服务器数据
         case '202':
           gameStore.autoMapReceiveList = data.data;
+          // 地图订阅通知
+          Websocket.notificationMapOrder(data.data);
           break;
         // 服务器推送在线用户列表
         case '203':
@@ -110,6 +119,9 @@ const Websocket: any = {
     Websocket.websocket.onclose = () => {
       // 如果当前用户退出登录 则不进行重新连接
       if (!authStore.isLogin) return;
+      // 切断自动挤服
+      gameStore.isAutomatic = false;
+      gameStore.automaticCount = 0;
       Websocket.notification.warning({
         content: '服务器连接断开',
         meta: '自动尝试重新连接中 或 刷新浏览器!',
@@ -130,8 +142,117 @@ const Websocket: any = {
     Websocket.websocket.send(data);
   },
   // 发送挤服数据
-  sendJoinServer: (data: Api.Game.SteamServer) => {
+  sendJoinServer: (data: Api.Game.SteamServerVo) => {
     Websocket.websocket.send(JSON.stringify(data));
+  },
+  // 地图订阅通知
+  notificationMapOrder: (data: Array<Api.Game.SourceServerVo>) => {
+    // 游戏仓库
+    const gameStore = useGameStore();
+    data.forEach(async (item: Api.Game.SourceServerVo) => {
+      item.gameServerVoList.forEach(async (server: Api.Game.SteamServerVo) => {
+        // 查找地图订阅是否有此地图
+        const mapOrder = gameStore.mapOrderList?.find((map: Api.GameMapOrder.gameMapOrderVo) => {
+          return map.gameMapVo.mapName === server.mapName;
+        });
+        if (mapOrder) {
+          // 判断当前是添加过通知
+          const isOrder = mapOrder.orderTimes?.find((order: Api.GameMapOrder.orderTime) => {
+            return order.addr === server.addr && order.mapName === server.mapName;
+          });
+          // 如果当前没有通知过 则添加通知
+          if (!isOrder) {
+            mapOrder.orderTimes = [...(mapOrder?.orderTimes ?? [])];
+            mapOrder.orderTimes.push({
+              addr: server.addr,
+              mapName: server.mapName,
+              orderTime: dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss')
+            });
+            // 修改通知时间
+            await fetchUpdateMapOrder({
+              id: mapOrder.id,
+              userId: mapOrder.userId,
+              mapId: mapOrder.gameMapVo.id,
+              orderTimes: JSON.stringify(mapOrder.orderTimes)
+            });
+            // 重置仓库
+            gameStore.initMapOrderList();
+            // 发送通知
+            if (window.Notification) {
+              const popNotice = () => {
+                const notification = new Notification('地图订阅通知', {
+                  body: `您所订阅的地图 ${server.mapName}(${server.mapLabel}) 已在 ${server.serverName} 进行游戏。`,
+                  icon: 'https://www.bluearchive.top/favicon.svg'
+                });
+                // 点击通知的回调函数
+                notification.onclick = () => {
+                  window.open(`steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`);
+                  notification.close();
+                };
+              };
+              /* 授权过通知 */
+              if (Notification.permission === 'granted') {
+                popNotice();
+              } else {
+                /* 未授权，先询问授权 */
+                Notification.requestPermission(() => {
+                  popNotice();
+                });
+              }
+            }
+            // 网页通知
+            Websocket.notification.success({
+              content: '订阅成功',
+              meta: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
+              duration: 5000,
+              keepAliveOnHover: true
+            });
+          } else if (isMoreThanTwoHours(isOrder.orderTime)) {
+            // 如果当前通知过且超过两小时 则修改通知时间
+            isOrder.orderTime = dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss');
+            // 修改通知时间
+            await fetchUpdateMapOrder({
+              id: mapOrder.id,
+              userId: mapOrder.userId,
+              mapId: mapOrder.gameMapVo.id,
+              orderTimes: JSON.stringify(mapOrder.orderTimes)
+            });
+            // 重置仓库
+            gameStore.initMapOrderList();
+            // 发送通知
+            if (window.Notification) {
+              const popNotice = () => {
+                const notification = new Notification('地图订阅通知', {
+                  body: `您所订阅的地图 ${server.mapName}(${server.mapLabel}) 已在 ${server.serverName} 进行游戏。`,
+                  icon: 'https://www.bluearchive.top/favicon.svg'
+                });
+                // 点击通知的回调函数
+                notification.onclick = () => {
+                  window.open(`steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`);
+                  notification.close();
+                };
+              };
+              /* 授权过通知 */
+              if (Notification.permission === 'granted') {
+                popNotice();
+              } else {
+                /* 未授权，先询问授权 */
+                Notification.requestPermission(() => {
+                  popNotice();
+                });
+              }
+            }
+            // 网页通知
+            Websocket.notification.success({
+              content: '订阅成功',
+              meta: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
+              duration: 5000,
+              keepAliveOnHover: true
+            });
+          }
+        }
+      });
+    });
   },
   // 处理断开连接操作
   onClose: () => {

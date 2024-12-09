@@ -1,13 +1,18 @@
 import { ref, toValue } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
+import { REG_CODE_FIVE, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME, REG_USER_NICK_NAME } from '@/constants/reg';
 import { $t } from '@/locales';
 
 export function useFormRules() {
   const patternRules = {
     userName: {
       pattern: REG_USER_NAME,
+      message: $t('form.userName.invalid'),
+      trigger: 'change'
+    },
+    nickName: {
+      pattern: REG_USER_NICK_NAME,
       message: $t('form.userName.invalid'),
       trigger: 'change'
     },
@@ -22,7 +27,7 @@ export function useFormRules() {
       trigger: 'change'
     },
     code: {
-      pattern: REG_CODE_SIX,
+      pattern: REG_CODE_FIVE,
       message: $t('form.code.invalid'),
       trigger: 'change'
     },
@@ -35,6 +40,7 @@ export function useFormRules() {
 
   const formRules = {
     userName: [createRequiredRule($t('form.userName.required')), patternRules.userName],
+    nickName: [createRequiredRule($t('form.nickName.required')), patternRules.nickName],
     phone: [createRequiredRule($t('form.phone.required')), patternRules.phone],
     pwd: [createRequiredRule($t('form.pwd.required')), patternRules.pwd],
     code: [createRequiredRule($t('form.code.required')), patternRules.code],

@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'SoybeanAdmin',
+    title: 'BlueArchiveLogin',
     updateTitle: 'System Version Update Notification',
     updateContent: 'A new version of the system has been detected. Do you want to refresh the page immediately?',
     updateConfirm: 'Refresh immediately',
@@ -48,7 +48,8 @@ const local: App.I18n.Schema = {
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
-    }
+    },
+    resetUserName: 'Reset Account'
   },
   request: {
     logout: 'Logout user after request failed',
@@ -188,15 +189,22 @@ const local: App.I18n.Schema = {
     tool_bind: 'Bind Key',
     community: 'Community',
     map: 'Map',
-    server_projectzombie: 'Project Zombie'
+    server_projectzombie: 'Project Zombie',
+    server_7daystodie: '7 Days To Die',
+    tool_maporder: 'Map Order',
+    reservation: 'Reservation',
+    reservation_feedback: 'Feedback',
+    server_minecraft: 'Minecraft'
   },
   page: {
     login: {
       common: {
         loginOrRegister: 'Login / Register',
         userNamePlaceholder: 'Please enter user name',
+        userNickNamePlaceholder: 'Please enter nickname',
         phonePlaceholder: 'Please enter phone number',
         codePlaceholder: 'Please enter verification code',
+        getCodePlaceholder: 'Get verification code',
         passwordPlaceholder: 'Please enter password',
         confirmPasswordPlaceholder: 'Please enter password again',
         codeLogin: 'Verification code login',
@@ -204,7 +212,8 @@ const local: App.I18n.Schema = {
         back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !'
+        welcomeBack: 'Welcome back, {userName} !',
+        registerSuccess: 'Register successfully'
       },
       pwdLogin: {
         title: 'Password Login',
@@ -255,9 +264,22 @@ const local: App.I18n.Schema = {
       projectNews: {
         title: 'Project News',
         moreNews: 'More News',
-        desc1: 'Summer rebuilt the blue archive login server on November 18, 2024!'
+        desc1: 'Summer rebuilt the blue archive login server on November 18, 2024!',
+        desc2: 'Optimized automatic server frame, after closing the server frame, it will continue to try to squeeze!',
+        desc3: 'Added map subscription function',
+        desc4: 'Added feedback function',
+        desc5:
+          'Added personal center, you can go to reset account, set default community preferences, mode preferences, etc.'
       },
-      onlineUser: 'Online User'
+      onlineUser: 'Online User',
+      sponsor: {
+        title: 'Sponsor',
+        name: 'Name',
+        amount: 'Amount',
+        time: 'Time',
+        desc: 'The sponsorship fee will be used for (website maintenance, robot maintenance) and to invite me to eat KFC, O(∩_∩)O, thank you all the big guys for the sponsorship.',
+        sponsorRecord: 'Sponsor Record'
+      }
     },
     manage: {
       common: {
@@ -377,254 +399,254 @@ const local: App.I18n.Schema = {
         }
       },
       dict: {
-        title: '字典列表',
-        name: '字典名称',
-        code: '字典编码',
-        type: '字典类型',
-        description: '字典描述',
-        sort: '排序',
-        status: '字典状态',
+        title: 'Dictionary List',
+        name: 'Dictionary Name',
+        code: 'Dictionary Code',
+        type: 'Dictionary Type',
+        description: 'Dictionary Description',
+        sort: 'Sort',
+        status: 'Dictionary Status',
         form: {
-          name: '请输入字典名称',
-          code: '请输入字典编码',
-          type: '请选择字典类型',
-          description: '请输入字典描述',
-          sort: '请输入排序',
-          status: '请选择字典状态'
+          name: 'Please enter dictionary name',
+          code: 'Please enter dictionary code',
+          type: 'Please select dictionary type',
+          description: 'Please enter dictionary description',
+          sort: 'Please enter sort',
+          status: 'Please select dictionary status'
         },
-        addDict: '新增字典',
-        editDict: '编辑字典',
+        addDict: 'Add Dictionary',
+        editDict: 'Edit Dictionary',
         dictType: {
-          system: '系统字典',
-          business: '业务字典'
+          system: 'System Dictionary',
+          business: 'Business Dictionary'
         },
-        loadCacheSuccess: '缓存成功',
-        selectTreeIsEmptyTip: '请选择字典查看子项目',
-        systemFieldsCannotBeDeleted: '系统字段禁止操作删除'
+        loadCacheSuccess: 'Cache Success',
+        selectTreeIsEmptyTip: 'Please select dictionary to view sub items',
+        systemFieldsCannotBeDeleted: 'System fields cannot be deleted'
       },
       dictItem: {
-        title: '字典项列表',
-        dictCode: '字典编码',
-        value: '字典值',
-        zhCN: '中文',
-        enUS: '英文',
-        color: '#颜色',
-        sort: '排序',
-        type: '类型',
-        status: '状态',
-        description: '描述',
+        title: 'Dictionary Item List',
+        dictCode: 'Dictionary Code',
+        value: 'Dictionary Value',
+        zhCN: 'Chinese',
+        enUS: 'English',
+        color: 'Color',
+        sort: 'Sort',
+        type: 'Type',
+        status: 'Status',
+        description: 'Description',
         form: {
-          value: '请输入字典值',
-          zhCN: '请输入字典项中文',
-          enUS: '请输入字典项英文',
-          color: '请选择颜色',
-          type: '请选择类型',
-          sort: '请输入排序',
-          status: '请选择字典项状态',
-          description: '请输入字典描述'
+          value: 'Please enter dictionary value',
+          zhCN: 'Please enter dictionary item Chinese',
+          enUS: 'Please enter dictionary item English',
+          color: 'Please select color',
+          type: 'Please select type',
+          sort: 'Please enter sort',
+          status: 'Please select dictionary item status',
+          description: 'Please enter dictionary description'
         },
-        addDictItem: '新增字典项',
-        editDictItem: '编辑字典项'
+        addDictItem: 'Add Dictionary Item',
+        editDictItem: 'Edit Dictionary Item'
       }
     },
     monitor: {
       percentage: '{value} %',
       scheduler: {
-        title: '任务列表',
-        jobName: '任务名称',
-        jobGroup: '任务组别',
-        triggerName: '触发器名称',
-        triggerGroup: '触发器组别',
-        jobData: '任务参数',
-        triggerData: '触发器参数',
-        addScheduler: '添加调度任务',
-        editScheduler: '编辑调度任务',
-        corn: '调度表达式',
-        jobClassName: '调度任务全类名',
-        status: '状态',
+        title: 'Scheduler List',
+        jobName: 'Job Name',
+        jobGroup: 'Job Group',
+        triggerName: 'Trigger Name',
+        triggerGroup: 'Trigger Group',
+        jobData: 'Job Data',
+        triggerData: 'Trigger Data',
+        addScheduler: 'Add Scheduler Task',
+        editScheduler: 'Edit Scheduler Task',
+        corn: 'Corn',
+        jobClassName: 'Job Class Name',
+        status: 'Status',
         form: {
-          jobName: '请输入任务名称',
-          jobGroup: '请输入任务组别',
-          triggerName: '请输入触发器名称',
-          triggerGroup: '请输入触发器组别',
-          jobData: '请输入任务参数',
-          triggerData: '请输入触发器参数',
-          corn: '请输入调度表达式',
-          jobClassName: '请输入调度任务全类名',
-          status: '状态'
+          jobName: 'Please enter job name',
+          jobGroup: 'Please enter job group',
+          triggerName: 'Please enter trigger name',
+          triggerGroup: 'Please enter trigger group',
+          jobData: 'Please enter job data',
+          triggerData: 'Please enter trigger data',
+          corn: 'Please enter corn',
+          jobClassName: 'Please enter job class name',
+          status: 'Please select status'
         }
       },
       system: {
-        status: '系统状态',
-        cpuUserUsage: 'CPU 用户使用率',
-        cpuSystemUsage: 'CPU 系统使用率',
-        systemMemoryUsage: '系统内存使用率',
-        jvmMemoryUsage: 'JVM 内存使用率',
+        status: 'System Status',
+        cpuUserUsage: 'CPU User Usage',
+        cpuSystemUsage: 'CPU System Usage',
+        systemMemoryUsage: 'System Memory Usage',
+        jvmMemoryUsage: 'JVM Memory Usage',
         operatingSystem: {
-          title: '系统信息',
-          name: '操作系统',
-          manufacturer: '系统制造商',
-          arch: '系统架构',
-          systemBootTime: '系统启动时间',
-          systemUptime: '系统运行时间'
+          title: 'System Info',
+          name: 'Operating System',
+          manufacturer: 'System Manufacturer',
+          arch: 'System Architecture',
+          systemBootTime: 'System Boot Time',
+          systemUptime: 'System Uptime'
         },
         centralProcessor: {
-          title: '中央处理器',
-          name: 'CPU 名称',
-          physicalProcessorCount: '物理核心数',
-          logicalProcessorCount: '逻辑核心数（包含超线程）',
-          processorIdentifier: '处理器标识符',
-          vendorFreq: 'CPU 频率',
-          userPercent: '用户使用率',
-          systemPercent: '系统使用率',
-          idlePercent: '空闲率'
+          title: 'Central Processor',
+          name: 'CPU Name',
+          physicalProcessorCount: 'Physical Core Count',
+          logicalProcessorCount: 'Logical Core Count (Including Hyper-Threading)',
+          processorIdentifier: 'Processor Identifier',
+          vendorFreq: 'CPU Frequency',
+          userPercent: 'User Usage',
+          systemPercent: 'System Usage',
+          idlePercent: 'Idle Rate'
         },
         globalMemory: {
-          title: '系统内存',
-          total: '总内存',
-          used: '已用内存',
-          available: '可用内存',
-          swapTotal: '交换区总内存',
-          swapUsed: '已用交换区',
-          swapFree: '剩余交换区',
-          memoryUsedRate: '内存使用率',
-          swapUsedRate: '交换区使用率'
+          title: 'System Memory',
+          total: 'Total',
+          used: 'Used',
+          available: 'Available',
+          swapTotal: 'Swap Total',
+          swapUsed: 'Swap Used',
+          swapFree: 'Swap Free',
+          memoryUsedRate: 'Memory Used Rate',
+          swapUsedRate: 'Swap Used Rate'
         },
         jvm: {
-          title: 'JVM 内存',
-          vmName: '名称',
-          uptime: '运行时间',
-          vmVersion: '版本',
-          vmVendor: '供应商',
-          startTime: '启动时间',
-          inputArguments: '输入参数',
-          heapMemoryUsed: '堆内存已用',
-          heapMemoryMax: '堆内存最大',
-          memoryUsageRate: '使用率',
-          nonHeapMemoryUsed: '非堆内存已用'
+          title: 'JVM Memory',
+          vmName: 'Name',
+          uptime: 'Uptime',
+          vmVersion: 'Version',
+          vmVendor: 'Vendor',
+          startTime: 'Start Time',
+          inputArguments: 'Input Arguments',
+          heapMemoryUsed: 'Heap Memory Used',
+          heapMemoryMax: 'Heap Memory Max',
+          memoryUsageRate: 'Memory Usage Rate',
+          nonHeapMemoryUsed: 'Non Heap Memory Used'
         },
         fileStore: {
-          title: '文件存储',
-          name: '名称',
-          type: '类型',
-          mount: '挂载点',
-          totalSpace: '总空间',
-          usableSpace: '可用空间',
-          usedSpace: '已用空间',
-          usedPercentage: '已用百分比'
+          title: 'File Store',
+          name: 'Name',
+          type: 'Type',
+          mount: 'Mount',
+          totalSpace: 'Total Space',
+          usableSpace: 'Usable Space',
+          usedSpace: 'Used Space',
+          usedPercentage: 'Used Percentage'
         },
         process: {
-          title: '系统前 6 进程',
-          processID: '进程ID',
-          name: '名称',
-          cpuLoad: 'CPU 负载'
+          title: 'System Top 6 Processes',
+          processID: 'Process ID',
+          name: 'Name',
+          cpuLoad: 'CPU Load'
         }
       },
       cache: {
         redis: {
-          title: 'Redis 缓存信息',
-          version: '版本',
-          uptime: '运行时间',
-          connectedClients: '连接客户端数',
-          usedMemory: '已用内存',
-          maxMemory: '最大内存',
-          memoryUsageRate: '内存使用率',
-          memFragmentationRatio: '内存碎片率',
-          totalCommandsProcessed: '命令处理总数',
-          echartsTitle: '命令统计',
-          echartsSubTitle: '图示每一个命令的执行占比'
+          title: 'Redis Cache Info',
+          version: 'Version',
+          uptime: 'Uptime',
+          connectedClients: 'Connected Clients',
+          usedMemory: 'Used Memory',
+          maxMemory: 'Max Memory',
+          memoryUsageRate: 'Memory Usage Rate',
+          memFragmentationRatio: 'Memory Fragmentation Ratio',
+          totalCommandsProcessed: 'Total Commands Processed',
+          echartsTitle: 'Command Statistics',
+          echartsSubTitle: 'Show the proportion of each command execution'
         }
       },
       logs: {
         login: {
-          userName: '用户名',
-          userRealName: '真实姓名',
-          ip: '登录 IP',
-          ipAddr: 'IP 所属地',
+          userName: 'User Name',
+          userRealName: 'Real Name',
+          ip: 'Login IP',
+          ipAddr: 'IP Location',
           userAgent: 'User-Agent',
-          status: '登录状态',
-          message: '登录信息',
-          createTime: '登录时间',
-          createUser: '登录用户',
+          status: 'Login Status',
+          message: 'Login Message',
+          createTime: 'Login Time',
+          createUser: 'Login User',
           form: {
-            userName: '请填写用户名',
-            userRealName: '请填写真实姓名'
+            userName: 'Please enter user name',
+            userRealName: 'Please enter real name'
           },
           loginStatus: {
-            fail: '登录失败',
-            success: '登录成功'
+            fail: 'Login Failed',
+            success: 'Login Success'
           }
         },
         operation: {
-          requestId: '请求 ID',
-          ip: '操作 IP',
-          ipAddr: 'IP 所属地',
+          requestId: 'Request ID',
+          ip: 'Operation IP',
+          ipAddr: 'IP Location',
           userAgent: 'User-Agent',
-          requestUri: '请求 URI',
-          requestMethod: '请求方式',
-          contentType: '请求类型',
-          methodName: '操作方法',
-          operation: '操作方法说明',
-          methodParams: '操作参数',
-          useTime: '耗时(ms)',
-          createUser: '操作用户',
-          createTime: '操作时间',
+          requestUri: 'Request URI',
+          requestMethod: 'Request Method',
+          contentType: 'Content Type',
+          methodName: 'Method Name',
+          operation: 'Operation',
+          methodParams: 'Method Params',
+          useTime: 'Use Time(ms)',
+          createUser: 'Operation User',
+          createTime: 'Operation Time',
           form: {
-            createUser: '请填写操作用户'
+            createUser: 'Please enter operation user'
           }
         },
         error: {
-          requestId: '请求 ID',
-          ip: '操作 IP',
-          ipAddr: 'IP 所属地',
+          requestId: 'Request ID',
+          ip: 'Operation IP',
+          ipAddr: 'IP Location',
           userAgent: 'User-Agent',
-          requestUri: '请求 URI',
-          requestMethod: '请求方式',
-          contentType: '请求类型',
-          methodName: '操作方法',
-          operation: '操作方法说明',
-          methodParams: '操作参数',
-          useTime: '耗时(ms)',
-          createUser: '操作用户',
-          createTime: '异常时间',
-          exceptionMessage: '异常信息',
-          exceptionClass: '异常类名',
-          line: '异常行号',
-          stackTrace: '异常堆栈',
+          requestUri: 'Request URI',
+          requestMethod: 'Request Method',
+          contentType: 'Content Type',
+          methodName: 'Method Name',
+          operation: 'Operation',
+          methodParams: 'Method Params',
+          useTime: 'Use Time(ms)',
+          createUser: 'Operation User',
+          createTime: 'Exception Time',
+          exceptionMessage: 'Exception Message',
+          exceptionClass: 'Exception Class',
+          line: 'Exception Line',
+          stackTrace: 'Exception Stack',
           form: {
-            createUser: '请填写操作用户'
+            createUser: 'Please enter operation user'
           }
         },
         scheduler: {
-          jobName: '任务名称',
-          jobGroup: '任务组名',
-          useTime: '耗时(ms)',
-          status: '执行状态',
-          createTime: '执行时间',
-          exceptionMessage: '异常信息',
-          exceptionClass: '异常类名',
-          line: '异常行号',
-          stackTrace: '异常堆栈',
+          jobName: 'Job Name',
+          jobGroup: 'Job Group',
+          useTime: 'Use Time(ms)',
+          status: 'Execution Status',
+          createTime: 'Execution Time',
+          exceptionMessage: 'Exception Message',
+          exceptionClass: 'Exception Class',
+          line: 'Exception Line',
+          stackTrace: 'Exception Stack',
           executeStatus: {
-            success: '执行成功',
-            fail: '执行失败'
+            success: 'Success',
+            fail: 'Fail'
           },
           form: {
-            jobName: '请选择任务名称'
+            jobName: 'Please select job name'
           }
         },
         file: {
-          userId: '用户ID',
-          userName: '用户名称',
-          fileUrl: '用户名称',
-          fileSize: '用户名称',
-          status: '操作状态',
+          userId: 'User ID',
+          userName: 'User Name',
+          fileUrl: 'File URL',
+          fileSize: 'File Size',
+          status: 'Operation Status',
           form: {
-            userId: '请输入用户ID',
-            userName: '请输入用户名称',
-            fileUrl: '请输入用户名称',
-            fileSize: '请输入用户名称',
-            status: '请选择操作状态'
+            userId: 'Please enter user id',
+            userName: 'Please enter user name',
+            fileUrl: 'Please enter file url',
+            fileSize: 'Please enter file size',
+            status: 'Please select operation status'
           }
         }
       }
@@ -632,79 +654,25 @@ const local: App.I18n.Schema = {
     tools: {
       common: {
         renderType: {
-          input: '输入框',
-          select: '下拉框',
-          radio: '单选框'
+          input: 'Input',
+          select: 'Select',
+          radio: 'Radio'
         },
         searchType: {
-          equal: '等于',
-          noEqual: '不等于',
-          like: '模糊',
-          leftLike: '左模糊',
-          rightLike: '右模糊',
-          greaterThan: '大于',
-          greaterThanOrEqual: '大于等于',
-          lessThan: '小于',
-          lessThanOrEqual: '小于等于',
-          in: '包含',
-          notIn: '不包含',
-          between: '在区间内',
-          notBetween: '不在区间内'
+          equal: 'Equal',
+          noEqual: 'Not Equal',
+          like: 'Like',
+          leftLike: 'Left Like',
+          rightLike: 'Right Like',
+          greaterThan: 'Greater Than',
+          greaterThanOrEqual: 'Greater Than Or Equal',
+          lessThan: 'Less Than',
+          lessThanOrEqual: 'Less Than Or Equal',
+          in: 'In',
+          notIn: 'Not In',
+          between: 'Between',
+          notBetween: 'Not Between'
         }
-      },
-      generateTable: {
-        tableName: '表名',
-        tableComment: '表注释',
-        tablePrefix: '表前缀',
-        parentPackage: '生成父包名',
-        moduleName: '模块名',
-        parentMenuName: '上级菜单',
-        author: '作者',
-        status: '状态',
-        form: {
-          tableName: '请输入表名',
-          tableNameSelect: '请选择表名',
-          tableComment: '请输入表注释',
-          tablePrefix: '请输入表前缀',
-          parentPackage: '请输入生成父包名',
-          moduleName: '请输入模块名',
-          parentMenuName: '请选择上级菜单',
-          author: '请输入作者'
-        },
-        addGenerate: '新增生成',
-        editGenerate: '编辑生成表：{tableName}',
-        isNotDevEnvTip: '当前为非开发环境，不允许新增编辑数据'
-      },
-      generateTableColumn: {
-        ordinalPosition: '表序号',
-        columnName: '字段名称',
-        propertyName: '属性名称',
-        columnComment: '字段注释',
-        dataType: '数据类型',
-        javaType: 'Java类型',
-        typescriptType: 'TypeScript类型',
-        list: '列表',
-        search: '查询',
-        searchType: '查询条件',
-        required: '必填',
-        added: '新增',
-        edit: '编辑',
-        renderType: '渲染类型',
-        dictCode: '数据字典',
-        status: '启用状态',
-        cleanColumns: '清空字段',
-        cleanColumnsConfirm: '你确定要清空生成表字段？它会删除现有配置字段，可二次同步数据库字段即可。',
-        cleanSuccess: '清空成功',
-        syncColumns: '同步数据库字段',
-        syncColumnsConfirm: '你确定要同步数据库字段？',
-        syncSuccess: '同步成功',
-        baseInfo: '基础信息',
-        columnInfo: '字段信息',
-        resultInfo: '结果信息',
-        generateSuccess: '生成成功',
-        downloadZip: '下载 ZIP 压缩包',
-        previous: '上一步',
-        next: '下一步'
       }
     },
     game: {
@@ -754,7 +722,8 @@ const local: App.I18n.Schema = {
           gameId: 'Please select game id',
           ip: 'Please enter ip',
           port: 'Please enter port'
-        }
+        },
+        version: 'Version'
       },
       map: {
         mapName: 'Map Name',
@@ -784,6 +753,9 @@ const local: App.I18n.Schema = {
         bgUrl: 'Bg Url',
         addLive: 'Live Add',
         editLive: 'Live Edit',
+        notLive: 'Not Live',
+        enterLive: 'Enter Live',
+        joinLive: 'Join Live',
         form: {
           uid: 'Please enter uid',
           avatar: 'Please enter avatar',
@@ -794,6 +766,66 @@ const local: App.I18n.Schema = {
     server: {
       csgo2: {
         title: 'Counter-Strike 2'
+      }
+    },
+    tool: {
+      bind: {
+        key: 'Please select key',
+        value: 'Please select value'
+      },
+      mapOrder: {
+        add: 'Add Subscription',
+        test: 'Test Notification',
+        mapName: 'Map Name',
+        form: {
+          mapName: 'Please enter map name'
+        }
+      }
+    },
+    feedback: {
+      userName: 'User Name',
+      content: 'Feedback Content',
+      image: 'Map Urls',
+      type: 'Feedback Type',
+      status: 'Feedback Status',
+      addFeedback: 'Feedback Add',
+      editFeedback: 'Feedback Edit',
+      form: {
+        content: 'Please enter feedback content',
+        image: 'Please enter map urls',
+        type: 'Please select feedback type',
+        status: 'Please select feedback status'
+      }
+    },
+    userCenter: {
+      userInfo: {
+        edit: 'Edit User Info',
+        userName: 'User Name',
+        password: 'Password',
+        nickName: 'Nick Name',
+        phone: 'Phone',
+        email: 'Email',
+        gender: 'Gender',
+        communityPreference: 'Community Preference',
+        modePreference: 'Mode Preference',
+        personalInfo: 'Personal Info',
+        changePassword: 'Change Password',
+        gameConfig: 'Game Config',
+        basicInfo: 'Basic Info',
+        oldPassword: 'Old Password',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+        restartUserName: 'Restart User Info',
+        restartUserNameConfirm: 'Please enter confirm password',
+        form: {
+          userName: 'Please enter user name',
+          password: 'Please enter password',
+          communityPreferencePlaceholder: 'Please select community preference',
+          modePreferencePlaceholder: 'Please select mode preference',
+          oldPasswordPlaceholder: 'Please enter old password',
+          newPasswordPlaceholder: 'Please enter new password',
+          confirmPasswordPlaceholder: 'Please enter confirm password'
+        }
       }
     }
   },
@@ -822,6 +854,10 @@ const local: App.I18n.Schema = {
     email: {
       required: 'Please enter email',
       invalid: 'Email format is incorrect'
+    },
+    nickName: {
+      required: 'Please enter nick name',
+      invalid: 'Nick name format is incorrect'
     }
   },
   dropdown: {

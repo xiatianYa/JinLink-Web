@@ -72,3 +72,40 @@ export function fetchLogout() {
     method: 'post'
   });
 }
+
+/** code */
+export function fetchGetCode(userName: string) {
+  return request<string>({
+    url: '/auth/getCode',
+    method: 'get',
+    params: {
+      userName
+    }
+  });
+}
+/** register */
+export function fetchRegister({
+  userName,
+  nickName,
+  password,
+  confirmPassword,
+  code
+}: {
+  userName: string;
+  nickName: string;
+  password: string;
+  confirmPassword: string;
+  code: string;
+}) {
+  return request<Api.Auth.LoginToken>({
+    url: '/auth/register',
+    method: 'post',
+    data: {
+      userName,
+      nickName,
+      password,
+      confirmPassword,
+      code
+    }
+  });
+}

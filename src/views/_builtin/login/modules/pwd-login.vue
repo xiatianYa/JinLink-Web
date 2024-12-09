@@ -2,8 +2,11 @@
 import { computed, onMounted, reactive } from 'vue';
 import { $t } from '@/locales';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
+import { useRouterPush } from '@/hooks/common/router';
 import { useAuthStore } from '@/store/modules/auth';
+import { loginModuleRecord } from '@/constants/app';
 import QC from '@/utils/js/qqAuth.js';
+const { toggleLoginModule } = useRouterPush();
 
 defineOptions({
   name: 'PwdLogin'
@@ -84,7 +87,11 @@ onMounted(() => {
       <NButton type="primary" size="large" round block :loading="authStore.loginLoading" @click="handleSubmit">
         {{ $t('common.confirm') }}
       </NButton>
-
+      <div class="flex-y-center justify-between gap-12px">
+        <NButton class="flex-1" block @click="toggleLoginModule('register')">
+          {{ $t(loginModuleRecord.register) }}
+        </NButton>
+      </div>
       <NDivider class="text-14px text-#666 !m-0">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</NDivider>
       <div class="flex-center gap-12px">
         <NButton type="primary" @click="qqLogin()">

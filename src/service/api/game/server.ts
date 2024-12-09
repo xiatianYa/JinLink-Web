@@ -61,3 +61,12 @@ export function fetchGetServerOnlineUser(addr: string | number) {
     params: { addr }
   });
 }
+
+// 查询我的世界服务器分页(带参数)
+export function fetchGetMinecraftPage(params?: Api.Game.ServerSearchParams) {
+  return request<Api.Game.MinecraftPage>({
+    url: '/gameServer/getMinecraftPage',
+    method: 'get',
+    params
+  });
+}

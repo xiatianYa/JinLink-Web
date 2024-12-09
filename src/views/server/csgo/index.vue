@@ -2,8 +2,8 @@
 import { onMounted, ref, watch } from 'vue';
 import { fetchGetCommunityNames, fetchGetModeNames, fetchGetServerAllBySteam } from '@/service/api';
 import { useGameStore } from '@/store/modules/game';
-import ServerCard from '../modules/serverCard.vue';
-import ServerSearch from '../modules/server-search.vue';
+import ServerCard from './modules/server-card.vue';
+import ServerSearch from './modules/server-search.vue';
 
 // 社区配置项
 const communityOptions = ref<CommonType.Option<string>[]>([]);
@@ -58,6 +58,8 @@ async function initServer() {
 }
 
 onMounted(() => {
+  searchParams.value.communityId = localStorage.getItem('communityId');
+  searchParams.value.modeId = localStorage.getItem('modeId');
   initOptions();
   initServer();
 });
@@ -70,7 +72,6 @@ watch(
     if (!newAutoMapReceiveList) {
       return; // 如果没有新数据，则直接返回，不执行后续操作
     }
-
     // 遍历当前服务器数据列表
     for (const currentCommunity of serverDataList.value) {
       // 在新数据中查找匹配的社区
@@ -95,13 +96,34 @@ watch(
       if (gameStore.automaticInfo) {
         const server = currentCommunity.gameServerVoList.find(item => item.addr === gameStore.automaticInfo?.addr);
         if (server) {
-          gameStore.automaticInfo.players = server.players;
-          gameStore.automaticInfo.mapUrl = server.mapUrl;
-          gameStore.automaticInfo.mapName = server.mapName;
-          gameStore.automaticInfo.mapLabel = server.mapLabel;
-          gameStore.automaticInfo.maxPlayers = server.maxPlayers;
-          gameStore.automaticInfo.type = server.type;
-          gameStore.automaticInfo.tag = server.tag;
+          const {
+            serverName,
+            addr,
+            ip,
+            port,
+            modeId,
+            gameId,
+            mapName,
+            mapLabel,
+            mapUrl,
+            type,
+            tag,
+            players,
+            maxPlayers
+          } = server;
+          gameStore.automaticInfo.serverName = serverName;
+          gameStore.automaticInfo.addr = addr;
+          gameStore.automaticInfo.ip = ip;
+          gameStore.automaticInfo.port = port;
+          gameStore.automaticInfo.modeId = modeId;
+          gameStore.automaticInfo.gameId = gameId;
+          gameStore.automaticInfo.mapName = mapName;
+          gameStore.automaticInfo.mapLabel = mapLabel;
+          gameStore.automaticInfo.mapUrl = mapUrl;
+          gameStore.automaticInfo.type = type;
+          gameStore.automaticInfo.tag = tag;
+          gameStore.automaticInfo.players = players;
+          gameStore.automaticInfo.maxPlayers = maxPlayers;
         }
       }
     }
@@ -135,7 +157,7 @@ watch(
           </NStatistic>
         </template>
         <NGrid :x-gap="10" :y-gap="10" cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen">
-          <NGridItem v-for="(server, index) in community.gameServerVoList" :key="index">
+          <NGridItem v-for="server in community.gameServerVoList" :key="server.addr">
             <ServerCard :game-server-vo="server" />
           </NGridItem>
         </NGrid>

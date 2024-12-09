@@ -169,7 +169,7 @@ const saveButton = async () => {
         duration: 1500,
         keepAliveOnHover: true
       });
-    } catch (error) {
+    } catch {
       notification.error({
         content: '复制失败',
         meta: '复制绑定指令失败.',
@@ -194,14 +194,14 @@ const saveButton = async () => {
       v-model:value="key"
       class="width-50px mr-5px mt-10px"
       :options="keyOptions"
-      placeholder="请选择按键"
+      :placeholder="$t('page.tool.bind.key')"
       clearable
     />
     <NSelect
       v-model:value="value"
       class="width-100px mr-5px mt-10px"
       :options="valueOptions"
-      placeholder="请选择指令"
+      :placeholder="$t('page.tool.bind.value')"
       clearable
     />
     <NButton class="mr-5px mt-10px" strong secondary type="info" @click="saveButton">保存指令</NButton>

@@ -29,6 +29,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     userId: '',
     userName: '',
     avatar: '',
+    userPhone: '',
+    userEmail: '',
+    userGender: '',
     roles: [],
     buttons: []
   });
@@ -56,6 +59,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     gameStore.closeWebSocket();
 
     tabStore.cacheTabs();
+
     routeStore.resetStore();
 
     // 清除第三方登录
@@ -89,6 +93,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
         // initialize the websocket
         await gameStore.initWebSocket();
+
+        // 初始化地图订阅
+        await gameStore.initMapOrderList();
 
         await redirectFromLogin(redirect);
 
@@ -140,6 +147,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
         // initialize the websocket
         await gameStore.initWebSocket();
+
+        // 初始化地图订阅
+        await gameStore.initMapOrderList();
 
         await redirectFromLogin(redirect);
 

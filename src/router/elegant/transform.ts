@@ -196,11 +196,16 @@ const routeMap: RouteMap = {
   "monitor_logs_scheduler": "/monitor/logs/scheduler",
   "monitor_scheduler": "/monitor/scheduler",
   "monitor_system": "/monitor/system",
+  "reservation": "/reservation",
+  "reservation_feedback": "/reservation/feedback",
   "server": "/server",
+  "server_7daystodie": "/server/7daystodie",
   "server_csgo": "/server/csgo",
+  "server_minecraft": "/server/minecraft",
   "server_projectzombie": "/server/projectzombie",
   "tool": "/tool",
   "tool_bind": "/tool/bind",
+  "tool_maporder": "/tool/maporder",
   "user-center": "/user-center"
 };
 

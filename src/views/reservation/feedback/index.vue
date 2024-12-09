@@ -2,49 +2,33 @@
 import { NButton, NCard, NImage, NPopconfirm } from 'naive-ui';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import { useAuth } from '@/hooks/business/auth';
 import { $t } from '@/locales';
-import { fetchDeleteMapById, fetchGetMapList } from '@/service/api';
+import { fetchDeleteFeedbackById, fetchGetFeedbackList } from '@/service/api';
 import { useDict } from '@/hooks/business/dict';
-import MapOperateDrawer from './modules/map-operate-drawer.vue';
-import MapSearch from './modules/map-search.vue';
+import { useAuth } from '@/hooks/business/auth';
+import FeedbackListSearch from './modules/feedback-list-search.vue';
+import FeedbackOperateDrawer from './modules/feedback-operate-drawer.vue';
 
 defineOptions({
-  name: 'GameGame'
+  name: 'FeedBack'
 });
 
 const appStore = useAppStore();
 
-const { dictLabel, dictTag } = useDict();
+const { dictTag } = useDict();
 
 const { hasAuth } = useAuth();
 
-const {
-  columns,
-  columnChecks,
-  data,
-  loading,
-  getDataByPage,
-  getData,
-  mobilePagination,
-  searchParams,
-  resetSearchParams
-} = useTable({
-  apiFn: fetchGetMapList,
+const { columns, data, loading, getData, getDataByPage, mobilePagination, searchParams, resetSearchParams } = useTable({
+  apiFn: fetchGetFeedbackList,
   apiParams: {
     current: 1,
     size: 10,
-    mapName: null,
-    mapLabel: null,
-    modeId: null,
-    type: null
+    content: null,
+    type: null,
+    status: null
   },
   columns: () => [
-    {
-      type: 'selection',
-      align: 'center',
-      width: 48
-    },
     {
       key: 'index',
       title: $t('common.index'),
@@ -52,48 +36,43 @@ const {
       align: 'center'
     },
     {
-      key: 'mapName',
-      title: $t('page.game.map.mapName'),
+      key: 'userName',
+      title: $t('page.feedback.userName'),
       width: 100,
       align: 'center'
     },
     {
-      key: 'mapLabel',
-      title: $t('page.game.map.mapLabel'),
+      key: 'content',
+      title: $t('page.feedback.content'),
       width: 100,
       align: 'center'
     },
     {
-      key: 'mapUrl',
-      title: $t('page.game.map.mapUrl'),
+      key: 'image',
+      title: $t('page.feedback.image'),
       width: 100,
       align: 'center',
       render: row => (
         <div class="flex-center justify-center gap-8px">
-          <NImage src={row.mapUrl} />
+          {row.image.map(item => (
+            <NImage width="150" src={item} />
+          ))}
         </div>
       )
     },
     {
-      key: 'modeId',
-      title: $t('page.game.map.modeId'),
-      width: 100,
-      align: 'center',
-      render: row => dictLabel('game_mode', row.modeId)
-    },
-    {
       key: 'type',
-      title: $t('page.game.map.type'),
+      title: $t('page.feedback.type'),
       width: 100,
       align: 'center',
-      render: row => dictTag('game_type', row.type)
+      render: row => dictTag('feedback_type', row.type)
     },
     {
-      key: 'tag',
-      title: $t('page.game.map.tag'),
+      key: 'status',
+      title: $t('page.feedback.status'),
       width: 100,
       align: 'center',
-      render: row => <div class="flex-center gap-8px">{row.tag.map(item => dictTag('game_tag', item))}</div>
+      render: row => dictTag('feedback_status', row.status)
     },
     {
       key: 'operate',
@@ -102,12 +81,12 @@ const {
       width: 130,
       render: row => (
         <div class="flex-center gap-8px">
-          {hasAuth('game:gameMap:update') && (
+          {hasAuth('sys:sysFeedback:update') && (
             <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
               {$t('common.edit')}
             </NButton>
           )}
-          {hasAuth('game:gameMap:delete') && (
+          {hasAuth('sys:sysFeedback:delete') && (
             <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
               {{
                 default: () => $t('common.confirmDelete'),
@@ -125,14 +104,11 @@ const {
   ]
 });
 
-const { drawerVisible, operateType, checkedRowKeys, editingData, handleAdd, handleEdit, onDeleted } = useTableOperate(
-  data,
-  getData
-);
+const { drawerVisible, editingData, operateType, handleAdd, handleEdit, onDeleted } = useTableOperate(data, getData);
 
 async function handleDelete(id: string) {
   // request
-  const { error } = await fetchDeleteMapById(id);
+  const { error } = await fetchDeleteFeedbackById(id);
   if (!error) onDeleted();
 }
 
@@ -143,18 +119,15 @@ function edit(id: string) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-8px overflow-hidden lt-sm:overflow-auto">
-    <MapSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <FeedbackListSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
     <NCard :bordered="false" class="sm:flex-1-hidden card-wrapper" content-class="flex-col">
       <TableHeaderOperation
-        v-model:columns="columnChecks"
-        add-auth="game:gameMap:save"
-        :checked-row-keys="checkedRowKeys"
+        add-auth="sys:sysFeedback:save"
         :loading="loading"
         @add="handleAdd"
-        @refresh="getData"
+        @refresh="getDataByPage"
       />
       <NDataTable
-        v-model:checked-row-keys="checkedRowKeys"
         remote
         striped
         size="small"
@@ -168,7 +141,7 @@ function edit(id: string) {
         :row-key="row => row.id"
         :pagination="mobilePagination"
       />
-      <MapOperateDrawer
+      <FeedbackOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"

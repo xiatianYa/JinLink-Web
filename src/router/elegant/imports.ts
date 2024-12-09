@@ -44,8 +44,12 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   monitor_logs_scheduler: () => import("@/views/monitor/logs_scheduler/index.vue"),
   monitor_scheduler: () => import("@/views/monitor/scheduler/index.vue"),
   monitor_system: () => import("@/views/monitor/system/index.vue"),
+  reservation_feedback: () => import("@/views/reservation/feedback/index.vue"),
+  server_7daystodie: () => import("@/views/server/7DaysToDie/index.vue"),
   server_csgo: () => import("@/views/server/csgo/index.vue"),
+  server_minecraft: () => import("@/views/server/minecraft/index.vue"),
   server_projectzombie: () => import("@/views/server/projectZombie/index.vue"),
   tool_bind: () => import("@/views/tool/bind/index.vue"),
+  tool_maporder: () => import("@/views/tool/mapOrder/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),
 };

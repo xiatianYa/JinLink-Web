@@ -34,3 +34,45 @@ export function fetchInsertMap(params: Api.Game.MapParams) {
     data: params
   });
 }
+
+/** 获取全部地图名称 */
+export function fetchGetMapNames() {
+  return request<CommonType.Option<string>[]>({
+    url: '/gameMap/allMapNames',
+    method: 'get'
+  });
+}
+
+/** 新增地图订阅 */
+export function fetchInsertMapOrder(params: any) {
+  return request({
+    url: `/gameMapOrder/save`,
+    method: 'post',
+    data: params
+  });
+}
+
+// 获取地图订阅列表根据用户ID
+export function fetchGetMapOrderListByUserId() {
+  return request<Api.GameMapOrder.gameMapOrderList>({
+    url: '/gameMapOrder/listByUser',
+    method: 'get'
+  });
+}
+
+/** 删除地图订阅 */
+export function fetchDeleteMapOrderById(id: string) {
+  return request({
+    url: `/gameMapOrder/remove/${id}`,
+    method: 'delete'
+  });
+}
+
+/** 修改地图订阅 */
+export function fetchUpdateMapOrder(params: Api.GameMapOrder.MapOrderParams) {
+  return request({
+    url: `/gameMapOrder/update`,
+    method: 'put',
+    data: params
+  });
+}

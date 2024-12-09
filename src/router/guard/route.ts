@@ -175,6 +175,9 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   // initialize the websocket
   await gameStore.initWebSocket();
 
+  // initialize the map order list
+  await gameStore.initMapOrderList();
+
   // the route is captured by the "not-found" route because the auth route is not initialized
   // after the auth route is initialized, redirect to the original route
   if (isNotFoundRoute) {

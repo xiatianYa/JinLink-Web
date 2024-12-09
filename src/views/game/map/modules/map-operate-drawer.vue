@@ -57,7 +57,7 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Extract<keyof Model, 'modeName'>;
+type RuleKey = Extract<keyof Model, 'mapName' | 'mapLabel' | 'mapUrl'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   mapName: defaultRequiredRule,
@@ -80,11 +80,11 @@ async function handleSubmit() {
   await validate();
   // request
   if (props.operateType === 'edit') {
-    const result = await fetchUpdateMap(model);
-    if (result) window.$message?.success($t('common.updateSuccess'));
+    const { error } = await fetchUpdateMap(model);
+    if (!error) window.$message?.success($t('common.updateSuccess'));
   } else {
-    const result = await fetchInsertMap(model);
-    if (result) window.$message?.success($t('common.addSuccess'));
+    const { error } = await fetchInsertMap(model);
+    if (!error) window.$message?.success($t('common.addSuccess'));
   }
   closeDrawer();
   emit('submitted');

@@ -103,8 +103,9 @@ const {
         }
 
         const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-          1: 'success',
-          2: 'warning'
+          0: 'success',
+          1: 'warning',
+          2: 'error'
         };
 
         const label = $t(enableStatusRecord[row.status]);

@@ -12,7 +12,13 @@ interface NewsItem {
   time: string;
 }
 
-const newses = computed<NewsItem[]>(() => [{ id: 1, content: $t('page.home.projectNews.desc1'), time: '2024-11-18' }]);
+const newses = computed<NewsItem[]>(() => [
+  { id: 1, content: $t('page.home.projectNews.desc1'), time: '2024-11-18' },
+  { id: 2, content: $t('page.home.projectNews.desc2'), time: '2024-12-2' },
+  { id: 3, content: $t('page.home.projectNews.desc3'), time: '2024-12-4' },
+  { id: 4, content: $t('page.home.projectNews.desc4'), time: '2024-12-5' },
+  { id: 5, content: $t('page.home.projectNews.desc5'), time: '2024-12-6' }
+]);
 </script>
 
 <template>

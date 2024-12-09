@@ -122,5 +122,27 @@ declare namespace Api {
       /** 服务器列表 */
       gameServerVoList: Array<SteamServerVo>;
     };
+
+    /** 我的世界服务器分页 */
+    type MinecraftPage = Common.PaginatingQueryRecord<MinecraftServerVo>;
+
+    /** 我的世界服务器vo */
+    type MinecraftServerVo = Common.CommonRecord<{
+      /** 服务器名称 */
+      description: string;
+      /** 在线玩家数据 */
+      players: {
+        online: number;
+        max: number;
+      };
+      /** 服务器版本 */
+      version: {
+        name: string;
+      };
+      /** 服务器地图 */
+      addr: string;
+      /** 图标 */
+      favicon: string;
+    }>;
   }
 }
