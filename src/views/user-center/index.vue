@@ -75,13 +75,16 @@ const infoRules: Record<InfoRuleKey, App.Global.FormRule> = {
   userGender: defaultRequiredRule
 };
 
-type PasswordRuleKey = Extract<keyof PasswordModel, 'oldPassword' | 'newPassword' | 'confirmPassword'>;
+const passwordRules = computed<Record<keyof PasswordModel, App.Global.FormRule[]>>(() => {
+  // inside computed to make locale reactive, if not apply i18n, you can define it without computed
+  const { formRules } = useFormRules();
 
-const passwordRules: Record<PasswordRuleKey, App.Global.FormRule> = {
-  oldPassword: defaultRequiredRule,
-  newPassword: defaultRequiredRule,
-  confirmPassword: defaultRequiredRule
-};
+  return {
+    oldPassword: formRules.pwd,
+    newPassword: formRules.pwd,
+    confirmPassword: formRules.pwd
+  };
+});
 
 function handleCancel() {
   routerPushByKey('root');

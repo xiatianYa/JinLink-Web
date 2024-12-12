@@ -37,7 +37,7 @@ const { columns, data, columnChecks, getData, loading, mobilePagination } = useT
       align: 'center',
       minWidth: 100,
       render: row => {
-        return <span>{JSON.parse(row.description).text}</span>;
+        return <span>{row.description}</span>;
       }
     },
     {

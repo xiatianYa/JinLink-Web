@@ -50,7 +50,7 @@ function createDefaultModel(): Model {
     content: '',
     image: [],
     type: '',
-    status: ''
+    status: '1'
   };
 }
 

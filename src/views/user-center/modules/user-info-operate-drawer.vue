@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { fetchRestartUserInfo } from '@/service/api';
@@ -22,7 +22,6 @@ const visible = defineModel<boolean>('visible', {
 const authStore = useAuthStore();
 
 const { formRef, validate, restoreValidation } = useNaiveForm();
-const { defaultRequiredRule } = useFormRules(); // inside computed to make locale reactive
 
 type Model = Pick<Api.SystemManage.UserInfoVo, 'userName' | 'password'>;
 
@@ -35,12 +34,15 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Extract<keyof Model, 'userName' | 'password'>;
+const rules = computed<Record<keyof Model, App.Global.FormRule[]>>(() => {
+  // inside computed to make locale reactive, if not apply i18n, you can define it without computed
+  const { formRules } = useFormRules();
 
-const rules: Record<RuleKey, App.Global.FormRule> = {
-  userName: defaultRequiredRule,
-  password: defaultRequiredRule
-};
+  return {
+    userName: formRules.userName,
+    password: formRules.pwd
+  };
+});
 
 function handleInitModel() {
   Object.assign(model, createDefaultModel());
