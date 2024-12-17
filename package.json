@@ -1,12 +1,12 @@
 {
-  "name": "blue-archive",
+  "name": "jink-web",
   "type": "module",
   "version": "1.0.0",
   "description": "A fresh and elegant admin template, based on Vue3、Vite3、TypeScript、NaiveUI and UnoCSS. 一个基于Vue3、Vite3、TypeScript、NaiveUI and UnoCSS的清新优雅的中后台模版。",
   "author": {
-    "name": "Soybean",
-    "email": "soybeanjs@outlook.com",
-    "url": "https://github.com/soybeanjs"
+    "name": "JinLink",
+    "email": "939648675@qq.com",
+    "url": "https://www.bluearchive.top/"
   },
   "license": "MIT",
   "homepage": "https://github.com/xiatianYa",
