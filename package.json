@@ -63,15 +63,18 @@
     "dhtmlx-gantt": "8.0.10",
     "dompurify": "3.1.6",
     "echarts": "5.5.1",
+    "gsap": "^3.12.5",
     "jsbarcode": "3.11.6",
     "json5": "2.2.3",
     "naive-ui": "2.40.1",
     "nprogress": "0.2.0",
+    "pako": "2.1.0",
     "pinia": "2.2.4",
     "pinyin-pro": "3.24.2",
     "print-js": "1.6.0",
     "swiper": "11.1.12",
     "tailwind-merge": "2.5.3",
+    "three": "^0.172.0",
     "typeit": "8.8.4",
     "vditor": "3.10.5",
     "vue": "3.5.11",
@@ -126,5 +129,5 @@
   "lint-staged": {
     "*": "eslint --fix"
   },
-  "website": "https://admin.soybeanjs.cn"
+  "website": "https://www.bluearchive.top"
 }

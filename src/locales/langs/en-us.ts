@@ -194,7 +194,10 @@ const local: App.I18n.Schema = {
     tool_maporder: 'Map Order',
     reservation: 'Reservation',
     reservation_feedback: 'Feedback',
-    server_minecraft: 'Minecraft'
+    server_minecraft: 'Minecraft',
+    tool_mapdisplay: 'Map Display',
+    tool_skindisplay: 'Skin Display',
+    game_model: 'Game Model Manager'
   },
   page: {
     login: {
@@ -269,7 +272,9 @@ const local: App.I18n.Schema = {
         desc3: 'Added map subscription function',
         desc4: 'Added feedback function',
         desc5:
-          'Added personal center, you can go to reset account, set default community preferences, mode preferences, etc.'
+          'Added personal center, you can go to reset account, set default community preferences, mode preferences, etc.',
+        desc6:
+          'Sponsorship adds 3D map display, optimizes community preference settings (can add multiple communities, multiple modes)'
       },
       onlineUser: 'Online User',
       sponsor: {
@@ -729,6 +734,7 @@ const local: App.I18n.Schema = {
         mapName: 'Map Name',
         mapLabel: 'Map Label',
         mapUrl: 'Map Url',
+        mapModeUrl: 'Map Mode',
         modeId: 'Mode Id',
         type: 'Type',
         tag: 'Tag',
@@ -740,6 +746,7 @@ const local: App.I18n.Schema = {
           mapName: 'Please enter map name',
           mapLabel: 'Please enter map label',
           mapUrl: 'Please enter map url',
+          mapModeUrl: 'Please enter map mode url',
           modeId: 'Please select mode id',
           type: 'Please select type',
           tag: 'Please select tag',
@@ -761,6 +768,21 @@ const local: App.I18n.Schema = {
           avatar: 'Please enter avatar',
           bgUrl: 'Please enter bg url'
         }
+      },
+      model: {
+        modelName: 'Model Name',
+        modelType: 'Model Type',
+        modelUrl: 'Model Url',
+        modelModeUrl: 'Model Mode Url',
+        modelModeMaterial: 'Model Mode Material',
+        addModel: 'Add Model',
+        editModel: 'Edit Model',
+        form: {
+          modelName: 'Please enter model name',
+          modelType: 'Please enter model type',
+          modelUrl: 'Please enter model url',
+          modelModeUrl: 'Please enter model mode url'
+        }
       }
     },
     server: {
@@ -780,6 +802,9 @@ const local: App.I18n.Schema = {
         form: {
           mapName: 'Please enter map name'
         }
+      },
+      mapDisplay: {
+        mapName: 'Please enter map name'
       }
     },
     feedback: {

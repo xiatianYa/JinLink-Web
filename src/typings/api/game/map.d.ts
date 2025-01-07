@@ -56,6 +56,8 @@ declare namespace Api {
       mapLabel: string;
       /** 图片路径 */
       mapUrl: string;
+      /** 模型路径 */
+      mapModeUrl: string;
       /** 模式ID */
       modeId: string;
       /** 地图难度 */

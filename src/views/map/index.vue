@@ -77,14 +77,12 @@ const { columns, data, loading, getDataByPage, mobilePagination, searchParams, r
     {
       key: 'tag',
       title: $t('page.game.map.tag'),
-      width: 100,
       align: 'center',
       render: row => <div class="flex-center gap-8px">{row.tag.map(item => dictTag('game_tag', item))}</div>
     },
     {
       key: 'mapCd',
       title: $t('page.game.map.mapCd'),
-      width: 200,
       align: 'center',
       render: row => {
         if (!row.exgMap) {

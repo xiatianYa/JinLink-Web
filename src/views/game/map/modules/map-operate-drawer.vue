@@ -41,7 +41,10 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.Game.MapVo, 'mapName' | 'mapUrl' | 'mapLabel' | 'modeId' | 'type' | 'tag' | 'artifact'>;
+type Model = Pick<
+  Api.Game.MapVo,
+  'mapName' | 'mapUrl' | 'mapModeUrl' | 'mapLabel' | 'modeId' | 'type' | 'tag' | 'artifact'
+>;
 
 const model: Model = reactive(createDefaultModel());
 
@@ -49,6 +52,7 @@ function createDefaultModel(): Model {
   return {
     mapName: '',
     mapUrl: '',
+    mapModeUrl: '',
     mapLabel: '',
     modeId: '',
     type: '',
@@ -57,12 +61,13 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Extract<keyof Model, 'mapName' | 'mapLabel' | 'mapUrl'>;
+type RuleKey = keyof Pick<Model, 'mapName' | 'mapLabel' | 'mapUrl' | 'modeId'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   mapName: defaultRequiredRule,
   mapLabel: defaultRequiredRule,
-  mapUrl: defaultRequiredRule
+  mapUrl: defaultRequiredRule,
+  modeId: defaultRequiredRule
 };
 
 function handleInitModel() {
@@ -165,6 +170,9 @@ watch(visible, () => {
               </NSpace>
             </template>
           </NDynamicInput>
+        </NFormItem>
+        <NFormItem :label="$t('page.game.map.mapModeUrl')" path="mapModeUrl">
+          <FileUpload v-model:model-value="model.mapModeUrl" :file-type="[]" :limit="1" :file-size="512"></FileUpload>
         </NFormItem>
       </NForm>
       <template #footer>

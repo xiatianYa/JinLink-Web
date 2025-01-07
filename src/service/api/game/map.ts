@@ -76,3 +76,11 @@ export function fetchUpdateMapOrder(params: Api.GameMapOrder.MapOrderParams) {
     data: params
   });
 }
+
+/** 获取全部地图模型 */
+export function fetchGetMapModes() {
+  return request<CommonType.Option<string>[]>({
+    url: '/gameMap/allMapModes',
+    method: 'get'
+  });
+}

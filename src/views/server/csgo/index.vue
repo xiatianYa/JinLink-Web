@@ -19,8 +19,8 @@ const loading = ref(true);
 const searchParams = ref<Api.Game.ServerSearchParams>({
   current: 1,
   size: 10,
-  communityId: null,
-  modeId: null,
+  communityIds: null,
+  modeIds: null,
   gameId: '1'
 });
 
@@ -29,8 +29,8 @@ const resetSearchParams = () => {
   searchParams.value = {
     current: 1,
     size: 10,
-    communityId: null,
-    modeId: null,
+    communityIds: null,
+    modeIds: null,
     gameId: '1'
   };
 };
@@ -58,8 +58,12 @@ async function initServer() {
 }
 
 onMounted(() => {
-  searchParams.value.communityId = localStorage.getItem('communityId');
-  searchParams.value.modeId = localStorage.getItem('modeId');
+  const communityIds = localStorage.getItem('communityIds');
+  const modeIds = localStorage.getItem('modeIds');
+
+  searchParams.value.communityIds = communityIds ? communityIds.split(',') : null;
+  searchParams.value.modeIds = modeIds ? modeIds.split(',') : null;
+
   initOptions();
   initServer();
 });
@@ -83,9 +87,9 @@ watch(
       if (matchingSteamServer) {
         Object.assign(currentCommunity, matchingSteamServer);
         // 过滤掉不匹配的游戏模式
-        if (searchParams.value.modeId) {
-          const gameServerVoListResult = currentCommunity.gameServerVoList.filter(
-            server => Number(server.modeId) === Number(searchParams.value.modeId)
+        if (searchParams.value.modeIds) {
+          const gameServerVoListResult = currentCommunity.gameServerVoList.filter(server =>
+            searchParams.value.modeIds?.includes(String(server.modeId))
           );
           if (gameServerVoListResult && gameServerVoListResult.length > 0)
             currentCommunity.gameServerVoList = gameServerVoListResult;

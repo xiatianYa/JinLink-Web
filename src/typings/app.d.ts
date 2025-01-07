@@ -479,6 +479,7 @@ declare namespace App {
             desc3: string;
             desc4: string;
             desc5: string;
+            desc6: string;
           };
           onlineUser: string;
         };
@@ -494,6 +495,9 @@ declare namespace App {
             form: {
               mapName: string;
             };
+          };
+          mapDisplay: {
+            mapName: string;
           };
         };
         manage: {
@@ -944,6 +948,7 @@ declare namespace App {
             mapName: string;
             mapLabel: string;
             mapUrl: string;
+            mapModeUrl: string;
             modeId: string;
             type: string;
             tag: string;
@@ -955,6 +960,7 @@ declare namespace App {
               mapName: string;
               mapLabel: string;
               mapUrl: string;
+              mapModeUrl: string;
               modeId: string;
               type: string;
               tag: string;
@@ -975,6 +981,21 @@ declare namespace App {
               uid: string;
               avatar: string;
               bgUrl: string;
+            };
+          };
+          model: {
+            modelName: string;
+            modelType: string;
+            modelUrl: string;
+            modelModeUrl: string;
+            modelModeMaterial: string;
+            addModel: string;
+            editModel: string;
+            form: {
+              modelName: string;
+              modelType: string;
+              modelUrl: string;
+              modelModeUrl: string;
             };
           };
         };

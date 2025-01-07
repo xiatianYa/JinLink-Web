@@ -194,7 +194,10 @@ const local: App.I18n.Schema = {
     tool_maporder: '地图订阅',
     reservation: '服务需求',
     reservation_feedback: '意见反馈',
-    server_minecraft: 'Minecraft'
+    server_minecraft: 'Minecraft',
+    tool_mapdisplay: '地图展示',
+    tool_skindisplay: '皮肤展示',
+    game_model: '游戏模型管理'
   },
   page: {
     login: {
@@ -246,7 +249,7 @@ const local: App.I18n.Schema = {
     },
     about: {
       title: '关于',
-      introduction: `本登录器基于SoybeanAdmin开发而来,后端借于Panis重构开发,使用了SpringBoot3,MybatisFlex开发,非常感谢SoybeanAdmin和Panis的作者。`,
+      introduction: `登录器前端基于SoybeanAdmin框架,后端由本人自己开发的框架,开发这个项目的目的也是为了作为面试项目,和锻炼自己技术水平,能把一些新技术融入到项目中让大家体验体验.`,
       projectInfo: {
         title: '项目信息',
         version: '版本',
@@ -268,7 +271,8 @@ const local: App.I18n.Schema = {
         desc2: '优化自动挤服,挤服框关闭后将继续尝试挤服',
         desc3: '新增地图订阅功能',
         desc4: '新增意见反馈',
-        desc5: '新增个人中心,可前往重置账号,设置默认社区偏好,模式偏好等'
+        desc5: '新增个人中心,可前往重置账号,设置默认社区偏好,模式偏好等',
+        desc6: '新增3D地图展示,优化社区偏好设置(可添加多社区,多模式)'
       },
       onlineUser: '在线用户',
       sponsor: {
@@ -728,6 +732,7 @@ const local: App.I18n.Schema = {
         mapName: '地图名称',
         mapLabel: '地图译名',
         mapUrl: '地图图片',
+        mapModeUrl: '地图模型',
         modeId: '模式名称',
         type: '地图类型',
         tag: '地图标签',
@@ -739,6 +744,7 @@ const local: App.I18n.Schema = {
           mapName: '请输入地图名称',
           mapLabel: '请输入地图标签',
           mapUrl: '请上传地图图片',
+          mapModeUrl: '请上传地图模型',
           modeId: '请选择模式名称',
           type: '请选择地图类型',
           tag: '请选择地图标签',
@@ -760,6 +766,21 @@ const local: App.I18n.Schema = {
           avatar: '请上传头像',
           bgUrl: '请上传背景图'
         }
+      },
+      model: {
+        modelName: '模型名称',
+        modelType: '模型类型',
+        modelUrl: '模型图片',
+        modelModeUrl: '模型',
+        modelModeMaterial: '模型材质',
+        addModel: '添加模型',
+        editModel: '编辑模型',
+        form: {
+          modelName: '请输入模型名称',
+          modelType: '请选择模型类型',
+          modelUrl: '请上传模型图片',
+          modelModeUrl: '请上传模型'
+        }
       }
     },
     server: {
@@ -779,6 +800,9 @@ const local: App.I18n.Schema = {
         form: {
           mapName: '请输入地图名称'
         }
+      },
+      mapDisplay: {
+        mapName: '请选择地图名称'
       }
     },
     feedback: {

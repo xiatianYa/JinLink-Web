@@ -33,9 +33,9 @@ const { columns, data, getData, getDataByPage, loading, mobilePagination, search
     current: 1,
     size: 10,
     serverName: null,
-    communityId: null,
+    communityIds: null,
     gameId: null,
-    modeId: null
+    modeIds: null
   },
   columns: () => [
     {

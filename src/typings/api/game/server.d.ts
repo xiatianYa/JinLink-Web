@@ -2,7 +2,20 @@ declare namespace Api {
   namespace Game {
     /** server search params */
     type ServerSearchParams = CommonType.RecordNullable<
-      Pick<Api.Game.Server, 'serverName' | 'communityId' | 'modeId' | 'gameId'> & Api.Common.CommonSearchParams
+      Pick<
+        {
+          /** 服务器名称 */
+          serverName: string;
+          /** 社区ID */
+          communityIds: Array<string> | null;
+          /** 模式ID */
+          modeIds: Array<string> | null;
+          /** 游戏ID */
+          gameId: string;
+        },
+        'serverName' | 'communityIds' | 'modeIds' | 'gameId'
+      > &
+        Api.Common.CommonSearchParams
     >;
 
     /** server list */

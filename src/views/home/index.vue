@@ -182,6 +182,16 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
                   <td>2.33元</td>
                   <td>2024-12-06</td>
                 </tr>
+                <tr>
+                  <td>HK</td>
+                  <td>10元</td>
+                  <td>2024-12-07</td>
+                </tr>
+                <tr>
+                  <td>非酋</td>
+                  <td>5元</td>
+                  <td>2024-12-08</td>
+                </tr>
               </tbody>
             </NTable>
           </NInfiniteScroll>

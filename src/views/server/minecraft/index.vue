@@ -12,7 +12,7 @@ const message = useMessage();
 
 // 复制服务器地址
 const copyServerAddr = (server: Api.Game.MinecraftServerVo) => {
-  navigator.clipboard.writeText(`connect ${server.addr}`);
+  navigator.clipboard.writeText(`${server.addr}`);
   message.success('复制成功');
 };
 

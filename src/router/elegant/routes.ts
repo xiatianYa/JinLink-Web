@@ -114,6 +114,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'game_model',
+        path: '/game/model',
+        component: 'view.game_model',
+        meta: {
+          title: 'game_model',
+          i18nKey: 'route.game_model'
+        }
+      },
+      {
         name: 'game_server',
         path: '/game/server',
         component: 'view.game_server',
@@ -430,12 +439,30 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'tool_mapdisplay',
+        path: '/tool/mapdisplay',
+        component: 'view.tool_mapdisplay',
+        meta: {
+          title: 'tool_mapdisplay',
+          i18nKey: 'route.tool_mapdisplay'
+        }
+      },
+      {
         name: 'tool_maporder',
         path: '/tool/maporder',
         component: 'view.tool_maporder',
         meta: {
           title: 'tool_maporder',
           i18nKey: 'route.tool_maporder'
+        }
+      },
+      {
+        name: 'tool_skindisplay',
+        path: '/tool/skindisplay',
+        component: 'view.tool_skindisplay',
+        meta: {
+          title: 'tool_skindisplay',
+          i18nKey: 'route.tool_skindisplay'
         }
       }
     ]

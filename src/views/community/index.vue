@@ -1,5 +1,31 @@
 <script setup lang="ts">
 import { NTabPane, NTabs } from 'naive-ui';
+
+const goHref = (url: string) => {
+  // 打开新窗口
+  window.open(url, '_blank');
+};
+const handleUpdateValue = (name: string) => {
+  switch (name) {
+    case 'EXG':
+      goHref('https://darkrp.cn/');
+      break;
+    case 'UB':
+      goHref('https://cs.moeub.cn/');
+      break;
+    case 'ZED':
+      goHref('https://zombieden.cn/');
+      break;
+    case 'FYS':
+      goHref('https://fyscs.com/');
+      break;
+    case '93X':
+      goHref('https://servers.upkk.com/');
+      break;
+    default:
+      break;
+  }
+};
 </script>
 
 <template>
@@ -13,22 +39,13 @@ import { NTabPane, NTabs } from 'naive-ui';
         animated
         pane-wrapper-style="margin: 0 -4px"
         pane-style="padding-left: 4px; padding-right: 4px; box-sizing: border-box;"
+        @update:value="handleUpdateValue"
       >
-        <NTabPane name="EXG" tab="EXG社区">
-          <iframe src="https://darkrp.cn/" class="iframe"></iframe>
-        </NTabPane>
-        <NTabPane name="UB" tab="UB社区">
-          <iframe src="https://cs.moeub.cn/" class="iframe"></iframe>
-        </NTabPane>
-        <NTabPane name="ZED" tab="ZED社区">
-          <iframe src="https://zombieden.cn/" class="iframe"></iframe>
-        </NTabPane>
-        <NTabPane name="FYS" tab="FYS社区">
-          <iframe src="https://fyscs.com/" class="iframe"></iframe>
-        </NTabPane>
-        <NTabPane name="93X" tab="93X社区">
-          <iframe src="https://servers.upkk.com/" class="iframe"></iframe>
-        </NTabPane>
+        <NTabPane name="EXG" tab="EXG社区" @click="goHref('https://darkrp.cn/')"></NTabPane>
+        <NTabPane name="UB" tab="UB社区" @click="goHref('https://cs.moeub.cn/')"></NTabPane>
+        <NTabPane name="ZED" tab="ZED社区" @click="goHref('https://zombieden.cn/')"></NTabPane>
+        <NTabPane name="FYS" tab="FYS社区" @click="goHref('https://fyscs.com/')"></NTabPane>
+        <NTabPane name="93X" tab="93X社区" @click="goHref('https://servers.upkk.com/')"></NTabPane>
       </NTabs>
     </NCard>
   </div>

@@ -174,6 +174,7 @@ const routeMap: RouteMap = {
   "game_live": "/game/live",
   "game_map": "/game/map",
   "game_mode": "/game/mode",
+  "game_model": "/game/model",
   "game_server": "/game/server",
   "home": "/home",
   "iframe-page": "/iframe-page/:url",
@@ -205,7 +206,9 @@ const routeMap: RouteMap = {
   "server_projectzombie": "/server/projectzombie",
   "tool": "/tool",
   "tool_bind": "/tool/bind",
+  "tool_mapdisplay": "/tool/mapdisplay",
   "tool_maporder": "/tool/maporder",
+  "tool_skindisplay": "/tool/skindisplay",
   "user-center": "/user-center"
 };
 

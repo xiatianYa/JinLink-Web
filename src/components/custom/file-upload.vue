@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   limit: 1,
   fileSize: 1024,
-  fileType: () => ['video/mp4', 'audio/mpeg', 'image/png', 'image/jpg', 'image/gif', 'image/jpeg', 'image/svg+xml']
+  fileType: () => []
 });
 
 const model: Model = reactive(props);
@@ -45,7 +45,7 @@ function beforeUpload(data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
     message.error(`上传文件大小不能超过 ${props.fileSize} MB!`);
     return false;
   }
-  if (!props.fileType.includes(data.file.file?.type ?? '')) {
+  if (props.fileType.length && !props.fileType.includes(data.file.file?.type ?? '')) {
     message.error(`文件类型不匹配,请上传${props.fileType}类型的文件`);
     return false;
   }
@@ -144,7 +144,7 @@ watch(model, () => {
     @finish="handleFinish"
     @before-upload="beforeUpload"
   >
-    上传文件
+    <NButton>上传文件</NButton>
   </NUpload>
 </template>
 

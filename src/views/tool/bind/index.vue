@@ -190,21 +190,23 @@ const saveButton = async () => {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-8px lt-sm:overflow-auto">
-    <NSelect
-      v-model:value="key"
-      class="width-50px mr-5px mt-10px"
-      :options="keyOptions"
-      :placeholder="$t('page.tool.bind.key')"
-      clearable
-    />
-    <NSelect
-      v-model:value="value"
-      class="width-100px mr-5px mt-10px"
-      :options="valueOptions"
-      :placeholder="$t('page.tool.bind.value')"
-      clearable
-    />
-    <NButton class="mr-5px mt-10px" strong secondary type="info" @click="saveButton">保存指令</NButton>
+    <NCard size="small" class="mb-15px" content-class="flex flex-wrap">
+      <NSelect
+        v-model:value="key"
+        class="mr-5px mt-10px max-w-250px"
+        :options="keyOptions"
+        :placeholder="$t('page.tool.bind.key')"
+        clearable
+      />
+      <NSelect
+        v-model:value="value"
+        class="mr-5px mt-10px max-w-250px"
+        :options="valueOptions"
+        :placeholder="$t('page.tool.bind.value')"
+        clearable
+      />
+      <NButton class="mr-5px mt-10px" strong secondary type="info" @click="saveButton">保存指令</NButton>
+    </NCard>
   </div>
 </template>
 

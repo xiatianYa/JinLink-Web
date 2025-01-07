@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import pako from 'pako';
 import { createDiscreteApi } from 'naive-ui';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
@@ -48,72 +49,89 @@ const Websocket: any = {
     Websocket.websocket = new WebSocket(wsUrl + authStore.token);
     // 监听服务器返回的数据
     Websocket.websocket.onmessage = (e: any) => {
-      // 处理服务器传递过来的参数
-      const data: any = JSON.parse(e.data);
-      // 处理消息
-      switch (data.code) {
-        // 用户登陆成功
-        case '200':
-          Websocket.notification.success({
-            content: '连接服务器成功',
-            meta: '登录器反馈群号 -> 901243791, 登录器软件版下载,问题反馈请加群!',
-            duration: 6000,
-            keepAliveOnHover: true
-          });
-          break;
-        // 获取自动挤服消息
-        case '201': {
-          // 重新设置全局挤服对象人数信息
-          gameStore.automaticInfo!.players = data.players ?? gameStore.automaticInfo!.players;
-          gameStore.automaticInfo!.maxPlayers = data.maxPlayers ?? gameStore.automaticInfo!.players;
-          // 重新设置服务器信息
-          gameStore.automaticInfo!.ip = data.ip;
-          gameStore.automaticInfo!.port = data.port;
-          // 全局isAutomatic 为 false
-          if (!gameStore.isAutomatic) return;
-          // 如果返回状态为 true 则继续挤服
-          if (!data.status) {
-            gameStore.automaticCount += 1;
-            setTimeout(() => {
+      // 使用FileReader将Blob转换为ArrayBuffer
+      const reader = new FileReader();
+      reader.onload = event => {
+        const arrayBuffer = event.target!.result as ArrayBuffer;
+
+        // 将ArrayBuffer转换为Uint8Array（这一步是可选的）
+        const uint8Array = new Uint8Array(arrayBuffer);
+        try {
+          // 如果原始数据是文本，将其转换为字符串
+          const jsonText = new TextDecoder('utf-8').decode(pako.ungzip(uint8Array));
+
+          const data = JSON.parse(jsonText);
+
+          // 处理消息
+          switch (data.code) {
+            // 用户登陆成功
+            case '200':
+              Websocket.notification.success({
+                content: '连接服务器成功',
+                meta: '登录器反馈群号 -> 901243791, 登录器软件版下载,问题反馈请加群!',
+                duration: 6000,
+                keepAliveOnHover: true
+              });
+              break;
+            // 获取自动挤服消息
+            case '201': {
+              // 重新设置全局挤服对象人数信息
+              gameStore.automaticInfo!.players = data.players ?? gameStore.automaticInfo!.players;
+              gameStore.automaticInfo!.maxPlayers = data.maxPlayers ?? gameStore.automaticInfo!.players;
+              // 重新设置服务器信息
+              gameStore.automaticInfo!.ip = data.ip;
+              gameStore.automaticInfo!.port = data.port;
+              // 全局isAutomatic 为 false
+              if (!gameStore.isAutomatic) return;
+              // 如果返回状态为 true 则继续挤服
+              if (!data.status) {
+                gameStore.automaticCount += 1;
+                setTimeout(() => {
+                  Websocket.sendJoinServer(gameStore.automaticInfo);
+                }, 70);
+                return;
+              }
+              // 清空数据
+              gameStore.isAutomatic = false;
+              gameStore.automaticCount = 0;
+              const aLink = document.createElement('a');
+              aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`;
+              aLink.click();
+              // 发送消息
+              Websocket.notification.success({
+                content: '连接成功',
+                meta: '游戏服务连接成功',
+                duration: 1000,
+                keepAliveOnHover: true
+              });
+              break;
+            }
+            // 获取服务器数据
+            case '202':
+              gameStore.autoMapReceiveList = data.data;
+              // 地图订阅通知
+              Websocket.notificationMapOrder(data.data);
+              break;
+            // 服务器推送在线用户列表
+            case '203':
+              gameStore.onlineUserList = data.data;
+              break;
+            // 挤服失败的消息
+            case '205':
+              // 全局isAutomatic 为 false
+              if (!gameStore.isAutomatic) return;
+              gameStore.automaticCount += 1;
               Websocket.sendJoinServer(gameStore.automaticInfo);
-            }, 70);
-            return;
+              break;
+            default:
+              break;
           }
-          // 清空数据
-          gameStore.isAutomatic = false;
-          gameStore.automaticCount = 0;
-          const aLink = document.createElement('a');
-          aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`;
-          aLink.click();
-          // 发送消息
-          Websocket.notification.success({
-            content: '连接成功',
-            meta: '游戏服务连接成功',
-            duration: 1000,
-            keepAliveOnHover: true
-          });
-          break;
+        } catch (error) {
+          console.log('解压失败:', error);
         }
-        // 获取服务器数据
-        case '202':
-          gameStore.autoMapReceiveList = data.data;
-          // 地图订阅通知
-          Websocket.notificationMapOrder(data.data);
-          break;
-        // 服务器推送在线用户列表
-        case '203':
-          gameStore.onlineUserList = data.data;
-          break;
-        // 挤服失败的消息
-        case '205':
-          // 全局isAutomatic 为 false
-          if (!gameStore.isAutomatic) return;
-          gameStore.automaticCount += 1;
-          Websocket.sendJoinServer(gameStore.automaticInfo);
-          break;
-        default:
-          break;
-      }
+      };
+      // 读取Blob为ArrayBuffer
+      reader.readAsArrayBuffer(e.data);
     };
     // 连接断开时触发
     Websocket.websocket.onclose = () => {
@@ -135,6 +153,10 @@ const Websocket: any = {
       // 连接成功 清空定时任务
       clearTimeout(Websocket.reconnectTimer);
       Websocket.reconnectTimer = null;
+      // 判断是否在挤服中,如果是则断连续发
+      if (gameStore.isAutomatic) {
+        Websocket.sendJoinServer(gameStore.automaticInfo);
+      }
     };
   },
   // 发送数据 全体消息

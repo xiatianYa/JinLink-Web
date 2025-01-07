@@ -27,10 +27,10 @@ const communityOptions = ref<CommonType.Option<string>[]>([]);
 const modeOptions = ref<CommonType.Option<string>[]>([]);
 
 // 社区偏好
-const communityId = ref<string | null>(null);
+const communityIds = ref<Array<string> | null>(null);
 
 // 模式偏好
-const modeId = ref<string | null>(null);
+const modeIds = ref<Array<string> | null>(null);
 
 // 用户信息操作抽屉
 const drawerVisible = ref(false);
@@ -108,15 +108,15 @@ async function handlePasswordSubmit() {
   }
 }
 async function handleGameConfigSubmit() {
-  if (communityId.value) {
-    localStorage.setItem('communityId', communityId.value);
+  if (communityIds.value) {
+    localStorage.setItem('communityIds', communityIds.value.join(','));
   } else {
-    localStorage.removeItem('communityId');
+    localStorage.removeItem('communityIds');
   }
-  if (modeId.value) {
-    localStorage.setItem('modeId', modeId.value);
+  if (modeIds.value) {
+    localStorage.setItem('modeIds', modeIds.value.join(','));
   } else {
-    localStorage.removeItem('modeId');
+    localStorage.removeItem('modeIds');
   }
   window.$message?.success($t('common.updateSuccess'));
 }
@@ -139,8 +139,12 @@ async function initOptions() {
 onMounted(() => {
   Object.assign(infoModel, authStore.userInfo);
   // 获取社区和模式配置项
-  communityId.value = localStorage.getItem('communityId');
-  modeId.value = localStorage.getItem('modeId');
+  const communitys = localStorage.getItem('communityIds');
+  const modes = localStorage.getItem('modeIds');
+
+  communityIds.value = communitys ? communitys.split(',') : null;
+  modeIds.value = modes ? modes.split(',') : null;
+
   initOptions();
 });
 </script>
@@ -243,19 +247,21 @@ onMounted(() => {
             </NTabPane>
             <NTabPane name="chap3" :tab="$t('page.userCenter.userInfo.gameConfig')">
               <NSelect
-                v-model:value="communityId"
+                v-model:value="communityIds"
                 clearable
                 :label="$t('page.userCenter.userInfo.communityPreference')"
                 :placeholder="$t('page.userCenter.userInfo.form.communityPreferencePlaceholder')"
                 :options="communityOptions"
+                multiple
                 class="mt-16px"
               />
               <NSelect
-                v-model:value="modeId"
+                v-model:value="modeIds"
                 clearable
                 :label="$t('page.userCenter.userInfo.modePreference')"
                 :placeholder="$t('page.userCenter.userInfo.form.modePreferencePlaceholder')"
                 :options="modeOptions"
+                multiple
                 class="mt-16px"
               />
               <NSpace :size="16" class="mt-16px">

@@ -71,14 +71,14 @@ watch(
               class="pr-24px"
             >
               <NSelect
-                v-model:value="model.communityId"
+                v-model:value="model.communityIds"
                 :options="communityOption"
                 :placeholder="$t('page.game.server.form.communityId')"
               />
             </NFormItemGi>
             <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.server.modeId')" path="modeId" class="pr-24px">
               <NSelect
-                v-model:value="model.modeId"
+                v-model:value="model.modeIds"
                 :options="modeOption"
                 :placeholder="$t('page.game.server.form.modeId')"
               />

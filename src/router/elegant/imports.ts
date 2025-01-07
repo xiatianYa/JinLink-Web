@@ -27,6 +27,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   game_live: () => import("@/views/game/live/index.vue"),
   game_map: () => import("@/views/game/map/index.vue"),
   game_mode: () => import("@/views/game/mode/index.vue"),
+  game_model: () => import("@/views/game/model/index.vue"),
   game_server: () => import("@/views/game/server/index.vue"),
   home: () => import("@/views/home/index.vue"),
   live: () => import("@/views/live/index.vue"),
@@ -50,6 +51,8 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   server_minecraft: () => import("@/views/server/minecraft/index.vue"),
   server_projectzombie: () => import("@/views/server/projectZombie/index.vue"),
   tool_bind: () => import("@/views/tool/bind/index.vue"),
+  tool_mapdisplay: () => import("@/views/tool/mapDisplay/index.vue"),
   tool_maporder: () => import("@/views/tool/mapOrder/index.vue"),
+  tool_skindisplay: () => import("@/views/tool/skinDisplay/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),
 };
