@@ -4,6 +4,7 @@ import { useMessage } from 'naive-ui';
 import { useGameStore } from '@/store/modules/game';
 import { fetchGetMapOrderListByUserId } from '@/service/api';
 import MapOrderOperateDrawer from './modules/map-order-operate-drawer.vue';
+import MapPushDrawer from './modules/map-push-drawer.vue';
 import MapOrderCard from './modules/map-order-card.vue';
 
 // 游戏模块
@@ -16,7 +17,10 @@ const loading = ref(false);
 const message = useMessage();
 
 // 地图订阅操作抽屉
-const drawerVisible = ref(false);
+const mapOrderDrawerVisible = ref(false);
+
+// 暧服推送操作抽屉
+const mapPushDrawerVisible = ref(false);
 
 const initData = async () => {
   loading.value = true;
@@ -28,7 +32,6 @@ const initData = async () => {
   }
   loading.value = false;
 };
-
 // 测试地图订阅
 const testMapOrder = () => {
   // 判断浏览器是否支持唤醒
@@ -60,11 +63,17 @@ const testMapOrder = () => {
   <div class="min-h-500px flex-col-stretch gap-8px lt-sm:overflow-auto">
     <NSpin :show="loading" size="large" class="min-h-500px">
       <NCard size="small" class="mb-15px">
-        <NButton type="primary" @click="drawerVisible = true">
+        <NButton type="primary" @click="mapOrderDrawerVisible = true">
           <template #icon>
             <icon-mdi-add class="text-24px" />
           </template>
           {{ $t('page.tool.mapOrder.add') }}
+        </NButton>
+        <NButton type="primary" class="ml-15px" @click="mapPushDrawerVisible = true">
+          <template #icon>
+            <icon-material-symbols-transition-push-outline class="text-24px" />
+          </template>
+          {{ $t('page.tool.mapOrder.mapPush') }}
         </NButton>
         <NButton type="success" class="ml-15px" @click="testMapOrder">
           <template #icon>
@@ -79,7 +88,8 @@ const testMapOrder = () => {
             <MapOrderCard :map-order="mapOrder" @submitted="initData" />
           </NGridItem>
         </NGrid>
-        <MapOrderOperateDrawer v-model:visible="drawerVisible" @submitted="initData" />
+        <MapOrderOperateDrawer v-model:visible="mapOrderDrawerVisible" @submitted="initData" />
+        <MapPushDrawer v-model:visible="mapPushDrawerVisible" />
       </NCard>
     </NSpin>
   </div>

@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { NButton, NSelect, useNotification } from 'naive-ui';
-// 键
-const key = ref<any>(null);
-// 值
-const value = ref<any>(null);
-// 绑定指令
-const instruct = ref<any>(null);
-// 消息弹出框
-const notification = useNotification();
+import { onMounted, ref, watch } from 'vue';
+import { NButton, NSelect } from 'naive-ui';
+import { saveAs } from 'file-saver';
+import { fetchGetBindByCommunityId, fetchGetCommunityNames, fetchUpdateBind } from '@/service/api';
+
+// 社区id
+const communityId = ref<any>(null);
+
+// 社区配置项
+const communityOptions = ref<CommonType.Option<string>[]>([]);
+
+// 按钮
+const buttons = ref<Array<{ code: string; desc: string }>>([]);
+
 const keyOptions = ref([
   { label: 'a', value: 'a' },
   { label: 'b', value: 'b' },
@@ -110,102 +114,162 @@ const keyOptions = ref([
   { label: 'pgup', value: 'pgup' },
   { label: 'pgdn', value: 'pgdn' }
 ]);
-const valueOptions = ref([
-  { label: '一键大跳', value: `alias "+cjump" "+jump;+duck";alias "-cjump" "-jump;-duck";bind "value" "+cjump";` },
-  { label: '跳跃', value: `bind "value" "+jump";` },
-  { label: '蹲伏', value: `bind "value" "+duck";` },
-  { label: '手雷', value: `bind "value" "say !he";` },
-  { label: '火瓶', value: `bind "value" "say !fire";` },
-  { label: '血针', value: `bind "value" "say !xz";` },
-  { label: '护甲(EXG)', value: `bind "value" "say !kevlar";` },
-  { label: '夜视仪:开启(EXG)', value: `bind "value" "say toggle mat_fullbright 1";` },
-  { label: '夜视仪:关闭(EXG)', value: `bind "value" "say toggle mat_fullbright 0";` },
-  { label: 'bizon', value: `bind "value" "say !bizon";` },
-  { label: 'mac10 ', value: `bind "value" "say !mac10";` },
-  { label: 'mp5', value: `bind "value" "say !mp5";` },
-  { label: 'mp7', value: `bind "value" "say !mp7";` },
-  { label: 'mp9', value: `bind "value" "say !mp9";` },
-  { label: 'p90', value: `bind "value" "say !p90";` },
-  { label: 'ump45', value: `bind "value" "say !ump45";` },
-  { label: 'ak47', value: `bind "value" "say !ak47";` },
-  { label: 'aug', value: `bind "value" "say !aug";` },
-  { label: 'famas', value: `bind "value" "say !famas";` },
-  { label: 'galilar', value: `bind "value" "say !galilar";` },
-  { label: 'm4a4', value: `bind "value" "say !m4a4";` },
-  { label: 'm4a1', value: `bind "value" "say !m4a1";` },
-  { label: 'sg553', value: `bind "value" "say !sg553";` },
-  { label: 'awp', value: `bind "value" "say !awp";` },
-  { label: 'g3sg1', value: `bind "value" "say !g3sg1";` },
-  { label: 'scar20', value: `bind "value" "say !scar20";` },
-  { label: 'ssg08', value: `bind "value" "say !ssg08";` },
-  { label: 'mag7', value: `bind "value" "say !mag7";` },
-  { label: 'nova', value: `bind "value" "say !nova";` },
-  { label: 'sawedoff', value: `bind "value" "say !sawedoff";` },
-  { label: 'xm1014 ', value: `bind "value" "say !xm1014 ";` },
-  { label: 'm249', value: `bind "value" "say !m249";` },
-  { label: 'negev', value: `bind "value" "say !negev";` },
-  { label: 'deagle', value: `bind "value" "say !deagle";` },
-  { label: 'elite ', value: `bind "value" "say !elite ";` },
-  { label: 'fiveseven', value: `bind "value" "say !fiveseven";` },
-  { label: 'glock', value: `bind "value" "say !glock";` },
-  { label: 'p2000', value: `bind "value" "say !p2000";` },
-  { label: 'p250', value: `bind "value" "say !p250";` },
-  { label: 'tec9', value: `bind "value" "say !tec9";` },
-  { label: 'usp', value: `bind "value" "say !usp";` },
-  { label: 'cz', value: `bind "value" "say !cz";` },
-  { label: 'r8', value: `bind "value" "say !r8";` },
-  { label: 'AA12(EXG)', value: `bind "value" "say !aa12";` }
-]);
 
-// 保存指令
-const saveButton = async () => {
-  if (key.value && value.value) {
-    instruct.value = value.value?.replace('value', key.value);
-    try {
-      await navigator.clipboard.writeText(instruct.value);
-      notification.success({
-        content: '复制成功',
-        meta: '已复制绑定指令.',
-        duration: 1500,
-        keepAliveOnHover: true
-      });
-    } catch {
-      notification.error({
-        content: '复制失败',
-        meta: '复制绑定指令失败.',
-        duration: 1500,
-        keepAliveOnHover: true
-      });
-    }
-  } else {
-    notification.error({
-      content: '绑键失败',
-      meta: '请选择绑定的键和绑定的指令',
-      duration: 1500,
-      keepAliveOnHover: true
-    });
+function handleCreateButton() {
+  if (!communityId.value) {
+    window?.$message?.error('请选择社区');
+    return null;
   }
-};
+  const buttonItem: { code: string | null; desc: string | null } = {
+    code: null,
+    desc: null
+  };
+
+  return buttonItem;
+}
+
+// 导出为Cfg文件
+function exportCfg() {
+  let cfgContent = '';
+  buttons.value.forEach(button => {
+    cfgContent += `bind ${button.code} "${button.desc}"\n`;
+  });
+
+  const blob = new Blob([cfgContent], { type: 'text/plain;charset=utf-8' });
+  // 获取社区名称
+  const communityName = communityOptions.value.find(item => item.value === communityId.value)?.label;
+  saveAs(blob, `${communityName}.cfg`);
+}
+
+// 保存配置
+async function saveCfg() {
+  if (!communityId.value) {
+    window?.$message?.error('请选择社区');
+    return;
+  }
+  const { error } = await fetchUpdateBind({ communityId: communityId.value, cfg: JSON.stringify(buttons.value) });
+  if (!error) {
+    window?.$message?.success('保存成功');
+  } else {
+    window?.$message?.error(`保存失败${error.message}`);
+  }
+}
+
+// 初始化社区和模式数据
+async function initOptions() {
+  const communityNames = await fetchGetCommunityNames();
+  if (communityNames.data) {
+    communityOptions.value = communityNames.data;
+  }
+}
+
+// 初始化配置
+async function initCfg() {
+  if (communityId.value) {
+    const { data, error } = await fetchGetBindByCommunityId({ communityId: communityId.value });
+    if (!error) {
+      if (data) {
+        buttons.value = JSON.parse(data.cfg);
+      } else {
+        buttons.value = [];
+      }
+    } else {
+      window?.$message?.error(`获取配置失败${error.message}`);
+    }
+  }
+}
+
+onMounted(() => {
+  initOptions();
+});
+
+watch(communityId, async () => {
+  if (communityId.value) {
+    initCfg();
+  }
+});
 </script>
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-8px lt-sm:overflow-auto">
     <NCard size="small" class="mb-15px" content-class="flex flex-wrap">
       <NSelect
-        v-model:value="key"
+        v-model:value="communityId"
         class="mr-5px mt-10px max-w-250px"
-        :options="keyOptions"
-        :placeholder="$t('page.tool.bind.key')"
+        :options="communityOptions"
+        :placeholder="$t('page.game.server.form.communityId')"
         clearable
       />
-      <NSelect
-        v-model:value="value"
-        class="mr-5px mt-10px max-w-250px"
-        :options="valueOptions"
-        :placeholder="$t('page.tool.bind.value')"
-        clearable
-      />
-      <NButton class="mr-5px mt-10px" strong secondary type="info" @click="saveButton">保存指令</NButton>
+      <NButton class="mr-5px mt-10px" strong secondary type="success" @click="saveCfg">
+        <template #icon>
+          <NIcon>
+            <SvgIcon icon="material-symbols:save-outline" />
+          </NIcon>
+        </template>
+        保存配置
+      </NButton>
+      <NButton class="mr-5px mt-10px" strong secondary type="info" @click="exportCfg">
+        <template #icon>
+          <SvgIcon icon="material-symbols:file-export-outline" />
+        </template>
+        导出配置
+      </NButton>
+      <NPopover trigger="hover" placement="bottom-start">
+        <template #trigger>
+          <NButton class="mr-5px mt-10px" strong secondary type="info">
+            <template #icon>
+              <SvgIcon icon="tabler:info-square-rounded" />
+            </template>
+          </NButton>
+        </template>
+        <template #header>
+          <div class="text-14px font-bold">提示</div>
+        </template>
+        <div class="text-14px">
+          Steam内鼠标移至CS2点击右键选管理→浏览本地文件，然后依序打开资料夹→game→csgo→cfg 将cfg移至此资料夹内即可
+          <br />
+          进入游戏后打开控制台输入exec cfg文件名称（exec与名称之间要空格，文件名即可副档名无需输入，如zed.cfg
+          只需要输入zed）
+          <br />
+          每次启动游戏都需要输入一次（如果启动游戏发现绑键失效的话）
+          <br />
+          不同的社区命令前缀不同,如(买手雷):zed c_he,ub sm_he,fys ms_nade等,或者添加聊天前缀:say !he
+          <br />
+          详细指令请前往各社区渠道获取,本登录器不提供！
+        </div>
+      </NPopover>
+    </NCard>
+    <NCard size="small" class="mb-15px" content-class="flex flex-wrap">
+      <NDynamicInput v-model:value="buttons" :on-create="handleCreateButton">
+        <template #default="{ value }">
+          <div class="ml-8px flex-y-center flex-1 gap-12px">
+            <NSelect
+              v-model:value="value.code"
+              class="mr-5px min-w-150px"
+              :options="keyOptions"
+              placeholder="请选择按键"
+              filterable
+              clearable
+            />
+            <NInput
+              v-model:value="value.desc"
+              class="mr-5px min-w-150px"
+              placeholder="请输入你要绑定的指令"
+              clearable
+            />
+          </div>
+        </template>
+        <template #action="{ index, create, remove }">
+          <div class="ml-8px flex-y-center gap-12px">
+            <NButton class="min-w-100px" size="medium" @click="() => create(index)">
+              <icon-ic:round-plus class="text-icon" />
+            </NButton>
+            <NButton class="min-w-100px" size="medium" @click="() => remove(index)">
+              <icon-ic-round-remove class="text-icon" />
+            </NButton>
+          </div>
+        </template>
+      </NDynamicInput>
     </NCard>
   </div>
 </template>

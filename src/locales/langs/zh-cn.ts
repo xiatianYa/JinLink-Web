@@ -49,7 +49,8 @@ const local: App.I18n.Schema = {
       yes: '是',
       no: '否'
     },
-    resetUserName: '重置账号'
+    resetUserName: '重置账号',
+    push: '推送'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -272,7 +273,11 @@ const local: App.I18n.Schema = {
         desc3: '新增地图订阅功能',
         desc4: '新增意见反馈',
         desc5: '新增个人中心,可前往重置账号,设置默认社区偏好,模式偏好等',
-        desc6: '新增3D地图展示,优化社区偏好设置(可添加多社区,多模式)'
+        desc6: '新增3D地图展示,3D皮肤展示,优化社区偏好设置(可添加多社区,多模式)',
+        desc7: '新增用户头像修改,可前往个人中心进行修改,优化地图订阅(会根据你的社区偏好,模式偏好进行通知)',
+        desc8: '地图订阅新增暧服推送(可推送登录器所有在线用户),优化绑键助手,永久保存配置,保存后可导出cfg文件',
+        desc9: '',
+        desc10: ''
       },
       onlineUser: '在线用户',
       sponsor: {
@@ -797,6 +802,7 @@ const local: App.I18n.Schema = {
         add: '新增订阅',
         test: '测试通知',
         mapName: '地图名称',
+        mapPush: '暧服推送',
         form: {
           mapName: '请输入地图名称'
         }
@@ -824,6 +830,7 @@ const local: App.I18n.Schema = {
       userInfo: {
         edit: '编辑用户信息',
         userName: '用户名',
+        userAvatar: '头像',
         password: '密码',
         nickName: '用户昵称',
         phone: '手机号',
@@ -842,6 +849,7 @@ const local: App.I18n.Schema = {
         restartUserNameConfirm: '你只有一次机会,重置后用户名作为你的登陆账号,请确认是否继续',
         form: {
           userName: '请输入用户名',
+          userAvatar: '请上传头像',
           password: '请输入密码',
           communityPreferencePlaceholder: '请选择社区偏好',
           modePreferencePlaceholder: '请选择模式偏好',

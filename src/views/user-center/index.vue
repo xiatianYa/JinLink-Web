@@ -9,10 +9,7 @@ import { $t } from '@/locales';
 import { fetchGetCommunityNames, fetchGetModeNames, fetchUpdatePassword, fetchUpdateUserInfo } from '@/service/api';
 import UserInfoOperateDrawer from './modules/user-info-operate-drawer.vue';
 
-type InfoModel = Pick<
-  Api.SystemManage.UserVo,
-  'userName' | 'userAvatar' | 'nickName' | 'userPhone' | 'userEmail' | 'userGender'
->;
+type InfoModel = Pick<Api.Auth.UserInfo, 'userName' | 'avatar' | 'userPhone' | 'userEmail' | 'userGender'>;
 
 type PasswordModel = Pick<Api.SystemManage.UserPasswordVo, 'oldPassword' | 'newPassword' | 'confirmPassword'>;
 
@@ -52,11 +49,10 @@ const { defaultRequiredRule } = useFormRules();
 function createDefaultInfoModel(): InfoModel {
   return {
     userName: '',
-    userAvatar: '',
-    nickName: '',
+    avatar: '',
     userPhone: '',
     userEmail: '',
-    userGender: null
+    userGender: ''
   };
 }
 
@@ -192,6 +188,14 @@ onMounted(() => {
               <NForm ref="infoFormRef" :model="infoModel" :rules="infoRules">
                 <NFormItem :label="$t('page.userCenter.userInfo.nickName')" path="nickName">
                   <NInput v-model:value="infoModel.userName" />
+                </NFormItem>
+                <NFormItem :label="$t('page.userCenter.userInfo.userAvatar')" path="userAvatar">
+                  <ImgUpload
+                    v-model:model-value="infoModel.avatar"
+                    :limit="1"
+                    :file-type="['image/png', 'image/jpeg']"
+                    :file-size="50"
+                  ></ImgUpload>
                 </NFormItem>
                 <NFormItem :label="$t('page.userCenter.userInfo.phone')" path="userPhone">
                   <NInput v-model:value="infoModel.userPhone" />

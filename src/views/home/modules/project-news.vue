@@ -18,7 +18,9 @@ const newses = computed<NewsItem[]>(() => [
   { id: 3, content: $t('page.home.projectNews.desc3'), time: '2024-12-4' },
   { id: 4, content: $t('page.home.projectNews.desc4'), time: '2024-12-5' },
   { id: 5, content: $t('page.home.projectNews.desc5'), time: '2024-12-6' },
-  { id: 6, content: $t('page.home.projectNews.desc6'), time: '2025-1-3' }
+  { id: 6, content: $t('page.home.projectNews.desc6'), time: '2025-1-3' },
+  { id: 7, content: $t('page.home.projectNews.desc7'), time: '2025-1-16' },
+  { id: 8, content: $t('page.home.projectNews.desc8'), time: '2025-1-19' }
 ]);
 </script>
 

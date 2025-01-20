@@ -49,7 +49,8 @@ const local: App.I18n.Schema = {
       yes: 'Yes',
       no: 'No'
     },
-    resetUserName: 'Reset Account'
+    resetUserName: 'Reset Account',
+    push: 'Push'
   },
   request: {
     logout: 'Logout user after request failed',
@@ -274,7 +275,12 @@ const local: App.I18n.Schema = {
         desc5:
           'Added personal center, you can go to reset account, set default community preferences, mode preferences, etc.',
         desc6:
-          'Sponsorship adds 3D map display, optimizes community preference settings (can add multiple communities, multiple modes)'
+          'Added 3D map display, 3D skin display, optimized community preference settings (can add multiple communities, multiple modes)',
+        desc7: 'Added user avatar modification, you can modify it in the personal center',
+        desc8:
+          'Added warm server push (can push all online users of the login server), optimized bind key assistant, permanently save configuration, and export cfg file after saving',
+        desc9: '',
+        desc10: ''
       },
       onlineUser: 'Online User',
       sponsor: {
@@ -799,6 +805,7 @@ const local: App.I18n.Schema = {
         add: 'Add Subscription',
         test: 'Test Notification',
         mapName: 'Map Name',
+        mapPush: 'Map Push',
         form: {
           mapName: 'Please enter map name'
         }
@@ -825,6 +832,7 @@ const local: App.I18n.Schema = {
     userCenter: {
       userInfo: {
         edit: 'Edit User Info',
+        userAvatar: 'Avatar',
         userName: 'User Name',
         password: 'Password',
         nickName: 'Nick Name',
@@ -844,6 +852,7 @@ const local: App.I18n.Schema = {
         restartUserNameConfirm: 'Please enter confirm password',
         form: {
           userName: 'Please enter user name',
+          userAvatar: 'Please enter avatar',
           password: 'Please enter password',
           communityPreferencePlaceholder: 'Please select community preference',
           modePreferencePlaceholder: 'Please select mode preference',

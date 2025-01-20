@@ -327,6 +327,7 @@ declare namespace App {
         updateSuccess: string;
         userCenter: string;
         resetUserName: string;
+        push: string;
         yesOrNo: {
           yes: string;
           no: string;
@@ -480,6 +481,10 @@ declare namespace App {
             desc4: string;
             desc5: string;
             desc6: string;
+            desc7: string;
+            desc8: string;
+            desc9: string;
+            desc10: string;
           };
           onlineUser: string;
         };
@@ -492,6 +497,7 @@ declare namespace App {
             add: string;
             test: string;
             mapName: string;
+            mapPush: string;
             form: {
               mapName: string;
             };
@@ -1022,6 +1028,7 @@ declare namespace App {
         userCenter: {
           userInfo: {
             userName: string;
+            userAvatar: string;
             password: string;
             nickName: string;
             phone: string;
@@ -1041,6 +1048,7 @@ declare namespace App {
             restartUserNameConfirm: string;
             form: {
               userName: string;
+              userAvatar: string;
               password: string;
               communityPreferencePlaceholder: string;
               modePreferencePlaceholder: string;

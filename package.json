@@ -63,6 +63,7 @@
     "dhtmlx-gantt": "8.0.10",
     "dompurify": "3.1.6",
     "echarts": "5.5.1",
+    "file-saver": "2.0.5",
     "gsap": "^3.12.5",
     "jsbarcode": "3.11.6",
     "json5": "2.2.3",

@@ -399,14 +399,12 @@ onMounted(() => {
     .server-card-name {
       position: sticky;
       color: #ffffff;
-      z-index: 999;
       font-weight: bold;
     }
 
     .server-card-onLine {
       position: sticky;
       color: #ffffff;
-      z-index: 999;
     }
   }
 

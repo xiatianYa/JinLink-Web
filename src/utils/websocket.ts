@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import pako from 'pako';
-import { createDiscreteApi } from 'naive-ui';
+import { NButton, createDiscreteApi } from 'naive-ui';
+import { h } from 'vue';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import { fetchUpdateMapOrder } from '@/service/api/game/map';
@@ -123,11 +124,38 @@ const Websocket: any = {
               gameStore.automaticCount += 1;
               Websocket.sendJoinServer(gameStore.automaticInfo);
               break;
+            // 暧服推送
+            case '206':
+              // 网页通知
+              Websocket.notification.create({
+                title: '暧服推送',
+                description: `${data.data.description}`,
+                content: `${data.data.pushUserName} 邀请你在服务器:${data.data.serverName} 游玩 ${data.data.mapName}(${data.data.mapLabel})。`,
+                meta: `${dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss')}`,
+                duration: 120000,
+                keepAliveOnHover: true,
+                action: () =>
+                  h(
+                    NButton,
+                    {
+                      type: 'info',
+                      tertiary: true,
+                      round: true,
+                      onClick: () => {
+                        window.open(`steam://rungame/730/76561198977557298/+connect ${data.data.addr}`);
+                        Websocket.notification.destroyAll();
+                        window.$message?.success('连接成功');
+                      }
+                    },
+                    '连接'
+                  )
+              });
+              break;
             default:
               break;
           }
         } catch (error) {
-          console.log('解压失败:', error);
+          window.$message?.error(`消息异常:${error}`);
         }
       };
       // 读取Blob为ArrayBuffer
@@ -165,14 +193,32 @@ const Websocket: any = {
   },
   // 发送挤服数据
   sendJoinServer: (data: Api.Game.SteamServerVo) => {
-    Websocket.websocket.send(JSON.stringify(data));
+    const sendMessage = {
+      type: 0,
+      data
+    };
+    Websocket.websocket.send(JSON.stringify(sendMessage));
+  },
+  // 发送推送服务器 全体消息
+  sendMsgAllPush: (data: any) => {
+    const sendMessage = {
+      type: 1,
+      data
+    };
+    Websocket.websocket.send(JSON.stringify(sendMessage));
   },
   // 地图订阅通知
   notificationMapOrder: (data: Array<Api.Game.SourceServerVo>) => {
     // 游戏仓库
     const gameStore = useGameStore();
+    const communityIds = localStorage.getItem('communityIds');
+    const modeIds = localStorage.getItem('modeIds');
     data.forEach(async (item: Api.Game.SourceServerVo) => {
+      // 判断是否是你偏爱的社区
+      if (communityIds && !communityIds.includes(String(item.gameCommunity.id))) return;
       item.gameServerVoList.forEach(async (server: Api.Game.SteamServerVo) => {
+        // 判断是否是你偏爱的模式
+        if (modeIds && !modeIds.includes(String(server.modeId))) return;
         // 查找地图订阅是否有此地图
         const mapOrder = gameStore.mapOrderList?.find((map: Api.GameMapOrder.gameMapOrderVo) => {
           return map.gameMapVo.mapName === server.mapName;
@@ -223,11 +269,23 @@ const Websocket: any = {
               }
             }
             // 网页通知
-            Websocket.notification.success({
-              content: '订阅成功',
-              meta: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
+            Websocket.notification.create({
+              title: '通知成功',
+              content: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
+              meta: `${dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss')}`,
               duration: 5000,
-              keepAliveOnHover: true
+              keepAliveOnHover: true,
+              action: () =>
+                h(
+                  NButton,
+                  {
+                    type: 'info',
+                    tertiary: true,
+                    round: true,
+                    onClick: () => window.open(`steam://rungame/730/76561198977557298/+connect ${server.addr}`)
+                  },
+                  '连接'
+                )
             });
           } else if (isMoreThanTwoHours(isOrder.orderTime)) {
             // 如果当前通知过且超过两小时 则修改通知时间

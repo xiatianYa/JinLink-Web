@@ -192,6 +192,26 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
                   <td>5元</td>
                   <td>2024-12-08</td>
                 </tr>
+                <tr>
+                  <td>kTz.</td>
+                  <td>10元</td>
+                  <td>2024-01-05</td>
+                </tr>
+                <tr>
+                  <td>U.N.OWEN</td>
+                  <td>25元</td>
+                  <td>2024-01-08</td>
+                </tr>
+                <tr>
+                  <td>匿名大佬</td>
+                  <td>50元</td>
+                  <td>2024-01-12</td>
+                </tr>
+                <tr>
+                  <td>时绘</td>
+                  <td>50元</td>
+                  <td>2024-01-14</td>
+                </tr>
               </tbody>
             </NTable>
           </NInfiniteScroll>

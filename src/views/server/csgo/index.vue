@@ -84,6 +84,7 @@ watch(
       );
 
       // 如果找到了匹配的社区，则更新当前社区的数据
+
       if (matchingSteamServer) {
         Object.assign(currentCommunity, matchingSteamServer);
         // 过滤掉不匹配的游戏模式
@@ -91,6 +92,7 @@ watch(
           const gameServerVoListResult = currentCommunity.gameServerVoList.filter(server =>
             searchParams.value.modeIds?.includes(String(server.modeId))
           );
+
           if (gameServerVoListResult && gameServerVoListResult.length > 0)
             currentCommunity.gameServerVoList = gameServerVoListResult;
         }

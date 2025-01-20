@@ -112,7 +112,7 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" :width="500">
+  <NDrawer v-model:show="visible" display-directive="show" :width="360">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <NForm ref="formRef" :model="model" :rules="rules">
         <NFormItem :label="$t('page.game.map.mapName')" path="mapName">
