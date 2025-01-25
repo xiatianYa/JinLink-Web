@@ -2,7 +2,12 @@
 import { onMounted, ref, watch } from 'vue';
 import { NButton, NSelect } from 'naive-ui';
 import { saveAs } from 'file-saver';
-import { fetchGetBindByCommunityId, fetchGetCommunityNames, fetchUpdateBind } from '@/service/api';
+import {
+  fetchGetBindByCommunityId,
+  fetchGetCommunityBind,
+  fetchGetCommunityNames,
+  fetchUpdateBind
+} from '@/service/api';
 
 // 社区id
 const communityId = ref<any>(null);
@@ -10,9 +15,16 @@ const communityId = ref<any>(null);
 // 社区配置项
 const communityOptions = ref<CommonType.Option<string>[]>([]);
 
+// 社区按键命令
+const communityBindOptions = ref<Array<{ code: string; desc: string }>>([]);
+
+// 社区按键命令
+const bindOptions = ref<Api.Game.CommunityBindOptionsVo[]>([]);
+
 // 按钮
 const buttons = ref<Array<{ code: string; desc: string }>>([]);
 
+// 按键选项
 const keyOptions = ref([
   { label: 'a', value: 'a' },
   { label: 'b', value: 'b' },
@@ -138,7 +150,8 @@ function exportCfg() {
   const blob = new Blob([cfgContent], { type: 'text/plain;charset=utf-8' });
   // 获取社区名称
   const communityName = communityOptions.value.find(item => item.value === communityId.value)?.label;
-  saveAs(blob, `${communityName}.cfg`);
+  // 名称转为小写
+  saveAs(blob, `${communityName?.toLowerCase()}.cfg`);
 }
 
 // 保存配置
@@ -160,6 +173,10 @@ async function initOptions() {
   const communityNames = await fetchGetCommunityNames();
   if (communityNames.data) {
     communityOptions.value = communityNames.data;
+  }
+  const bindNames = await fetchGetCommunityBind();
+  if (bindNames.data) {
+    bindOptions.value = bindNames.data;
   }
 }
 
@@ -186,6 +203,12 @@ onMounted(() => {
 watch(communityId, async () => {
   if (communityId.value) {
     initCfg();
+    const findOptions = bindOptions.value.find(item => String(item.communityId) === String(communityId.value));
+    if (findOptions && findOptions.options) {
+      communityBindOptions.value = findOptions.options;
+    } else {
+      window?.$message?.error('当前社区没有指令列表');
+    }
   }
 });
 </script>
@@ -233,9 +256,7 @@ watch(communityId, async () => {
           <br />
           每次启动游戏都需要输入一次（如果启动游戏发现绑键失效的话）
           <br />
-          不同的社区命令前缀不同,如(买手雷):zed c_he,ub sm_he,fys ms_nade等,或者添加聊天前缀:say !he
-          <br />
-          详细指令请前往各社区渠道获取,本登录器不提供！
+          如需添加指令,请添加反馈QQ群:901243791
         </div>
       </NPopover>
     </NCard>
@@ -247,14 +268,16 @@ watch(communityId, async () => {
               v-model:value="value.code"
               class="mr-5px min-w-150px"
               :options="keyOptions"
-              placeholder="请选择按键"
-              filterable
+              :placeholder="$t('page.tool.bind.key')"
               clearable
             />
-            <NInput
+            <NSelect
               v-model:value="value.desc"
+              :options="communityBindOptions"
+              label-field="desc"
+              value-field="code"
               class="mr-5px min-w-150px"
-              placeholder="请输入你要绑定的指令"
+              :placeholder="$t('page.tool.bind.value')"
               clearable
             />
           </div>

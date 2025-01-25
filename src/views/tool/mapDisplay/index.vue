@@ -178,7 +178,7 @@ onMounted(() => {
   initThree();
   window?.$notification?.info({
     title: '地图展示通知',
-    content: `如果你想展示你喜欢的地图,请使用Source2Viewer打包地图文件为glb格式,加入qq群:901243791,联系群主,谢谢!`,
+    content: `如果你想展示你喜欢的地图,请加入qq群:901243791,联系群主`,
     duration: 5000
   });
 });

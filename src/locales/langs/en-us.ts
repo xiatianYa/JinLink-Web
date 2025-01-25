@@ -693,10 +693,12 @@ const local: App.I18n.Schema = {
         website: 'Community Website',
         addCommunity: 'Community Add',
         editCommunity: 'Community Edit',
+        bind: 'Community Bind',
         form: {
           communityName: 'Please enter community name',
           logo: 'Please upload community logo',
-          website: 'Please enter community website'
+          website: 'Please enter community website',
+          bind: 'Please enter community bind'
         }
       },
       game: {

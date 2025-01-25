@@ -215,7 +215,7 @@ window.onresize = () => {
 onMounted(() => {
   window?.$notification?.info({
     title: '皮肤展示通知',
-    content: `如果你想展示你的角色皮肤,加入qq群:901243791,联系群主,谢谢!`,
+    content: `如果你想展示你的角色皮肤,加入qq群:901243791,联系群主(皮肤源文件为被加密传输,可能会被窃取)`,
     duration: 5000
   });
 });

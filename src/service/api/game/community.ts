@@ -42,3 +42,11 @@ export function fetchGetCommunityNames() {
     method: 'get'
   });
 }
+
+/** 获取社区按键命令 */
+export function fetchGetCommunityBind() {
+  return request<Api.Game.CommunityBindOptionsVo[]>({
+    url: '/gameCommunity/getCommunityBindOptions',
+    method: 'get'
+  });
+}

@@ -907,10 +907,12 @@ declare namespace App {
             communityName: string;
             logo: string;
             website: string;
+            bind: string;
             form: {
               communityName: string;
               logo: string;
               website: string;
+              bind: string;
             };
           };
           game: {

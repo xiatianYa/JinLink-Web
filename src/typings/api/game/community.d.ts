@@ -16,6 +16,8 @@ declare namespace Api {
       logo: string;
       /** community website */
       website: string;
+      /** community bind */
+      bind: string;
     }>;
 
     type CommunityParams = {
@@ -25,6 +27,12 @@ declare namespace Api {
       logo: string;
       /** community website */
       website: string;
+    };
+
+    type CommunityBindOptionsVo = {
+      communityId: string;
+      communityName: string;
+      options: Array<{ code: string; desc: string }>;
     };
   }
 }

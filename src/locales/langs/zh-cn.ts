@@ -690,10 +690,12 @@ const local: App.I18n.Schema = {
         website: '社区网站',
         addCommunity: '添加社区',
         editCommunity: '编辑社区',
+        bind: '按键命令列表',
         form: {
           communityName: '请输入社区名称',
           logo: '请上传社区Logo',
-          website: '请输入社区网站'
+          website: '请输入社区网站',
+          bind: '请输入按键命令'
         }
       },
       game: {

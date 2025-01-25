@@ -154,6 +154,7 @@ const onAutoJoinMap = (server: Api.Game.SteamServerVo) => {
   } else {
     gameStore.isAutomatic = false;
     automaticDialog.value = true;
+    gameStore.automaticCount = 0;
     const {
       serverName,
       addr,
