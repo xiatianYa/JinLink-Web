@@ -42,3 +42,25 @@ export function fetchGetLiveListAll() {
     method: 'get'
   });
 }
+
+// 修改直播间Obs配置
+export function fetchUpdateLiveObsConfig(options: string) {
+  return request({
+    url: '/gameLive/updateObsOptions',
+    method: 'put',
+    data: {
+      options
+    }
+  });
+}
+
+// 获取用户直播间Obs配置
+export function fetchGetUserObsOptions(userId: string) {
+  return request<string>({
+    url: '/gameLive/getUserObsOptions',
+    method: 'get',
+    params: {
+      id: userId
+    }
+  });
+}

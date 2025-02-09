@@ -50,7 +50,9 @@ const local: App.I18n.Schema = {
       no: '否'
     },
     resetUserName: '重置账号',
-    push: '推送'
+    push: '推送',
+    copy: '复制',
+    save: '保存'
   },
   request: {
     logout: '请求失败后登出用户',
@@ -198,13 +200,16 @@ const local: App.I18n.Schema = {
     server_minecraft: 'Minecraft',
     tool_mapdisplay: '地图展示',
     tool_skindisplay: '皮肤展示',
-    game_model: '游戏模型管理'
+    game_model: '游戏模型管理',
+    tool_obs: 'OBS 直播插件',
+    obs: 'OBS'
   },
   page: {
     login: {
       common: {
         loginOrRegister: '登录 / 注册',
         userNamePlaceholder: '请输入账号名',
+        avatarPlaceholder: '请上传用户头像',
         userNickNamePlaceholder: '请输入昵称',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',
@@ -276,7 +281,7 @@ const local: App.I18n.Schema = {
         desc6: '新增3D地图展示,3D皮肤展示,优化社区偏好设置(可添加多社区,多模式)',
         desc7: '新增用户头像修改,可前往个人中心进行修改,优化地图订阅(会根据你的社区偏好,模式偏好进行通知)',
         desc8: '地图订阅新增暧服推送(可推送登录器所有在线用户),优化绑键助手,永久保存配置,保存后可导出cfg文件',
-        desc9: '',
+        desc9: '新增OBS 直播插件,可前往工具-OBS 直播插件进行配置',
         desc10: ''
       },
       onlineUser: '在线用户',
@@ -811,6 +816,14 @@ const local: App.I18n.Schema = {
       },
       mapDisplay: {
         mapName: '请选择地图名称'
+      },
+      obs: {
+        fontSize: '字体大小',
+        fontColor: '字体颜色',
+        fontShadow: '字体阴影',
+        obsLink: 'OBS显示链接',
+        fontAlign: '文字对齐',
+        showMap: '是否显示地图图片'
       }
     },
     feedback: {
@@ -867,6 +880,10 @@ const local: App.I18n.Schema = {
     userName: {
       required: '请输入用户名',
       invalid: '用户名格式不正确'
+    },
+    avatar: {
+      required: '请上传头像',
+      invalid: '用户头像格式不正确'
     },
     phone: {
       required: '请输入手机号',

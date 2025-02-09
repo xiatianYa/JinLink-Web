@@ -87,12 +87,14 @@ export function fetchGetCode(userName: string) {
 export function fetchRegister({
   userName,
   nickName,
+  avatar,
   password,
   confirmPassword,
   code
 }: {
   userName: string;
   nickName: string;
+  avatar: string;
   password: string;
   confirmPassword: string;
   code: string;
@@ -103,6 +105,7 @@ export function fetchRegister({
     data: {
       userName,
       nickName,
+      avatar,
       password,
       confirmPassword,
       code

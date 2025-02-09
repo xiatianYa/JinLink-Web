@@ -290,6 +290,8 @@ declare namespace App {
       common: {
         action: string;
         add: string;
+        copy: string;
+        save: string;
         addSuccess: string;
         backToHome: string;
         batchDelete: string;
@@ -404,6 +406,7 @@ declare namespace App {
           common: {
             loginOrRegister: string;
             userNamePlaceholder: string;
+            avatarPlaceholder: string;
             userNickNamePlaceholder: string;
             phonePlaceholder: string;
             codePlaceholder: string;
@@ -504,6 +507,14 @@ declare namespace App {
           };
           mapDisplay: {
             mapName: string;
+          };
+          obs: {
+            fontSize: string;
+            fontColor: string;
+            fontShadow: string;
+            obsLink: string;
+            fontAlign: string;
+            showMap: string;
           };
         };
         manage: {
@@ -1065,6 +1076,7 @@ declare namespace App {
         required: string;
         userName: FormMsg;
         nickName: FormMsg;
+        avatar: FormMsg;
         phone: FormMsg;
         pwd: FormMsg;
         confirmPwd: FormMsg;

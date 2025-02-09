@@ -139,6 +139,7 @@ const joinServer = (server: Api.Game.SteamServerVo) => {
   aLink.href = `steam://rungame/730/76561198977557298/+connect ${server.addr}`;
   aLink.click();
   message.success('连接成功');
+  websocket.sendMsgConnect(server.addr);
 };
 
 // 复制服务器地址
@@ -240,12 +241,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="server-card flex overflow-hidden"
-    :style="{
-      backgroundImage: `url(${gameServer?.mapUrl ? gameServer?.mapUrl : 'https://www.bluearchive.top/statics/2024/11/21/noImg.jpg'})`
-    }"
-  >
+  <div class="server-card flex overflow-hidden">
+    <img v-if="gameServer?.mapUrl" v-lazy="gameServer?.mapUrl" class="server-card-img" />
     <div class="server-card-mask"></div>
     <div class="server-online" :style="`${getOnLineColor(gameServer!)}`"></div>
     <div class="server-card-left">
@@ -263,14 +260,8 @@ onMounted(() => {
             }})
           </NEllipsis>
         </div>
-        <div>
-          <NTag
-            v-if="gameServer?.type"
-            :color="renderColor(gameServer?.type ?? '-1')"
-            size="small"
-            strong
-            class="ml-5px mr-10px"
-          >
+        <div v-if="gameServer?.type != 'null'">
+          <NTag :color="renderColor(gameServer?.type ?? '-1')" size="small" strong class="ml-5px mr-10px">
             {{ renderTypeName(gameServer?.type ?? '-1') }}
           </NTag>
         </div>
@@ -374,6 +365,17 @@ onMounted(() => {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
+  background-color: #a5aaa3;
+
+  /* 地图图片 */
+  .server-card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   /* 遮罩层样式 */
   .server-card-mask {
@@ -427,7 +429,7 @@ onMounted(() => {
       align-items: center;
       flex: 3;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.5);
       cursor: pointer;
       border-radius: 12px 0 0 0;
 

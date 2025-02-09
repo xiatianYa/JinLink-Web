@@ -197,6 +197,7 @@ const routeMap: RouteMap = {
   "monitor_logs_scheduler": "/monitor/logs/scheduler",
   "monitor_scheduler": "/monitor/scheduler",
   "monitor_system": "/monitor/system",
+  "obs": "/obs",
   "reservation": "/reservation",
   "reservation_feedback": "/reservation/feedback",
   "server": "/server",
@@ -208,6 +209,7 @@ const routeMap: RouteMap = {
   "tool_bind": "/tool/bind",
   "tool_mapdisplay": "/tool/mapdisplay",
   "tool_maporder": "/tool/maporder",
+  "tool_obs": "/tool/obs",
   "tool_skindisplay": "/tool/skindisplay",
   "user-center": "/user-center"
 };

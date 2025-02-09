@@ -84,6 +84,7 @@
     "vue-pdf-embed": "2.1.0",
     "vue-router": "4.4.5",
     "vue3-ace-editor": "^2.2.4",
+    "vue3-lazyload": "0.3.8",
     "wangeditor": "4.7.15",
     "xgplayer": "3.0.20",
     "xlsx": "0.18.5"

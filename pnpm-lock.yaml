@@ -119,6 +119,9 @@ importers:
       vue3-ace-editor:
         specifier: ^2.2.4
         version: 2.2.4(ace-builds@1.36.4)(vue@3.5.11(typescript@5.6.3))
+      vue3-lazyload:
+        specifier: 0.3.8
+        version: 0.3.8(vue@3.5.11(typescript@5.6.3))
       wangeditor:
         specifier: 4.7.15
         version: 4.7.15
@@ -4784,6 +4787,17 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
+  vue-demi@0.12.5:
+    resolution: {integrity: sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==}
+    engines: {node: '>=12'}
+    hasBin: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
   vue-demi@0.13.11:
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
     engines: {node: '>=12'}
@@ -4848,6 +4862,15 @@ packages:
     peerDependencies:
       ace-builds: '*'
       vue: ^3
+
+  vue3-lazyload@0.3.8:
+    resolution: {integrity: sha512-UiJHRT7mzry102WbhtrRgJh+f8Z8u4Z+H1RU4dvPmQeq7wFSDFxZB9iJOWGihH2FscXN/8rMGLDOQJAmjwqpCg==}
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
 
   vue@3.5.11:
     resolution: {integrity: sha512-/8Wurrd9J3lb72FTQS7gRMNQD4nztTtKPmuDuPuhqXmmpD6+skVjAeahNpVzsuky6Sy9gy7wn8UadqPtt9SQIg==}
@@ -9944,6 +9967,10 @@ snapshots:
 
   vscode-uri@3.0.8: {}
 
+  vue-demi@0.12.5(vue@3.5.11(typescript@5.6.3)):
+    dependencies:
+      vue: 3.5.11(typescript@5.6.3)
+
   vue-demi@0.13.11(vue@3.5.11(typescript@5.6.3)):
     dependencies:
       vue: 3.5.11(typescript@5.6.3)
@@ -10001,6 +10028,11 @@ snapshots:
       ace-builds: 1.36.4
       resize-observer-polyfill: 1.5.1
       vue: 3.5.11(typescript@5.6.3)
+
+  vue3-lazyload@0.3.8(vue@3.5.11(typescript@5.6.3)):
+    dependencies:
+      vue: 3.5.11(typescript@5.6.3)
+      vue-demi: 0.12.5(vue@3.5.11(typescript@5.6.3))
 
   vue@3.5.11(typescript@5.6.3):
     dependencies:

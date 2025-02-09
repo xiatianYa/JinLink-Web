@@ -10,6 +10,8 @@ import CreativityBanner from './modules/creativity-banner.vue';
 
 const appStore = useAppStore();
 
+const payImg = new URL('@/assets/images/pay.png', import.meta.url).href;
+
 const gap = computed(() => (appStore.isMobile ? 0 : 16));
 </script>
 
@@ -43,7 +45,7 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
             <NText class="text-16px font-semibold">{{ $t('page.home.sponsor.title') }}</NText>
           </NSpace>
           <NSpace>
-            <NImage class="h-250px" src="https://www.bluearchive.top/statics/2024/11/18/pay.png" />
+            <NImage class="h-250px" :src="payImg" />
           </NSpace>
         </NCard>
       </NGi>
@@ -211,6 +213,41 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
                   <td>时绘</td>
                   <td>50元</td>
                   <td>2024-01-14</td>
+                </tr>
+                <tr>
+                  <td>YorangSama</td>
+                  <td>30元</td>
+                  <td>2024-01-19</td>
+                </tr>
+                <tr>
+                  <td>Yoim1ya</td>
+                  <td>5元</td>
+                  <td>2024-01-21</td>
+                </tr>
+                <tr>
+                  <td>TG 117</td>
+                  <td>10元</td>
+                  <td>2024-01-27</td>
+                </tr>
+                <tr>
+                  <td>水无瞅</td>
+                  <td>50元</td>
+                  <td>2025-02-05</td>
+                </tr>
+                <tr>
+                  <td>NuMash</td>
+                  <td>3元</td>
+                  <td>2025-02-06</td>
+                </tr>
+                <tr>
+                  <td>YorangSama</td>
+                  <td>50元</td>
+                  <td>2025-02-06</td>
+                </tr>
+                <tr>
+                  <td>啦啦啦y^O^y</td>
+                  <td>5元</td>
+                  <td>2025-02-06</td>
                 </tr>
               </tbody>
             </NTable>

@@ -12,7 +12,7 @@ const local: App.I18n.Schema = {
     addSuccess: 'Add Success',
     backToHome: 'Back to home',
     batchDelete: 'Batch Delete',
-    batchDeleteAll: '清空列表',
+    batchDeleteAll: 'Clear List',
     cancel: 'Cancel',
     close: 'Close',
     check: 'Check',
@@ -50,7 +50,9 @@ const local: App.I18n.Schema = {
       no: 'No'
     },
     resetUserName: 'Reset Account',
-    push: 'Push'
+    push: 'Push',
+    copy: 'Copy',
+    save: 'Save'
   },
   request: {
     logout: 'Logout user after request failed',
@@ -198,13 +200,16 @@ const local: App.I18n.Schema = {
     server_minecraft: 'Minecraft',
     tool_mapdisplay: 'Map Display',
     tool_skindisplay: 'Skin Display',
-    game_model: 'Game Model Manager'
+    game_model: 'Game Model Manager',
+    tool_obs: 'OBS Live Config',
+    obs: 'OBS'
   },
   page: {
     login: {
       common: {
         loginOrRegister: 'Login / Register',
         userNamePlaceholder: 'Please enter user name',
+        avatarPlaceholder: 'Please enter avatar',
         userNickNamePlaceholder: 'Please enter nickname',
         phonePlaceholder: 'Please enter phone number',
         codePlaceholder: 'Please enter verification code',
@@ -279,7 +284,7 @@ const local: App.I18n.Schema = {
         desc7: 'Added user avatar modification, you can modify it in the personal center',
         desc8:
           'Added warm server push (can push all online users of the login server), optimized bind key assistant, permanently save configuration, and export cfg file after saving',
-        desc9: '',
+        desc9: 'Added OBS live plugin, you can go to the tool-OBS live plugin to configure',
         desc10: ''
       },
       onlineUser: 'Online User',
@@ -814,6 +819,14 @@ const local: App.I18n.Schema = {
       },
       mapDisplay: {
         mapName: 'Please enter map name'
+      },
+      obs: {
+        fontSize: 'Font Size',
+        fontColor: 'Font Color',
+        fontShadow: 'Font Shadow',
+        obsLink: 'OBS Link',
+        fontAlign: 'Font Align',
+        showMap: 'Show Map'
       }
     },
     feedback: {
@@ -870,6 +883,10 @@ const local: App.I18n.Schema = {
     userName: {
       required: 'Please enter user name',
       invalid: 'User name format is incorrect'
+    },
+    avatar: {
+      required: 'Please enter avatar',
+      invalid: 'Avatar format is incorrect'
     },
     phone: {
       required: 'Please enter phone number',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as THREE from 'three';
 import { NTabPane, NTabs, useMessage } from 'naive-ui';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 // 引入控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // 引入解压模型库
@@ -211,14 +211,6 @@ window.onresize = () => {
     camera.updateProjectionMatrix();
   }
 };
-
-onMounted(() => {
-  window?.$notification?.info({
-    title: '皮肤展示通知',
-    content: `如果你想展示你的角色皮肤,加入qq群:901243791,联系群主(皮肤源文件为被加密传输,可能会被窃取)`,
-    duration: 5000
-  });
-});
 </script>
 
 <template>

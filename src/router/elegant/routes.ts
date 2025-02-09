@@ -354,6 +354,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     ]
   },
   {
+    name: 'obs',
+    path: '/obs',
+    component: 'layout.base$view.obs',
+    meta: {
+      title: 'obs',
+      i18nKey: 'route.obs'
+    }
+  },
+  {
     name: 'reservation',
     path: '/reservation',
     component: 'layout.base',
@@ -454,6 +463,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'tool_maporder',
           i18nKey: 'route.tool_maporder'
+        }
+      },
+      {
+        name: 'tool_obs',
+        path: '/tool/obs',
+        component: 'view.tool_obs',
+        meta: {
+          title: 'tool_obs',
+          i18nKey: 'route.tool_obs'
         }
       },
       {

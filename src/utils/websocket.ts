@@ -70,7 +70,7 @@ const Websocket: any = {
               Websocket.notification.success({
                 content: '连接服务器成功',
                 meta: '登录器反馈群号 -> 901243791, 登录器软件版下载,问题反馈请加群!',
-                duration: 6000,
+                duration: 20000,
                 keepAliveOnHover: true
               });
               break;
@@ -105,6 +105,7 @@ const Websocket: any = {
                 duration: 1000,
                 keepAliveOnHover: true
               });
+              Websocket.sendMsgConnect(gameStore.automaticInfo?.addr);
               break;
             }
             // 获取服务器数据
@@ -145,6 +146,7 @@ const Websocket: any = {
                         window.open(`steam://rungame/730/76561198977557298/+connect ${data.data.addr}`);
                         Websocket.notification.destroyAll();
                         window.$message?.success('连接成功');
+                        Websocket.sendMsgConnect(data.data.addr);
                       }
                     },
                     '连接'
@@ -207,6 +209,14 @@ const Websocket: any = {
     };
     Websocket.websocket.send(JSON.stringify(sendMessage));
   },
+  // 发送连接服务器
+  sendMsgConnect: (serverIp: string) => {
+    const sendMessage = {
+      type: 2,
+      data: serverIp
+    };
+    Websocket.websocket.send(JSON.stringify(sendMessage));
+  },
   // 地图订阅通知
   notificationMapOrder: (data: Array<Api.Game.SourceServerVo>) => {
     // 游戏仓库
@@ -254,8 +264,9 @@ const Websocket: any = {
                 });
                 // 点击通知的回调函数
                 notification.onclick = () => {
-                  window.open(`steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`);
+                  window.open(`steam://rungame/730/76561198977557298/+connect ${server.addr}`);
                   notification.close();
+                  Websocket.sendMsgConnect(server.addr);
                 };
               };
               /* 授权过通知 */
@@ -282,7 +293,10 @@ const Websocket: any = {
                     type: 'info',
                     tertiary: true,
                     round: true,
-                    onClick: () => window.open(`steam://rungame/730/76561198977557298/+connect ${server.addr}`)
+                    onClick: () => {
+                      window.open(`steam://rungame/730/76561198977557298/+connect ${server.addr}`);
+                      Websocket.sendMsgConnect(server.addr);
+                    }
                   },
                   '连接'
                 )
@@ -308,8 +322,9 @@ const Websocket: any = {
                 });
                 // 点击通知的回调函数
                 notification.onclick = () => {
-                  window.open(`steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`);
+                  window.open(`steam://rungame/730/76561198977557298/+connect ${server.addr}`);
                   notification.close();
+                  Websocket.sendMsgConnect(server.addr);
                 };
               };
               /* 授权过通知 */
@@ -323,11 +338,26 @@ const Websocket: any = {
               }
             }
             // 网页通知
-            Websocket.notification.success({
-              content: '订阅成功',
-              meta: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
+            Websocket.notification.create({
+              title: '通知成功',
+              content: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
+              meta: `${dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss')}`,
               duration: 5000,
-              keepAliveOnHover: true
+              keepAliveOnHover: true,
+              action: () =>
+                h(
+                  NButton,
+                  {
+                    type: 'info',
+                    tertiary: true,
+                    round: true,
+                    onClick: () => {
+                      window.open(`steam://rungame/730/76561198977557298/+connect ${server.addr}`);
+                      Websocket.sendMsgConnect(server.addr);
+                    }
+                  },
+                  '连接'
+                )
             });
           }
         }

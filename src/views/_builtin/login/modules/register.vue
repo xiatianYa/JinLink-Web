@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
+import { NFormItem } from 'naive-ui';
 import { $t } from '@/locales';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
@@ -16,6 +17,7 @@ const codeUrl = ref<string | null>(null);
 interface FormModel {
   userName: string;
   nickName: string;
+  avatar: string;
   password: string;
   confirmPassword: string;
   code: string;
@@ -24,6 +26,7 @@ interface FormModel {
 const model: FormModel = reactive({
   userName: '',
   nickName: '',
+  avatar: '',
   password: '',
   confirmPassword: '',
   code: ''
@@ -35,6 +38,7 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   return {
     userName: formRules.userName,
     nickName: formRules.nickName,
+    avatar: formRules.avatar,
     password: formRules.pwd,
     confirmPassword: createConfirmPwdRule(model.password),
     code: formRules.code
@@ -43,6 +47,8 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
 async function handleSubmit() {
   await validate();
+  console.log(model);
+
   const { error } = await fetchRegister(model);
   if (error) {
     window.$message?.error(error?.response?.data?.msg || 'Failed to register');
@@ -64,6 +70,15 @@ async function getCode() {
 
 <template>
   <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false" @keyup.enter="handleSubmit">
+    <NFormItem path="avatar">
+      <ImgUpload
+        v-model:model-value="model.avatar"
+        :limit="1"
+        :file-type="['image/png', 'image/jpeg']"
+        :file-size="50"
+        :placeholder="$t('page.login.common.avatarPlaceholder')"
+      />
+    </NFormItem>
     <NFormItem path="userName">
       <NInput v-model:value="model.userName" :placeholder="$t('page.login.common.userNamePlaceholder')" />
     </NFormItem>
