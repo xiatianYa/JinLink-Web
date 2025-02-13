@@ -975,6 +975,7 @@ declare namespace App {
             addMap: string;
             editMap: string;
             mapCd: string;
+            mapAchievement: string;
             form: {
               mapName: string;
               mapLabel: string;

@@ -202,7 +202,8 @@ const local: App.I18n.Schema = {
     tool_skindisplay: 'Skin Display',
     game_model: 'Game Model Manager',
     tool_obs: 'OBS Live Config',
-    obs: 'OBS'
+    obs: 'OBS',
+    tool_soft: 'Login Software Version'
   },
   page: {
     login: {
@@ -755,6 +756,7 @@ const local: App.I18n.Schema = {
         addMap: 'Map Add',
         editMap: 'Map Edit',
         mapCd: 'Map Cd',
+        mapAchievement: 'Map Achievement',
         form: {
           mapName: 'Please enter map name',
           mapLabel: 'Please enter map label',

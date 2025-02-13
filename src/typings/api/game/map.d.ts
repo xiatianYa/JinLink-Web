@@ -68,6 +68,8 @@ declare namespace Api {
       artifact: Artifact[];
       /** 地图CD */
       mapCd: string;
+      /** 地图称号 */
+      mapAchievement: string;
       /** 扩展地图 */
       exgMap: {
         /** 地图名称 */
@@ -82,6 +84,8 @@ declare namespace Api {
         deadline: string;
         /** 是否可预定 */
         isOrder: boolean;
+        /** 称号 */
+        Achievement10: string;
       };
     }>;
   }

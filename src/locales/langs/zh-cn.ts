@@ -202,7 +202,8 @@ const local: App.I18n.Schema = {
     tool_skindisplay: '皮肤展示',
     game_model: '游戏模型管理',
     tool_obs: 'OBS 直播插件',
-    obs: 'OBS'
+    obs: 'OBS',
+    tool_soft: '登录器软件版'
   },
   page: {
     login: {
@@ -752,6 +753,7 @@ const local: App.I18n.Schema = {
         addMap: '添加地图',
         editMap: '编辑地图',
         mapCd: '地图CD',
+        mapAchievement: '地图称号',
         form: {
           mapName: '请输入地图名称',
           mapLabel: '请输入地图标签',

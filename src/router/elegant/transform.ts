@@ -211,6 +211,7 @@ const routeMap: RouteMap = {
   "tool_maporder": "/tool/maporder",
   "tool_obs": "/tool/obs",
   "tool_skindisplay": "/tool/skindisplay",
+  "tool_soft": "/tool/soft",
   "user-center": "/user-center"
 };
 

@@ -66,7 +66,7 @@ onMounted(async () => {
   interval.value = setInterval(async () => {
     await init();
     await initOptions();
-  }, 5000);
+  }, 10000);
 });
 
 onUnmounted(() => {

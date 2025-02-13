@@ -119,6 +119,33 @@ const { columns, data, loading, getDataByPage, mobilePagination, searchParams, r
       }
     },
     {
+      key: 'mapAchievement',
+      title: $t('page.game.map.mapAchievement'),
+      align: 'center',
+      render: row => {
+        if (!row.exgMap.Achievement10) {
+          return h(
+            NTag,
+            {
+              size: 'small',
+              type: 'error',
+              class: 'ml-5'
+            },
+            { default: () => 'EXG : 暂无称号' }
+          );
+        }
+        return h(
+          NTag,
+          {
+            size: 'small',
+            type: 'success',
+            class: 'ml-5'
+          },
+          { default: () => `EXG称号:${row.exgMap.Achievement10}` }
+        );
+      }
+    },
+    {
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',

@@ -482,6 +482,15 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'tool_skindisplay',
           i18nKey: 'route.tool_skindisplay'
         }
+      },
+      {
+        name: 'tool_soft',
+        path: '/tool/soft',
+        component: 'view.tool_soft',
+        meta: {
+          title: 'tool_soft',
+          i18nKey: 'route.tool_soft'
+        }
       }
     ]
   },

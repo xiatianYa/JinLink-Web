@@ -56,5 +56,6 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   tool_maporder: () => import("@/views/tool/mapOrder/index.vue"),
   tool_obs: () => import("@/views/tool/obs/index.vue"),
   tool_skindisplay: () => import("@/views/tool/skinDisplay/index.vue"),
+  tool_soft: () => import("@/views/tool/soft/index.vue"),
   "user-center": () => import("@/views/user-center/index.vue"),
 };

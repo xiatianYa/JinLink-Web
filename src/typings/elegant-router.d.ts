@@ -65,6 +65,7 @@ declare module "@elegant-router/types" {
     "tool_maporder": "/tool/maporder";
     "tool_obs": "/tool/obs";
     "tool_skindisplay": "/tool/skindisplay";
+    "tool_soft": "/tool/soft";
     "user-center": "/user-center";
   };
 
@@ -172,6 +173,7 @@ declare module "@elegant-router/types" {
     | "tool_maporder"
     | "tool_obs"
     | "tool_skindisplay"
+    | "tool_soft"
     | "user-center"
   >;
 
