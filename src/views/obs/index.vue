@@ -22,6 +22,8 @@ type Options = {
   obsLink: string;
   fontAlign: string;
   showMap: boolean;
+  customText: string[];
+  fontFamily: string;
 };
 
 const options = ref<Options>({
@@ -30,7 +32,9 @@ const options = ref<Options>({
   fontShadow: 'rgba(255, 255, 255, 0.5)',
   obsLink: ``,
   fontAlign: 'left',
-  showMap: true
+  showMap: true,
+  customText: [],
+  fontFamily: 'Microsoft YaHei'
 });
 
 const interval = ref<NodeJS.Timeout>();
@@ -75,22 +79,26 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="userServer" class="obs-preview p-20px" :style="`text-align: ${options.fontAlign}`">
+  <div
+    v-if="userServer"
+    class="obs-preview p-20px"
+    :style="`text-align: ${options.fontAlign}; font-family: ${options.fontFamily}, sans-serif`"
+  >
     <div
       class="font-bold"
-      :style="`color: ${options.fontColor}; text-shadow: 2px 2px 4px ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      :style="`color: ${options.fontColor}; text-shadow: -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}, 1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
     >
       服务器名称：{{ userServer?.serverName }}
     </div>
     <div
       class="mt-5px font-bold"
-      :style="`color: ${options.fontColor}; text-shadow: 2px 2px 4px ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
     >
       服务器人数：{{ userServer?.players }}/{{ userServer?.maxPlayers }}
     </div>
     <div
       class="mt-5px font-bold"
-      :style="`color: ${options.fontColor}; text-shadow: 2px 2px 4px ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
     >
       地图名称：{{ userServer?.mapName }} ({{ userServer?.mapLabel }})
     </div>
@@ -109,9 +117,17 @@ onUnmounted(() => {
       <div
         v-else
         class="font-bold"
-        :style="`color: ${options.fontColor}; text-shadow: 2px 2px 4px ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+        :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
       >
         暂无地图图片
+      </div>
+    </div>
+    <div v-for="(item, index) in options.customText" :key="index">
+      <div
+        class="mt-5px font-bold"
+        :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      >
+        {{ item }}
       </div>
     </div>
   </div>

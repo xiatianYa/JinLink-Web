@@ -6,8 +6,8 @@ import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import { fetchUpdateMapOrder } from '@/service/api/game/map';
 import { isMoreThanTwoHours } from '@/utils/time';
-const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
-// const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
+// const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
+const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
 const Websocket: any = {
   websocket: null,
   // 连接地址
@@ -69,7 +69,6 @@ const Websocket: any = {
             case '200':
               Websocket.notification.success({
                 content: '连接服务器成功',
-                meta: '登录器反馈群号 -> 901243791, 登录器软件版下载,问题反馈请加群!',
                 duration: 20000,
                 keepAliveOnHover: true
               });

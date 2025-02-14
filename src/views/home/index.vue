@@ -10,7 +10,8 @@ import CreativityBanner from './modules/creativity-banner.vue';
 
 const appStore = useAppStore();
 
-const payImg = new URL('@/assets/images/pay.png', import.meta.url).href;
+const payImg1 = new URL('@/assets/images/pay1.png', import.meta.url).href;
+const payImg2 = new URL('@/assets/images/pay2.png', import.meta.url).href;
 
 const gap = computed(() => (appStore.isMobile ? 0 : 16));
 </script>
@@ -45,7 +46,8 @@ const gap = computed(() => (appStore.isMobile ? 0 : 16));
             <NText class="text-16px font-semibold">{{ $t('page.home.sponsor.title') }}</NText>
           </NSpace>
           <NSpace>
-            <NImage class="h-250px" :src="payImg" />
+            <NImage class="h-250px" :src="payImg1" />
+            <NImage class="h-250px" :src="payImg2" />
           </NSpace>
         </NCard>
       </NGi>

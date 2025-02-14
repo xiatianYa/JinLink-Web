@@ -24,6 +24,9 @@ const bindOptions = ref<Api.Game.CommunityBindOptionsVo[]>([]);
 // 按钮
 const buttons = ref<Array<{ code: string; desc: string }>>([]);
 
+// 按钮编辑模式
+const buttonEditMode = ref<boolean>(true);
+
 // 按键选项
 const keyOptions = ref([
   { label: 'a', value: 'a' },
@@ -168,6 +171,12 @@ async function saveCfg() {
   }
 }
 
+// 切换编辑模式
+function changeEditMode() {
+  buttonEditMode.value = !buttonEditMode.value;
+  window?.$message?.success('切换成功');
+}
+
 // 初始化社区和模式数据
 async function initOptions() {
   const communityNames = await fetchGetCommunityNames();
@@ -237,6 +246,12 @@ watch(communityId, async () => {
         </template>
         导出配置
       </NButton>
+      <NButton class="mr-5px mt-10px" strong secondary type="info" @click="changeEditMode">
+        <template #icon>
+          <SvgIcon icon="hugeicons:exchange-01" />
+        </template>
+        编辑模式
+      </NButton>
       <NPopover trigger="hover" placement="bottom-start">
         <template #trigger>
           <NButton class="mr-5px mt-10px" strong secondary type="info">
@@ -272,6 +287,7 @@ watch(communityId, async () => {
               clearable
             />
             <NSelect
+              v-if="buttonEditMode"
               v-model:value="value.desc"
               :options="communityBindOptions"
               label-field="desc"
@@ -279,6 +295,12 @@ watch(communityId, async () => {
               class="mr-5px min-w-150px"
               :placeholder="$t('page.tool.bind.value')"
               clearable
+            />
+            <NInput
+              v-else
+              v-model:value="value.desc"
+              class="mr-5px min-w-150px"
+              :placeholder="$t('page.tool.bind.value')"
             />
           </div>
         </template>

@@ -515,6 +515,8 @@ declare namespace App {
             obsLink: string;
             fontAlign: string;
             showMap: string;
+            customText: string;
+            fontFamily: string;
           };
         };
         manage: {

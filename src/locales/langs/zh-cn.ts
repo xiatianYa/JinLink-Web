@@ -825,7 +825,9 @@ const local: App.I18n.Schema = {
         fontShadow: '字体阴影',
         obsLink: 'OBS显示链接',
         fontAlign: '文字对齐',
-        showMap: '是否显示地图图片'
+        showMap: '是否显示地图图片',
+        customText: '自定义文字',
+        fontFamily: '字体'
       }
     },
     feedback: {

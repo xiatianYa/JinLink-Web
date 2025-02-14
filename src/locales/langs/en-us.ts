@@ -828,7 +828,9 @@ const local: App.I18n.Schema = {
         fontShadow: 'Font Shadow',
         obsLink: 'OBS Link',
         fontAlign: 'Font Align',
-        showMap: 'Show Map'
+        showMap: 'Show Map',
+        customText: 'Custom Text',
+        fontFamily: 'Font'
       }
     },
     feedback: {
