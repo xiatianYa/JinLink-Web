@@ -41,6 +41,7 @@ declare module "@elegant-router/types" {
     "manage_user": "/manage/user";
     "manage_user-detail": "/manage/user-detail/:id";
     "map": "/map";
+    "mapstrategy": "/mapstrategy";
     "monitor": "/monitor";
     "monitor_cache": "/monitor/cache";
     "monitor_logs": "/monitor/logs";
@@ -64,6 +65,7 @@ declare module "@elegant-router/types" {
     "tool_mapdisplay": "/tool/mapdisplay";
     "tool_maporder": "/tool/maporder";
     "tool_obs": "/tool/obs";
+    "tool_qqgroup": "/tool/qqgroup";
     "tool_skindisplay": "/tool/skindisplay";
     "tool_soft": "/tool/soft";
     "user-center": "/user-center";
@@ -110,6 +112,7 @@ declare module "@elegant-router/types" {
     | "login"
     | "manage"
     | "map"
+    | "mapstrategy"
     | "monitor"
     | "obs"
     | "reservation"
@@ -154,6 +157,7 @@ declare module "@elegant-router/types" {
     | "manage_user-detail"
     | "manage_user"
     | "map"
+    | "mapstrategy"
     | "monitor_cache"
     | "monitor_logs_error"
     | "monitor_logs_file"
@@ -172,6 +176,7 @@ declare module "@elegant-router/types" {
     | "tool_mapdisplay"
     | "tool_maporder"
     | "tool_obs"
+    | "tool_qqgroup"
     | "tool_skindisplay"
     | "tool_soft"
     | "user-center"

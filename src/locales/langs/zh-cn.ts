@@ -203,7 +203,9 @@ const local: App.I18n.Schema = {
     game_model: '游戏模型管理',
     tool_obs: 'OBS 直播插件',
     obs: 'OBS',
-    tool_soft: '登录器软件版'
+    tool_soft: '登录器软件版',
+    tool_qqgroup: '登录器QQ群',
+    mapstrategy: '地图攻略文章'
   },
   page: {
     login: {
@@ -794,6 +796,16 @@ const local: App.I18n.Schema = {
           modelType: '请选择模型类型',
           modelUrl: '请上传模型图片',
           modelModeUrl: '请上传模型'
+        }
+      },
+      mapStrategy: {
+        title: '标题',
+        mapLabel: '地图名称',
+        status: '审核状态',
+        form: {
+          title: '请输入标题',
+          mapLabel: '请输入地图名称',
+          status: '请选择审核状态'
         }
       }
     },

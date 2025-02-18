@@ -24,3 +24,4 @@ export * from './game/live';
 export * from './game/statistics';
 export * from './game/model';
 export * from './game/bind';
+export * from './game/mapStrategy';

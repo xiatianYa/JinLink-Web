@@ -187,6 +187,7 @@ const routeMap: RouteMap = {
   "manage_user": "/manage/user",
   "manage_user-detail": "/manage/user-detail/:id",
   "map": "/map",
+  "mapstrategy": "/mapstrategy",
   "monitor": "/monitor",
   "monitor_cache": "/monitor/cache",
   "monitor_logs": "/monitor/logs",
@@ -210,6 +211,7 @@ const routeMap: RouteMap = {
   "tool_mapdisplay": "/tool/mapdisplay",
   "tool_maporder": "/tool/maporder",
   "tool_obs": "/tool/obs",
+  "tool_qqgroup": "/tool/qqgroup",
   "tool_skindisplay": "/tool/skindisplay",
   "tool_soft": "/tool/soft",
   "user-center": "/user-center"

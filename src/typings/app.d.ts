@@ -1021,6 +1021,16 @@ declare namespace App {
               modelModeUrl: string;
             };
           };
+          mapStrategy: {
+            title: string;
+            mapLabel: string;
+            status: string;
+            form: {
+              title: string;
+              mapLabel: string;
+              status: string;
+            };
+          };
         };
         server: {
           csgo2: {

@@ -203,7 +203,9 @@ const local: App.I18n.Schema = {
     game_model: 'Game Model Manager',
     tool_obs: 'OBS Live Config',
     obs: 'OBS',
-    tool_soft: 'Login Software Version'
+    tool_soft: 'Login Software Version',
+    tool_qqgroup: 'QQ Group',
+    mapstrategy: 'Map Strategy Article'
   },
   page: {
     login: {
@@ -797,6 +799,16 @@ const local: App.I18n.Schema = {
           modelType: 'Please enter model type',
           modelUrl: 'Please enter model url',
           modelModeUrl: 'Please enter model mode url'
+        }
+      },
+      mapStrategy: {
+        title: 'Title',
+        mapLabel: 'Map Label',
+        status: 'Status',
+        form: {
+          title: 'Please enter title',
+          mapLabel: 'Please enter map label',
+          status: 'Please select status'
         }
       }
     },

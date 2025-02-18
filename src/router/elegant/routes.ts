@@ -261,6 +261,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'mapstrategy',
+    path: '/mapstrategy',
+    component: 'layout.base$view.mapstrategy',
+    meta: {
+      title: 'mapstrategy',
+      i18nKey: 'route.mapstrategy'
+    }
+  },
+  {
     name: 'monitor',
     path: '/monitor',
     component: 'layout.base',
@@ -472,6 +481,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'tool_obs',
           i18nKey: 'route.tool_obs'
+        }
+      },
+      {
+        name: 'tool_qqgroup',
+        path: '/tool/qqgroup',
+        component: 'view.tool_qqgroup',
+        meta: {
+          title: 'tool_qqgroup',
+          i18nKey: 'route.tool_qqgroup'
         }
       },
       {
