@@ -30,6 +30,7 @@ type Options = {
   showMap: boolean;
   customText: string[];
   fontFamily: string;
+  fontShadowWidth: number;
 };
 
 // OBS配置
@@ -41,7 +42,8 @@ const options = ref<Options>({
   fontAlign: 'left',
   showMap: true,
   customText: [],
-  fontFamily: 'Microsoft YaHei'
+  fontFamily: 'Microsoft YaHei',
+  fontShadowWidth: 1
 });
 
 // 用户服务器
@@ -118,19 +120,19 @@ onUnmounted(() => {
       >
         <div
           class="font-bold"
-          :style="`color: ${options.fontColor}; text-shadow: -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}, 1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+          :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
         >
           服务器名称：{{ userServer?.serverName }}
         </div>
         <div
           class="mt-5px font-bold"
-          :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+          :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
         >
           服务器人数：{{ userServer?.players }}/{{ userServer?.maxPlayers }}
         </div>
         <div
           class="mt-5px font-bold"
-          :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+          :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
         >
           地图名称：{{ userServer?.mapName }} ({{ userServer?.mapLabel }})
         </div>
@@ -149,7 +151,7 @@ onUnmounted(() => {
           <div
             v-else
             class="font-bold"
-            :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+            :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
           >
             暂无地图图片
           </div>
@@ -157,7 +159,7 @@ onUnmounted(() => {
         <div v-for="(item, index) in options.customText" :key="index">
           <div
             class="mt-5px font-bold"
-            :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+            :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
           >
             {{ item }}
           </div>
@@ -177,6 +179,9 @@ onUnmounted(() => {
         </NFormItem>
         <NFormItem :label="$t('page.tool.obs.fontColor')" path="fontColor">
           <NColorPicker v-model:value="options.fontColor" />
+        </NFormItem>
+        <NFormItem :label="$t('page.tool.obs.fontShadowWidth')" path="fontShadowWidth">
+          <NInputNumber v-model:value="options.fontShadowWidth" :min="0" :max="10" :step="0.1" />
         </NFormItem>
         <NFormItem :label="$t('page.tool.obs.fontShadow')" path="fontShadow">
           <NColorPicker v-model:value="options.fontShadow" />

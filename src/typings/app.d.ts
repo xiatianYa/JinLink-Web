@@ -517,6 +517,7 @@ declare namespace App {
             showMap: string;
             customText: string;
             fontFamily: string;
+            fontShadowWidth: string;
           };
         };
         manage: {

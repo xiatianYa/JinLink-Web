@@ -827,7 +827,8 @@ const local: App.I18n.Schema = {
         fontAlign: '文字对齐',
         showMap: '是否显示地图图片',
         customText: '自定义文字',
-        fontFamily: '字体'
+        fontFamily: '字体',
+        fontShadowWidth: '阴影宽度'
       }
     },
     feedback: {

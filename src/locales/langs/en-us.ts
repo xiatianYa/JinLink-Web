@@ -830,7 +830,8 @@ const local: App.I18n.Schema = {
         fontAlign: 'Font Align',
         showMap: 'Show Map',
         customText: 'Custom Text',
-        fontFamily: 'Font'
+        fontFamily: 'Font',
+        fontShadowWidth: 'Font Shadow Width'
       }
     },
     feedback: {

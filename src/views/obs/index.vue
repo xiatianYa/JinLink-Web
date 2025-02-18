@@ -24,6 +24,7 @@ type Options = {
   showMap: boolean;
   customText: string[];
   fontFamily: string;
+  fontShadowWidth: number;
 };
 
 const options = ref<Options>({
@@ -34,7 +35,8 @@ const options = ref<Options>({
   fontAlign: 'left',
   showMap: true,
   customText: [],
-  fontFamily: 'Microsoft YaHei'
+  fontFamily: 'Microsoft YaHei',
+  fontShadowWidth: 1
 });
 
 const interval = ref<NodeJS.Timeout>();
@@ -86,19 +88,19 @@ onUnmounted(() => {
   >
     <div
       class="font-bold"
-      :style="`color: ${options.fontColor}; text-shadow: -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}, 1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
     >
       服务器名称：{{ userServer?.serverName }}
     </div>
     <div
       class="mt-5px font-bold"
-      :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
     >
       服务器人数：{{ userServer?.players }}/{{ userServer?.maxPlayers }}
     </div>
     <div
       class="mt-5px font-bold"
-      :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+      :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
     >
       地图名称：{{ userServer?.mapName }} ({{ userServer?.mapLabel }})
     </div>
@@ -106,18 +108,18 @@ onUnmounted(() => {
       v-if="options.showMap"
       class="flex"
       :class="
-        options.fontAlign === 'center'
-          ? 'justify-center'
-          : options.fontAlign === 'right'
-            ? 'justify-end'
-            : 'justify-start'
-      "
+            options.fontAlign === 'center'
+              ? 'justify-center'
+              : options.fontAlign === 'right'
+                ? 'justify-end'
+                : 'justify-start'
+          "
     >
       <img v-if="userServer?.mapUrl" v-lazy="userServer?.mapUrl" class="mt-5px h-130px w-300px" />
       <div
         v-else
         class="font-bold"
-        :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+        :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
       >
         暂无地图图片
       </div>
@@ -125,7 +127,7 @@ onUnmounted(() => {
     <div v-for="(item, index) in options.customText" :key="index">
       <div
         class="mt-5px font-bold"
-        :style="`color: ${options.fontColor}; text-shadow: 1px 1px 0 ${options.fontShadow}, -1px -1px 0 ${options.fontShadow}, 1px -1px 0 ${options.fontShadow}, -1px 1px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
+        :style="`color: ${options.fontColor}; text-shadow: -${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px -${options.fontShadowWidth}px 0 ${options.fontShadow}, -${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}, ${options.fontShadowWidth}px ${options.fontShadowWidth}px 0 ${options.fontShadow}; text-align: ${options.fontAlign}; font-size: ${options.fontSize}px`"
       >
         {{ item }}
       </div>
