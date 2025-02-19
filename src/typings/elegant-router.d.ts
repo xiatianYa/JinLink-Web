@@ -42,6 +42,8 @@ declare module "@elegant-router/types" {
     "manage_user-detail": "/manage/user-detail/:id";
     "map": "/map";
     "mapstrategy": "/mapstrategy";
+    "mapstrategy_edit": "/mapstrategy/edit";
+    "mapstrategy_list": "/mapstrategy/list";
     "monitor": "/monitor";
     "monitor_cache": "/monitor/cache";
     "monitor_logs": "/monitor/logs";
@@ -157,7 +159,8 @@ declare module "@elegant-router/types" {
     | "manage_user-detail"
     | "manage_user"
     | "map"
-    | "mapstrategy"
+    | "mapstrategy_edit"
+    | "mapstrategy_list"
     | "monitor_cache"
     | "monitor_logs_error"
     | "monitor_logs_file"

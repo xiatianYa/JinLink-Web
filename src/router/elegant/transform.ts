@@ -188,6 +188,8 @@ const routeMap: RouteMap = {
   "manage_user-detail": "/manage/user-detail/:id",
   "map": "/map",
   "mapstrategy": "/mapstrategy",
+  "mapstrategy_edit": "/mapstrategy/edit",
+  "mapstrategy_list": "/mapstrategy/list",
   "monitor": "/monitor",
   "monitor_cache": "/monitor/cache",
   "monitor_logs": "/monitor/logs",

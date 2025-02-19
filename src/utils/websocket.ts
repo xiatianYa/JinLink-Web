@@ -6,8 +6,8 @@ import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import { fetchUpdateMapOrder } from '@/service/api/game/map';
 import { isMoreThanTwoHours } from '@/utils/time';
-const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
-// const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
+// const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
+const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
 const Websocket: any = {
   websocket: null,
   // 连接地址
@@ -24,26 +24,8 @@ const Websocket: any = {
     const authStore = useAuthStore();
     // 游戏仓库
     const gameStore = useGameStore();
-    // 初始化消息对象
-    const { notification } = createDiscreteApi(['notification']);
-    Websocket.notification = notification;
-    // 浏览器适配
-    if (!('WebSocket' in window)) {
-      Websocket.notification.error({
-        content: '适配警告',
-        meta: '浏览器不支持WebSocket',
-        duration: 1500,
-        keepAliveOnHover: true
-      });
-      return;
-    }
     if (!authStore.isLogin) {
-      Websocket.notification.error({
-        content: '认证失败',
-        meta: 'Token不存在',
-        duration: 1500,
-        keepAliveOnHover: true
-      });
+      window.$message?.error('认证不存在!');
       return;
     }
     // 建立websocket连接
@@ -67,11 +49,13 @@ const Websocket: any = {
           switch (data.code) {
             // 用户登陆成功
             case '200':
-              Websocket.notification.success({
-                content: '连接服务器成功',
-                duration: 20000,
-                keepAliveOnHover: true
-              });
+              setTimeout(() => {
+                window.$notification?.success({
+                  content: '连接服务器成功',
+                  duration: 20000,
+                  keepAliveOnHover: true
+                });
+              }, 1000);
               break;
             // 获取自动挤服消息
             case '201': {
@@ -98,7 +82,7 @@ const Websocket: any = {
               aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`;
               aLink.click();
               // 发送消息
-              Websocket.notification.success({
+              window.$notification?.success({
                 content: '连接成功',
                 meta: '游戏服务连接成功',
                 duration: 1000,
@@ -127,7 +111,7 @@ const Websocket: any = {
             // 暧服推送
             case '206':
               // 网页通知
-              Websocket.notification.create({
+              window.$notification?.create({
                 title: '暧服推送',
                 description: `${data.data.description}`,
                 content: `${data.data.pushUserName} 邀请你在服务器:${data.data.serverName} 游玩 ${data.data.mapName}(${data.data.mapLabel})。`,
@@ -169,7 +153,7 @@ const Websocket: any = {
       // 切断自动挤服
       gameStore.isAutomatic = false;
       gameStore.automaticCount = 0;
-      Websocket.notification.warning({
+      window.$notification?.warning({
         content: '服务器连接断开',
         meta: '自动尝试重新连接中 或 刷新浏览器!',
         duration: 4000,
@@ -279,7 +263,7 @@ const Websocket: any = {
               }
             }
             // 网页通知
-            Websocket.notification.create({
+            window.$notification?.create({
               title: '通知成功',
               content: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
               meta: `${dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss')}`,
@@ -337,7 +321,7 @@ const Websocket: any = {
               }
             }
             // 网页通知
-            Websocket.notification.create({
+            window.$notification?.success({
               title: '通知成功',
               content: `您所订阅的地图 ${server.mapName} 已在 ${server.serverName} 进行游戏。`,
               meta: `${dayjs(Date.now()).format('YYYY/MM/DD HH:mm:ss')}`,

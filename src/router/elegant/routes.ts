@@ -263,11 +263,31 @@ export const generatedRoutes: GeneratedRoute[] = [
   {
     name: 'mapstrategy',
     path: '/mapstrategy',
-    component: 'layout.base$view.mapstrategy',
+    component: 'layout.base',
     meta: {
       title: 'mapstrategy',
       i18nKey: 'route.mapstrategy'
-    }
+    },
+    children: [
+      {
+        name: 'mapstrategy_edit',
+        path: '/mapstrategy/edit',
+        component: 'view.mapstrategy_edit',
+        meta: {
+          title: 'mapstrategy_edit',
+          i18nKey: 'route.mapstrategy_edit'
+        }
+      },
+      {
+        name: 'mapstrategy_list',
+        path: '/mapstrategy/list',
+        component: 'view.mapstrategy_list',
+        meta: {
+          title: 'mapstrategy_list',
+          i18nKey: 'route.mapstrategy_list'
+        }
+      }
+    ]
   },
   {
     name: 'monitor',

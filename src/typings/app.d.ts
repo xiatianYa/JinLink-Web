@@ -330,6 +330,8 @@ declare namespace App {
         userCenter: string;
         resetUserName: string;
         push: string;
+        confirmPublish: string;
+        publish: string;
         yesOrNo: {
           yes: string;
           no: string;
@@ -1023,11 +1025,17 @@ declare namespace App {
           };
           mapStrategy: {
             title: string;
+            mapId: string;
             mapLabel: string;
+            videoUrl: string;
             status: string;
+            createTime: string;
+            userName: string;
             form: {
               title: string;
+              mapId: string;
               mapLabel: string;
+              videoUrl: string;
               status: string;
             };
           };

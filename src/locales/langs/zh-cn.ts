@@ -45,6 +45,8 @@ const local: App.I18n.Schema = {
     update: '更新',
     updateSuccess: '更新成功',
     userCenter: '个人中心',
+    confirmPublish: '确认发布吗？',
+    publish: '发布',
     yesOrNo: {
       yes: '是',
       no: '否'
@@ -205,7 +207,9 @@ const local: App.I18n.Schema = {
     obs: 'OBS',
     tool_soft: '登录器软件版',
     tool_qqgroup: '登录器QQ群',
-    mapstrategy: '地图攻略文章'
+    mapstrategy: '地图攻略',
+    mapstrategy_edit: '地图攻略发布',
+    mapstrategy_list: '地图攻略列表'
   },
   page: {
     login: {
@@ -800,11 +804,17 @@ const local: App.I18n.Schema = {
       },
       mapStrategy: {
         title: '标题',
+        mapId: '地图',
         mapLabel: '地图名称',
+        videoUrl: '视频地址',
         status: '审核状态',
+        createTime: '发布时间',
+        userName: '发布人',
         form: {
           title: '请输入标题',
+          mapId: '请选择地图',
           mapLabel: '请输入地图名称',
+          videoUrl: '请上传视频链接',
           status: '请选择审核状态'
         }
       }

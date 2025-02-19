@@ -45,6 +45,8 @@ const local: App.I18n.Schema = {
     update: 'Update',
     updateSuccess: 'Update Success',
     userCenter: 'User Center',
+    confirmPublish: 'Are you sure you want to publish?',
+    publish: 'Publish',
     yesOrNo: {
       yes: 'Yes',
       no: 'No'
@@ -205,7 +207,9 @@ const local: App.I18n.Schema = {
     obs: 'OBS',
     tool_soft: 'Login Software Version',
     tool_qqgroup: 'QQ Group',
-    mapstrategy: 'Map Strategy Article'
+    mapstrategy: 'Map Strategy Article',
+    mapstrategy_edit: 'Map Strategy Edit',
+    mapstrategy_list: 'Map Strategy List'
   },
   page: {
     login: {
@@ -803,11 +807,17 @@ const local: App.I18n.Schema = {
       },
       mapStrategy: {
         title: 'Title',
+        mapId: 'Map Id',
         mapLabel: 'Map Label',
+        videoUrl: 'Video Url',
         status: 'Status',
+        createTime: 'Create Time',
+        userName: 'User Name',
         form: {
           title: 'Please enter title',
+          mapId: 'Please select map id',
           mapLabel: 'Please enter map label',
+          videoUrl: 'Please enter video url',
           status: 'Please select status'
         }
       }

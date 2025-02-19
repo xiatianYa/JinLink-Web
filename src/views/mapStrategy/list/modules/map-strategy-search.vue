@@ -41,7 +41,7 @@ function search() {
             <NFormItemGi span="24 s:12 m:6" :label="$t('page.game.mapStrategy.status')" path="status" class="pr-24px">
               <NSelect
                 v-model:value="model.status"
-                :options="dictOptions('game_status')"
+                :options="dictOptions('examine_status')"
                 :placeholder="$t('page.game.mapStrategy.form.status')"
               />
             </NFormItemGi>
