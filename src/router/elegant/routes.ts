@@ -78,6 +78,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'game_examine',
+        path: '/game/examine',
+        component: 'view.game_examine',
+        meta: {
+          title: 'game_examine',
+          i18nKey: 'route.game_examine'
+        }
+      },
+      {
         name: 'game_game',
         path: '/game/game',
         component: 'view.game_game',
@@ -269,6 +278,15 @@ export const generatedRoutes: GeneratedRoute[] = [
       i18nKey: 'route.mapstrategy'
     },
     children: [
+      {
+        name: 'mapstrategy_detail',
+        path: '/mapstrategy/detail',
+        component: 'view.mapstrategy_detail',
+        meta: {
+          title: 'mapstrategy_detail',
+          i18nKey: 'route.mapstrategy_detail'
+        }
+      },
       {
         name: 'mapstrategy_edit',
         path: '/mapstrategy/edit',

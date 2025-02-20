@@ -1,17 +1,21 @@
 <script setup lang="tsx">
 import { NButton, NCard, NPopconfirm } from 'naive-ui';
+import { useRouter } from 'vue-router';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchDeleteMapStrategy, fetchGetMapStrategyList } from '@/service/api';
+import { fetchDeleteMapStrategy, fetchGetMapStrategyList, fetchPublishMapStrategy } from '@/service/api';
 import { useDict } from '@/hooks/business/dict';
 import { useAuthStore } from '@/store/modules/auth';
 import MapStrategySearch from './modules/map-strategy-search.vue';
+
 defineOptions({
   name: 'GameMapStrategy'
 });
 
 const appStore = useAppStore();
+
+const router = useRouter();
 
 const userStore = useAuthStore();
 
@@ -78,7 +82,7 @@ const { columns, data, loading, getDataByPage, mobilePagination, searchParams, r
             </NButton>
           )}
           {String(userStore.userInfo?.userId) === String(row.createUserId) && (
-            <NPopconfirm onPositiveClick={() => push(row.id)}>
+            <NPopconfirm onPositiveClick={() => push(row)}>
               {{
                 default: () => $t('common.confirmPublish'),
                 trigger: () => (
@@ -117,19 +121,33 @@ async function removeById(id: string) {
   getDataByPage();
 }
 
-async function push(id: string) {
+async function push(mapStrategy: Api.Game.MapStrategyVo) {
   // 发布文章
-  console.log(id);
+  const { error } = await fetchPublishMapStrategy(mapStrategy);
+  if (!error) {
+    window.$message?.success('发布成功');
+  }
+  getDataByPage();
 }
 
 // 编辑文章
 function edit(id: string) {
-  console.log(id);
+  router.push({
+    path: '/mapStrategy/edit',
+    query: {
+      id
+    }
+  });
 }
 
 // 查看文章
 function view(id: string) {
-  console.log(id);
+  router.push({
+    path: '/mapStrategy/detail',
+    query: {
+      id
+    }
+  });
 }
 </script>
 

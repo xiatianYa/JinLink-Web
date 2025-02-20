@@ -41,7 +41,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.Feedback.FeedbackVo, 'content' | 'image' | 'type' | 'status'>;
+type Model = Pick<Api.Feedback.FeedbackVo, 'content' | 'image' | 'type' | 'status' | 'feedback'>;
 
 const model: Model = reactive(createDefaultModel());
 
@@ -50,7 +50,8 @@ function createDefaultModel(): Model {
     content: '',
     image: [],
     type: '',
-    status: '1'
+    status: '1',
+    feedback: ''
   };
 }
 
@@ -124,6 +125,9 @@ watch(visible, () => {
             :options="dictOptions('feedback_status')"
             :placeholder="$t('page.feedback.form.status')"
           />
+        </NFormItem>
+        <NFormItem :label="$t('page.feedback.feedback')" path="feedback">
+          <NInput v-model:value="model.feedback" :placeholder="$t('page.feedback.form.feedback')" />
         </NFormItem>
       </NForm>
       <template #footer>

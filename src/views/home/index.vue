@@ -10,8 +10,8 @@ import CreativityBanner from './modules/creativity-banner.vue';
 
 const appStore = useAppStore();
 
-const payImg1 = new URL('@/assets/images/pay1.png', import.meta.url).href;
-const payImg2 = new URL('@/assets/images/pay2.png', import.meta.url).href;
+const payImg1 = 'https://www.bluearchive.top/statics/system/pay1.png';
+const payImg2 = 'https://www.bluearchive.top/statics/system/pay2.png';
 
 const gap = computed(() => (appStore.isMobile ? 0 : 16));
 </script>

@@ -13,7 +13,7 @@ declare namespace Api {
       /** 攻略名称 */
       title: string;
       /** 地图ID */
-      mapId: number;
+      mapId: string;
       /** 攻略内容 */
       content: string;
       /** 攻略视频路径 */
@@ -27,9 +27,9 @@ declare namespace Api {
       /** 文字名称 */
       title: string;
       /** 地图ID */
-      mapId: number | null;
+      mapId: string | null;
       /** 审核状态 */
-      status: string;
+      status: string | null;
       /** 攻略内容 */
       content: string;
       /** 攻略视频路径 */
@@ -49,7 +49,7 @@ declare namespace Api {
       /** 攻略名称 */
       title: string;
       /** 地图ID */
-      mapId: number | null;
+      mapId: string | null;
       /** 攻略内容 */
       content: string;
       /** 攻略视频路径 */

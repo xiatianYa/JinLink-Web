@@ -3,13 +3,13 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 // 阿罗纳图片列表
 const AlonaList = ref([
-  new URL('@/assets/images/Alona01.png', import.meta.url).href,
-  new URL('@/assets/images/Alona02.png', import.meta.url).href,
-  new URL('@/assets/images/Alona03.png', import.meta.url).href,
-  new URL('@/assets/images/Alona04.png', import.meta.url).href
+  'https://www.bluearchive.top/statics/system/Alona01.png',
+  'https://www.bluearchive.top/statics/system/Alona02.png',
+  'https://www.bluearchive.top/statics/system/Alona03.png',
+  'https://www.bluearchive.top/statics/system/Alona04.png'
 ]);
 
-const AlonaUrl = ref(new URL('@/assets/images/Alona01.png', import.meta.url).href);
+const AlonaUrl = ref('https://www.bluearchive.top/statics/system/Alona01.png');
 
 // 定时任务
 const timer = ref<NodeJS.Timeout>();

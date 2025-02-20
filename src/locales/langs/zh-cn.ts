@@ -209,7 +209,9 @@ const local: App.I18n.Schema = {
     tool_qqgroup: '登录器QQ群',
     mapstrategy: '地图攻略',
     mapstrategy_edit: '地图攻略发布',
-    mapstrategy_list: '地图攻略列表'
+    mapstrategy_list: '地图攻略列表',
+    mapstrategy_detail: '地图攻略详情',
+    game_examine: '游戏审核列表'
   },
   page: {
     login: {
@@ -859,13 +861,15 @@ const local: App.I18n.Schema = {
       image: '反馈图片',
       type: '反馈类型',
       status: '反馈状态',
+      feedback: '回复内容',
       addFeedback: '新增反馈',
       editFeedback: '编辑反馈',
       form: {
         content: '请输入反馈内容',
         image: '请输入地图链接',
         type: '请选择反馈类型',
-        status: '请选择反馈状态'
+        status: '请选择反馈状态',
+        feedback: '请输入回复内容'
       }
     },
     userCenter: {

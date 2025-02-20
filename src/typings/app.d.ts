@@ -1051,6 +1051,7 @@ declare namespace App {
           image: string;
           type: string;
           status: string;
+          feedback: string;
           addFeedback: string;
           editFeedback: string;
           form: {
@@ -1058,6 +1059,7 @@ declare namespace App {
             image: string;
             type: string;
             status: string;
+            feedback: string;
           };
         };
         userCenter: {

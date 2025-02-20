@@ -34,3 +34,32 @@ export function fetchDeleteMapStrategy(id: string) {
     method: 'delete'
   });
 }
+
+// 发布地图攻略
+export function fetchPublishMapStrategy(data: Api.Game.MapStrategyParams) {
+  return request<Api.Game.MapStrategy>({
+    url: `/gameMapStrategy/publish`,
+    method: 'put',
+    data
+  });
+}
+
+// 获取地图攻略详情
+export function fetchGetMapStrategyDetail(id: string) {
+  return request<Api.Game.MapStrategy>({
+    url: `/gameMapStrategy/getInfo/${id}`,
+    method: 'get'
+  });
+}
+
+// 审核地图攻略
+export function fetchAuditMapStrategy(id: number, type: 'pass' | 'reject') {
+  return request<Api.Game.MapStrategy>({
+    url: `/gameMapStrategy/examine`,
+    method: 'put',
+    params: {
+      id,
+      type
+    }
+  });
+}

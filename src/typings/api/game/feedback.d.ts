@@ -18,6 +18,8 @@ declare namespace Api {
       type: string;
       /** status */
       status: string;
+      /** feedback */
+      feedback: string;
     }>;
 
     type FeedbackVo = Common.CommonRecord<{
@@ -31,6 +33,8 @@ declare namespace Api {
       type: string;
       /** status */
       status: string;
+      /** feedback */
+      feedback: string;
     }>;
 
     type FeedbackParams = {

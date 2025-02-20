@@ -44,7 +44,6 @@ const { columns, data, loading, getData, getDataByPage, mobilePagination, search
     {
       key: 'content',
       title: $t('page.feedback.content'),
-      width: 100,
       align: 'center'
     },
     {
@@ -73,6 +72,12 @@ const { columns, data, loading, getData, getDataByPage, mobilePagination, search
       width: 100,
       align: 'center',
       render: row => dictTag('feedback_status', row.status)
+    },
+    {
+      key: 'feedback',
+      title: $t('page.feedback.feedback'),
+      width: 200,
+      align: 'center'
     },
     {
       key: 'operate',

@@ -4,7 +4,7 @@ defineOptions({ name: 'WaveBg' });
 
 <template>
   <div class="absolute-lt z-1 size-full overflow-hidden">
-    <img src="@/assets/images/bg01.png" alt="wave-bg" class="size-full" />
+    <img src="https://www.bluearchive.top/statics/system/bg01.png" alt="wave-bg" class="size-full" />
   </div>
 </template>
 

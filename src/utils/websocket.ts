@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import pako from 'pako';
-import { NButton, createDiscreteApi } from 'naive-ui';
+import { NButton } from 'naive-ui';
 import { h } from 'vue';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import { fetchUpdateMapOrder } from '@/service/api/game/map';
 import { isMoreThanTwoHours } from '@/utils/time';
-// const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
-const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
+const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
+// const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
 const Websocket: any = {
   websocket: null,
   // 连接地址

@@ -9,6 +9,13 @@ defineOptions({
   name: 'MapStrategyPushDrawer'
 });
 
+interface Props {
+  /** the edit row data */
+  rowData?: any | null;
+}
+
+const props = defineProps<Props>();
+
 interface Emits {
   (e: 'submitted'): void;
 }
@@ -58,6 +65,10 @@ async function initMapOptions() {
 
 function handleInitModel() {
   Object.assign(model, createDefaultModel());
+  if (props.rowData) {
+    Object.assign(model, props.rowData);
+    if (model.mapId) model.mapId = String(model.mapId);
+  }
 }
 
 function closeDrawer() {
@@ -77,11 +88,11 @@ async function handleSubmit() {
     if (!error) window.$message?.success($t('common.addSuccess'));
     closeDrawer();
     emit('submitted');
-    // 跳转路由
-    router.push({
-      path: '/mapstrategy/list'
-    });
   }
+  // 跳转路由
+  router.push({
+    path: '/mapstrategy/list'
+  });
 }
 
 watch(visible, () => {

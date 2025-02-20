@@ -209,7 +209,9 @@ const local: App.I18n.Schema = {
     tool_qqgroup: 'QQ Group',
     mapstrategy: 'Map Strategy Article',
     mapstrategy_edit: 'Map Strategy Edit',
-    mapstrategy_list: 'Map Strategy List'
+    mapstrategy_list: 'Map Strategy List',
+    mapstrategy_detail: 'Map Strategy Detail',
+    game_examine: 'Game Examine List'
   },
   page: {
     login: {
@@ -862,13 +864,15 @@ const local: App.I18n.Schema = {
       image: 'Map Urls',
       type: 'Feedback Type',
       status: 'Feedback Status',
+      feedback: 'Feedback',
       addFeedback: 'Feedback Add',
       editFeedback: 'Feedback Edit',
       form: {
         content: 'Please enter feedback content',
         image: 'Please enter map urls',
         type: 'Please select feedback type',
-        status: 'Please select feedback status'
+        status: 'Please select feedback status',
+        feedback: 'Please enter feedback'
       }
     },
     userCenter: {

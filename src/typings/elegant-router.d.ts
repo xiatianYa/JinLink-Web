@@ -24,6 +24,7 @@ declare module "@elegant-router/types" {
     "community": "/community";
     "game": "/game";
     "game_community": "/game/community";
+    "game_examine": "/game/examine";
     "game_game": "/game/game";
     "game_live": "/game/live";
     "game_map": "/game/map";
@@ -42,6 +43,7 @@ declare module "@elegant-router/types" {
     "manage_user-detail": "/manage/user-detail/:id";
     "map": "/map";
     "mapstrategy": "/mapstrategy";
+    "mapstrategy_detail": "/mapstrategy/detail";
     "mapstrategy_edit": "/mapstrategy/edit";
     "mapstrategy_list": "/mapstrategy/list";
     "monitor": "/monitor";
@@ -145,6 +147,7 @@ declare module "@elegant-router/types" {
     | "about"
     | "community"
     | "game_community"
+    | "game_examine"
     | "game_game"
     | "game_live"
     | "game_map"
@@ -159,6 +162,7 @@ declare module "@elegant-router/types" {
     | "manage_user-detail"
     | "manage_user"
     | "map"
+    | "mapstrategy_detail"
     | "mapstrategy_edit"
     | "mapstrategy_list"
     | "monitor_cache"
