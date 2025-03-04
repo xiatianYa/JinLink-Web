@@ -3,6 +3,7 @@ import { computed, reactive, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { useDict } from '@/hooks/business/dict';
+import { useAuth } from '@/hooks/business/auth';
 import { fetchAddFeedback, fetchUpdateFeedback } from '@/service/api';
 
 defineOptions({
@@ -21,6 +22,8 @@ const props = defineProps<Props>();
 interface Emits {
   (e: 'submitted'): void;
 }
+
+const { hasAuth } = useAuth();
 
 const emit = defineEmits<Emits>();
 
@@ -126,7 +129,7 @@ watch(visible, () => {
             :placeholder="$t('page.feedback.form.status')"
           />
         </NFormItem>
-        <NFormItem :label="$t('page.feedback.feedback')" path="feedback">
+        <NFormItem v-if="hasAuth('sys:sysFeedback:update')" :label="$t('page.feedback.feedback')" path="feedback">
           <NInput v-model:value="model.feedback" :placeholder="$t('page.feedback.form.feedback')" />
         </NFormItem>
       </NForm>

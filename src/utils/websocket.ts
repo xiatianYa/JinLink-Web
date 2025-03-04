@@ -47,7 +47,7 @@ const Websocket: any = {
 
           // 处理消息
           switch (data.code) {
-            // 用户登陆成功
+            // 用户登录成功
             case '200':
               setTimeout(() => {
                 window.$notification?.success({

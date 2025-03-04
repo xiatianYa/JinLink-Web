@@ -43,7 +43,7 @@ async function setupApp() {
   // 使用 vue3-lazyload 插件
   app.use(VueLazyload, {
     loading: 'loading.png',
-    error: 'error.png'
+    error: 'https://www.bluearchive.top/statics/2025/01/16/835fe6632476fc79f83962f15879f8ea_20250116101103A001.jpeg'
   });
 
   app.mount('#app');

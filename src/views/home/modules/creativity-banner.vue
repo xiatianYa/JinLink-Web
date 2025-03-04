@@ -16,7 +16,7 @@ defineOptions({
       <NGridItem v-for="(user, index) in gameStore.onlineUserList" :key="index">
         <NTooltip trigger="hover">
           <template #trigger>
-            <NAvatar round size="medium" :src="user.avatar" />
+            <img v-lazy="user.avatar" class="h-40px w-40px rounded-full" />
           </template>
           {{ user.nickName }}
         </NTooltip>

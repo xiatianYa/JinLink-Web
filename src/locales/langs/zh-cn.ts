@@ -240,7 +240,7 @@ const local: App.I18n.Schema = {
         register: '注册账号',
         otherAccountLogin: '其他账号登录',
         otherLoginMode: '其他登录方式',
-        qq: 'QQ登陆'
+        qq: 'QQ登录'
       },
       codeLogin: {
         title: '验证码登录',
@@ -892,7 +892,7 @@ const local: App.I18n.Schema = {
         newPassword: '新密码',
         confirmPassword: '确认密码',
         restartUserName: '重置用户信息',
-        restartUserNameConfirm: '你只有一次机会,重置后用户名作为你的登陆账号,请确认是否继续',
+        restartUserNameConfirm: '你只有一次机会,重置后用户名作为你的登录账号,请确认是否继续',
         form: {
           userName: '请输入用户名',
           userAvatar: '请上传头像',
