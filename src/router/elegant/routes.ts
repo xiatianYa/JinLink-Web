@@ -495,6 +495,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'tool_chat',
+        path: '/tool/chat',
+        component: 'view.tool_chat',
+        meta: {
+          title: 'tool_chat',
+          i18nKey: 'route.tool_chat'
+        }
+      },
+      {
         name: 'tool_mapdisplay',
         path: '/tool/mapdisplay',
         component: 'view.tool_mapdisplay',

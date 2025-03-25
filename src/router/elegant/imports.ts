@@ -56,6 +56,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   server_minecraft: () => import("@/views/server/minecraft/index.vue"),
   server_projectzombie: () => import("@/views/server/projectZombie/index.vue"),
   tool_bind: () => import("@/views/tool/bind/index.vue"),
+  tool_chat: () => import("@/views/tool/chat/index.vue"),
   tool_mapdisplay: () => import("@/views/tool/mapDisplay/index.vue"),
   tool_maporder: () => import("@/views/tool/mapOrder/index.vue"),
   tool_obs: () => import("@/views/tool/obs/index.vue"),

@@ -211,7 +211,8 @@ const local: App.I18n.Schema = {
     mapstrategy_edit: 'Map Strategy Edit',
     mapstrategy_list: 'Map Strategy List',
     mapstrategy_detail: 'Map Strategy Detail',
-    game_examine: 'Game Examine List'
+    game_examine: 'Game Examine List',
+    tool_chat: '聊天室'
   },
   page: {
     login: {

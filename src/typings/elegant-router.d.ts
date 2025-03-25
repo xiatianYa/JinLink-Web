@@ -66,6 +66,7 @@ declare module "@elegant-router/types" {
     "server_projectzombie": "/server/projectzombie";
     "tool": "/tool";
     "tool_bind": "/tool/bind";
+    "tool_chat": "/tool/chat";
     "tool_mapdisplay": "/tool/mapdisplay";
     "tool_maporder": "/tool/maporder";
     "tool_obs": "/tool/obs";
@@ -180,6 +181,7 @@ declare module "@elegant-router/types" {
     | "server_minecraft"
     | "server_projectzombie"
     | "tool_bind"
+    | "tool_chat"
     | "tool_mapdisplay"
     | "tool_maporder"
     | "tool_obs"

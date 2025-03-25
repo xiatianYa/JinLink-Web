@@ -111,7 +111,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="min-h-500px flex gap-8px lt-sm:overflow-auto">
+  <div class="flex gap-8px lt-sm:overflow-auto">
     <NCard>
       <div
         v-if="userServer"

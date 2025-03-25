@@ -211,7 +211,8 @@ const local: App.I18n.Schema = {
     mapstrategy_edit: '地图攻略发布',
     mapstrategy_list: '地图攻略列表',
     mapstrategy_detail: '地图攻略详情',
-    game_examine: '游戏审核列表'
+    game_examine: '游戏审核列表',
+    tool_chat: '聊天室'
   },
   page: {
     login: {

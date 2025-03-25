@@ -6,8 +6,8 @@ import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import { fetchUpdateMapOrder } from '@/service/api/game/map';
 import { isMoreThanTwoHours } from '@/utils/time';
-const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
-// const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
+// const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
+const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
 const Websocket: any = {
   websocket: null,
   // 连接地址
@@ -52,6 +52,7 @@ const Websocket: any = {
               setTimeout(() => {
                 window.$notification?.success({
                   content: '连接服务器成功',
+                  meta: '登录器一个月吃掉作者3顿KFC套餐,希望有条件的大佬可以赞助一下,阿里嘎多(。-ω-)ノ',
                   duration: 20000,
                   keepAliveOnHover: true
                 });
