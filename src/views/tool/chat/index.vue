@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
+import websocket from '@/utils/websocket';
 
 const authStore = useAuthStore();
 
@@ -19,7 +20,11 @@ const openEmoJiModel = () => {
 // 处理表情
 const handlerEmoji = (emoji: string, type: string) => {
   EmoJiModel.value = false;
-  console.log(emoji, type);
+  if (type === 'text') {
+    websocket.sendTextMsg(emoji);
+  } else {
+    websocket.sendMImgMsg(emoji);
+  }
 };
 </script>
 
@@ -79,11 +84,11 @@ const handlerEmoji = (emoji: string, type: string) => {
         <div class="w-60% font-bold">{{ authStore.userInfo.userName }}</div>
       </NCard>
       <NCard class="h-90%" content-style="padding:10px">
-        <div class="h-8% flex-y-center">
+        <div class="mt-10px flex-y-center">
           <div class="w-90% font-bold">在线人数({{ gameStore.onlineUserList.length }})</div>
           <NInput type="text" size="small" placeholder="搜索用户" />
         </div>
-        <div class="online-list h-92%">
+        <div class="online-list mt-15px h-92%">
           <div
             v-for="(user, index) in gameStore.onlineUserList"
             :key="index"
@@ -96,7 +101,7 @@ const handlerEmoji = (emoji: string, type: string) => {
             <!--
  <div class="right">
               <NButton tertiary size="tiny" type="info">私聊</NButton>
-            </div> 
+            </div>
 -->
           </div>
         </div>
@@ -104,7 +109,7 @@ const handlerEmoji = (emoji: string, type: string) => {
     </NSpace>
     <!-- 表情模态框 -->
     <NModal v-model:show="EmoJiModel" class="w-500px">
-      <NCard :bordered="false" size="huge" role="dialog" aria-modal="true">
+      <NCard :bordered="false" size="huge" role="dialog" aria-modal="true" content-style="padding:10px">
         <EmojiBox @on-emoji="handlerEmoji"></EmojiBox>
       </NCard>
     </NModal>

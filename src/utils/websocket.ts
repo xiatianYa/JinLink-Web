@@ -137,6 +137,9 @@ const Websocket: any = {
                   )
               });
               break;
+            case '207':
+              console.log(data);
+              break;
             default:
               break;
           }
@@ -198,6 +201,28 @@ const Websocket: any = {
     const sendMessage = {
       type: 2,
       data: serverIp
+    };
+    Websocket.websocket.send(JSON.stringify(sendMessage));
+  },
+  // 聊天室发送文字消息
+  sendTextMsg: (content: string) => {
+    const sendMessage = {
+      type: 3,
+      data: {
+        content,
+        type: 1
+      }
+    };
+    Websocket.websocket.send(JSON.stringify(sendMessage));
+  },
+  // 聊天室发送图片消息
+  sendMImgMsg: (content: string) => {
+    const sendMessage = {
+      type: 3,
+      data: {
+        content,
+        type: 2
+      }
     };
     Websocket.websocket.send(JSON.stringify(sendMessage));
   },
