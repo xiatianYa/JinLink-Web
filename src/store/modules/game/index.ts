@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { SetupStoreId } from '@/enum';
 import Websocket from '@/utils/websocket';
-import { fetchGetMapOrderListByUserId } from '@/service/api';
+import { fetchGetChatRoomMessageList, fetchGetMapOrderListByUserId } from '@/service/api';
 
 export const useGameStore = defineStore(SetupStoreId.Game, () => {
   // 已接收到地图订阅的服务器消息
@@ -17,8 +17,14 @@ export const useGameStore = defineStore(SetupStoreId.Game, () => {
   const onlineUserList = ref<Array<any>>([]);
   // 地图订阅列表
   const mapOrderList = ref<Api.GameMapOrder.gameMapOrderList>([]);
+  // 聊天室消息列表
+  const chatRoomMessageList = ref<Array<any>>([]);
+  // 聊天室当前消息数量
+  const chatRoomCurrentMsgCount = ref<number>(0);
+  // 聊天室每次加载数量
+  const chatRoomLoadMsgCount = ref<number>(20);
 
-  /** Initialize WebSocket connection */
+  /** Initialize */
   async function initWebSocket() {
     Websocket.init();
   }
@@ -28,6 +34,19 @@ export const useGameStore = defineStore(SetupStoreId.Game, () => {
     const { data, error } = await fetchGetMapOrderListByUserId();
     if (!error) {
       mapOrderList.value = data;
+    }
+  }
+
+  /** 初始化聊天室消息列表 */
+  async function initChatRoomMessageList() {
+    const { data, error } = await fetchGetChatRoomMessageList(
+      chatRoomCurrentMsgCount.value,
+      chatRoomLoadMsgCount.value
+    );
+    // 如果数据不为空 则增加消息数量
+    if (data) chatRoomCurrentMsgCount.value += data.length;
+    if (!error) {
+      chatRoomMessageList.value = data;
     }
   }
 
@@ -42,11 +61,15 @@ export const useGameStore = defineStore(SetupStoreId.Game, () => {
     initWebSocket,
     closeWebSocket,
     initMapOrderList,
+    initChatRoomMessageList,
     autoMapReceiveList,
     automaticInfo,
     automaticCount,
     isAutomatic,
     onlineUserList,
-    mapOrderList
+    mapOrderList,
+    chatRoomMessageList,
+    chatRoomCurrentMsgCount,
+    chatRoomLoadMsgCount
   };
 });

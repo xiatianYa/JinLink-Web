@@ -97,6 +97,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
         // 初始化地图订阅
         await gameStore.initMapOrderList();
 
+        // 初始化聊天室消息
+        await gameStore.initChatRoomMessageList();
+
         await redirectFromLogin(redirect);
 
         if (routeStore.isInitAuthRoute) {

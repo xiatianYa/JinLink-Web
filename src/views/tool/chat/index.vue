@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import websocket from '@/utils/websocket';
+import { fetchGetChatRoomMessageList } from '@/service/api';
 
 const authStore = useAuthStore();
 
@@ -12,20 +13,72 @@ const gameStore = useGameStore();
 // 表情模态框
 const EmoJiModel = ref(false);
 
+// 聊天内容
+const chatShowRef = ref();
+
 // 打开表情框
 const openEmoJiModel = () => {
   EmoJiModel.value = true;
 };
 
+// 存储的消息
+const content = ref('');
+
 // 处理表情
 const handlerEmoji = (emoji: string, type: string) => {
   EmoJiModel.value = false;
   if (type === 'text') {
-    websocket.sendTextMsg(emoji);
+    websocket.sendEmojiMsg(emoji);
   } else {
     websocket.sendMImgMsg(emoji);
   }
 };
+
+// 发送消息
+const sendMsg = () => {
+  websocket.sendTextMsg(content.value);
+  content.value = '';
+};
+
+// 滚动事件
+const handleScroll = async () => {
+  if (chatShowRef.value) {
+    // 记录当前滚动条的位置
+    const initialScrollTop = chatShowRef.value.scrollTop;
+    const initialScrollHeight = chatShowRef.value.scrollHeight;
+
+    // 最底部更新currentNewMsgCount为0
+    if (chatShowRef.value.scrollTop === 0) {
+      // 获取消息记录
+      const { data, error } = await fetchGetChatRoomMessageList(
+        gameStore.chatRoomCurrentMsgCount,
+        gameStore.chatRoomLoadMsgCount
+      );
+      // 增加消息数量
+      gameStore.chatRoomCurrentMsgCount += data.length;
+      if (!error) {
+        gameStore.chatRoomMessageList = [...data, ...gameStore.chatRoomMessageList];
+      }
+
+      // 等待DOM更新后，恢复滚动条位置
+      await nextTick(() => {
+        const newScrollHeight = chatShowRef.value.scrollHeight;
+        const diff = newScrollHeight - initialScrollHeight;
+        chatShowRef.value.scrollTop = initialScrollTop + diff;
+      });
+    }
+  }
+};
+
+onMounted(() => {
+  // 默认滚动到底部
+  chatShowRef.value.scrollTo({
+    top: chatShowRef.value.scrollHeight
+  });
+  if (chatShowRef.value) {
+    chatShowRef.value.addEventListener('scroll', handleScroll);
+  }
+});
 </script>
 
 <template>
@@ -56,11 +109,21 @@ const handlerEmoji = (emoji: string, type: string) => {
       <NCard class="h-10%" content-class="min-h-80px flex-x-center w-full" content-style="padding: 10px">
         <div class="flex-y-center font-size-18px font-bold">Ba公共聊天室</div>
       </NCard>
-      <NCard class="h-90%">
+      <NCard class="h-90%" content-class="h-full" content-style="padding: 15px">
         <div class="chat-content">
-          <div class="chat-input-area flex-x-center flex-y-center">
+          <div ref="chatShowRef" class="chat-show-area">
+            <div
+              v-for="item in gameStore.chatRoomMessageList"
+              :key="item.id"
+              class="msg-item"
+              :class="{ right: item.fromId === authStore.userInfo.userId }"
+            >
+              <BaMsg :msg="item" :user="authStore.userInfo" />
+            </div>
+          </div>
+          <div class="chat-input-area mt-20px flex-x-center flex-y-center">
             <NInputGroup class="w-80% flex-y-center">
-              <NInput class="w-20% p-5px" round>
+              <NInput v-model:value="content" class="w-20% p-5px" round>
                 <template #prefix>
                   <div @click="openEmoJiModel()">
                     <SvgIcon icon="iconamoon:slightly-smiling-face" class="cursor-pointer font-size-32px" />
@@ -68,7 +131,7 @@ const handlerEmoji = (emoji: string, type: string) => {
                 </template>
               </NInput>
             </NInputGroup>
-            <NButton class="ml-20px" strong secondary circle size="large">
+            <NButton class="ml-20px" strong secondary circle size="large" @click="sendMsg()">
               <template #icon>
                 <SvgIcon icon="mingcute:send-fill" />
               </template>
@@ -86,7 +149,7 @@ const handlerEmoji = (emoji: string, type: string) => {
       <NCard class="h-90%" content-style="padding:10px">
         <div class="mt-10px flex-y-center">
           <div class="w-90% font-bold">在线人数({{ gameStore.onlineUserList.length }})</div>
-          <NInput type="text" size="small" placeholder="搜索用户" />
+          <!-- <NInput type="text" size="small" placeholder="搜索用户" /> -->
         </div>
         <div class="online-list mt-15px h-92%">
           <div
@@ -225,12 +288,24 @@ const handlerEmoji = (emoji: string, type: string) => {
   }
 
   .chat-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
-    position: relative;
+
+    .chat-show-area {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+
+      .msg-item {
+        display: flex;
+      }
+    }
 
     .chat-input-area {
-      position: absolute;
       bottom: 0%;
       width: 100%;
       height: 55px;
