@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
 import websocket from '@/utils/websocket';
 import { fetchGetChatRoomMessageList } from '@/service/api';
+import { isWithinOneSeconds } from '@/utils/date';
 
 const authStore = useAuthStore();
 
@@ -36,8 +37,19 @@ const handlerEmoji = (emoji: string, type: string) => {
 
 // 发送消息
 const sendMsg = () => {
+  if (!content.value.trim()) {
+    window.$message?.error('请输入发送的内容');
+    return;
+  }
   websocket.sendTextMsg(content.value);
   content.value = '';
+};
+
+const handleSendKeyDown = (event: { key: string }) => {
+  if (event.key === 'Enter') {
+    // 在这里处理空格事件
+    sendMsg();
+  }
 };
 
 // 滚动事件
@@ -78,13 +90,38 @@ onMounted(() => {
   if (chatShowRef.value) {
     chatShowRef.value.addEventListener('scroll', handleScroll);
   }
+  if (gameStore.chatRoomMessageList.length <= 0) {
+    gameStore.initChatRoomMessageList();
+  }
 });
+
+// 监听数据变化
+watch(
+  () => gameStore.chatRoomMessageList,
+  newValue => {
+    // 查看最新的一条记录是不是自己发送的 并且时间在5秒内
+    if (
+      newValue[newValue.length - 1].fromId === authStore.userInfo.userId &&
+      isWithinOneSeconds(newValue[newValue.length - 1].createTime)
+    ) {
+      // 滚动到页面底部
+      nextTick(() => {
+        // 平滑动画
+        chatShowRef.value.scrollTo({
+          top: chatShowRef.value.scrollHeight,
+          behavior: 'smooth'
+        });
+      });
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <template>
   <div class="chat-container">
     <!-- 左侧菜单 -->
-    <NCard class="w-20%" content-style="padding: 10px">
+    <NCard class="left-menu w-20%" content-style="padding: 10px">
       <div class="mt-10px flex-x-center flex-y-center font-size-16px font-bold">
         消息列表
         <NButton class="ml-5px" size="tiny" secondary tertiary type="info">v1.0.0</NButton>
@@ -100,12 +137,35 @@ onMounted(() => {
         </div>
         <div class="group-box-right">
           <div class="top">Ba公共聊天室</div>
-          <div class="bottom">xiatian:1231</div>
+          <div v-show="gameStore.chatRoomMessageList.length > 0" class="bottom flex-y-center">
+            <!-- 发送者-->
+            <NEllipsis class="mr-5px max-w-20px">
+              {{ gameStore.chatRoomMessageList[gameStore.chatRoomMessageList.length - 1]?.loginUser?.nickName }} :
+            </NEllipsis>
+            <!--消息内容-->
+            <NEllipsis
+              v-if="
+                gameStore.chatRoomMessageList[gameStore.chatRoomMessageList.length - 1]?.type === '1' ||
+                gameStore.chatRoomMessageList[gameStore.chatRoomMessageList.length - 1]?.type === '3'
+              "
+              strong
+              secondary
+              class="msg-text max-w-100% flex-wrap"
+            >
+              {{ gameStore.chatRoomMessageList[gameStore.chatRoomMessageList.length - 1]?.content }}
+            </NEllipsis>
+            <NImage
+              v-else
+              class="h-24px w-24px"
+              :src="gameStore.chatRoomMessageList[gameStore.chatRoomMessageList.length - 1]?.content"
+              preview-disabled
+            />
+          </div>
         </div>
       </div>
     </NCard>
     <!-- 中间菜单 -->
-    <NSpace class="w-60%" vertical :wrap-item="false">
+    <NSpace class="center-body w-60%" vertical :wrap-item="false">
       <NCard class="h-10%" content-class="min-h-80px flex-x-center w-full" content-style="padding: 10px">
         <div class="flex-y-center font-size-18px font-bold">Ba公共聊天室</div>
       </NCard>
@@ -123,7 +183,7 @@ onMounted(() => {
           </div>
           <div class="chat-input-area mt-20px flex-x-center flex-y-center">
             <NInputGroup class="w-80% flex-y-center">
-              <NInput v-model:value="content" class="w-20% p-5px" round>
+              <NInput v-model:value="content" maxlength="255" class="w-20% p-5px" round @keydown="handleSendKeyDown">
                 <template #prefix>
                   <div @click="openEmoJiModel()">
                     <SvgIcon icon="iconamoon:slightly-smiling-face" class="cursor-pointer font-size-32px" />
@@ -141,17 +201,16 @@ onMounted(() => {
       </NCard>
     </NSpace>
     <!-- 右侧菜单 -->
-    <NSpace class="w-20%" vertical :wrap-item="false">
-      <NCard class="h-10%" content-class="w-full flex-y-center" content-style="padding:10px">
+    <NSpace class="right-menu w-20%" vertical :wrap-item="false">
+      <NCard class="h-10% min-h-60px" content-class="w-full flex-y-center" content-style="padding:10px">
         <NAvatar round size="large" class="avatar mr-10px" :src="authStore.userInfo.avatar" />
         <div class="w-60% font-bold">{{ authStore.userInfo.userName }}</div>
       </NCard>
-      <NCard class="h-90%" content-style="padding:10px">
-        <div class="mt-10px flex-y-center">
+      <NCard class="h-90% min-h-200px" content-style="padding:10px" content-class="h-full flex-col">
+        <div class="flex-y-center">
           <div class="w-90% font-bold">在线人数({{ gameStore.onlineUserList.length }})</div>
-          <!-- <NInput type="text" size="small" placeholder="搜索用户" /> -->
         </div>
-        <div class="online-list mt-15px h-92%">
+        <div class="online-list mt-15px flex-1 p-5px">
           <div
             v-for="(user, index) in gameStore.onlineUserList"
             :key="index"
@@ -161,17 +220,12 @@ onMounted(() => {
               <NAvatar round size="medium" class="avatar mr-10px" :src="user.avatar" />
               <div class="font-bold">{{ user.nickName }}</div>
             </div>
-            <!--
- <div class="right">
-              <NButton tertiary size="tiny" type="info">私聊</NButton>
-            </div>
--->
           </div>
         </div>
       </NCard>
     </NSpace>
     <!-- 表情模态框 -->
-    <NModal v-model:show="EmoJiModel" class="w-500px">
+    <NModal v-model:show="EmoJiModel" class="w-800px">
       <NCard :bordered="false" size="huge" role="dialog" aria-modal="true" content-style="padding:10px">
         <EmojiBox @on-emoji="handlerEmoji"></EmojiBox>
       </NCard>
@@ -295,6 +349,8 @@ onMounted(() => {
     height: 100%;
 
     .chat-show-area {
+      width: 100%;
+      height: 100%;
       padding: 10px;
       display: flex;
       flex-direction: column;
@@ -324,6 +380,25 @@ onMounted(() => {
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+
+    .left-menu {
+      width: 100%;
+    }
+
+    .center-body {
+      width: 100%;
+    }
+
+    .right-menu {
+      width: 100%;
+    }
   }
 }
 </style>

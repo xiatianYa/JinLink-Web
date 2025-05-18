@@ -33,13 +33,8 @@ function isEmoji(src: string) {
 <template>
   <div class="emoji-box">
     <div class="emoji-content">
-      <div
-        v-for="(emoji, index) in currentEmojiList"
-        :key="index"
-        class="image-container"
-        @click="handlerEmoji(emoji.icon)"
-      >
-        <NButton v-if="isEmoji(emoji.icon)" class="emoji">
+      <div v-for="(emoji, index) in currentEmojiList" :key="index" @click="handlerEmoji(emoji.icon)">
+        <NButton v-if="isEmoji(emoji.icon)">
           <template #icon>
             <NTooltip trigger="hover">
               <template #trigger>
@@ -49,15 +44,13 @@ function isEmoji(src: string) {
             </NTooltip>
           </template>
         </NButton>
-        <NButton v-else strong secondary size="large">
-          <template #icon>
-            <NTooltip trigger="hover">
-              <template #trigger>
-                <NImage class="h-32px w-32px" :src="emoji.icon" preview-disabled />
-              </template>
-              {{ emoji.name }}
-            </NTooltip>
-          </template>
+        <NButton v-else strong secondary class="h-82px w-82px">
+          <NTooltip trigger="hover">
+            <template #trigger>
+              <NImage class="w-82px" :src="emoji.icon" preview-disabled />
+            </template>
+            {{ emoji.name }}
+          </NTooltip>
         </NButton>
       </div>
     </div>
@@ -81,7 +74,7 @@ function isEmoji(src: string) {
 <style lang="scss" scoped>
 .emoji-box {
   width: 100%;
-  height: 300px;
+  height: 500px;
   background-color: rgba(var(--background-color), 0.6);
   backdrop-filter: blur(8px);
   border-radius: 5px;

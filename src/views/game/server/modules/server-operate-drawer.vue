@@ -3,6 +3,7 @@ import { computed, reactive, ref, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { fetchInsertServer, fetchUpdateServer } from '@/service/api';
 import { $t } from '@/locales';
+import { useDict } from '@/hooks/business/dict';
 
 defineOptions({
   name: 'ServerOperateDrawer'
@@ -29,6 +30,8 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
+const { dictOptions } = useDict();
+
 const visible = defineModel<boolean>('visible', {
   default: false
 });
@@ -44,7 +47,10 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.Game.Server, 'serverName' | 'communityId' | 'modeId' | 'gameId' | 'ip' | 'port' | 'sort'>;
+type Model = Pick<
+  Api.Game.Server,
+  'serverName' | 'communityId' | 'modeId' | 'gameId' | 'ip' | 'port' | 'sort' | 'isStatistics' | 'connectStr'
+>;
 
 const model: Model = reactive(createDefaultModel());
 
@@ -62,11 +68,16 @@ function createDefaultModel(): Model {
     gameId: '',
     ip: '',
     port: '',
-    sort: 0
+    sort: 0,
+    isStatistics: 1,
+    connectStr: ''
   };
 }
 
-type RuleKey = Extract<keyof Model, 'serverName' | 'communityId' | 'gameId' | 'ip' | 'port' | 'sort'>;
+type RuleKey = Extract<
+  keyof Model,
+  'serverName' | 'communityId' | 'gameId' | 'ip' | 'port' | 'sort' | 'isStatistics' | 'connectStr'
+>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   serverName: defaultRequiredRule,
@@ -74,7 +85,9 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
   gameId: defaultRequiredRule,
   ip: defaultRequiredRule,
   port: defaultRequiredRule,
-  sort: defaultRequiredRule
+  sort: defaultRequiredRule,
+  isStatistics: defaultRequiredRule,
+  connectStr: defaultRequiredRule
 };
 
 function handleInitModel() {
@@ -150,6 +163,16 @@ watch(visible, () => {
         </NFormItem>
         <NFormItem :label="$t('page.game.server.port')" path="port">
           <NInput v-model:value="model.port" :placeholder="$t('page.game.server.form.port')" />
+        </NFormItem>
+        <NFormItem :label="$t('page.game.server.connectStr')" path="connectStr">
+          <NInput v-model:value="model.connectStr" :placeholder="$t('page.game.server.form.connectStr')" />
+        </NFormItem>
+        <NFormItem :label="$t('page.game.server.isStatistics')" path="sort">
+          <NSelect
+            v-model:value="model.isStatistics"
+            :options="dictOptions('yes_no')"
+            :placeholder="$t('page.game.server.form.isStatistics')"
+          />
         </NFormItem>
         <NFormItem :label="$t('page.manage.dict.sort')" path="sort">
           <NInputNumber v-model:value="model.sort" :placeholder="$t('page.manage.dict.form.sort')" />

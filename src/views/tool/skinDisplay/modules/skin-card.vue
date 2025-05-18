@@ -58,7 +58,9 @@ watch(
     }"
   >
     <div class="model-card-mask flex flex-center">
-      <NButton secondary type="info" @click="loadModel(modelVo)">加载模型</NButton>
+      <NButton secondary type="info" @click="loadModel(modelVo)">
+        {{ $t('page.tool.skinDisplay.loadModel') }}
+      </NButton>
     </div>
     <div class="model-name">
       <NEllipsis :line-clamp="1">{{ modelVo.modelName }}</NEllipsis>

@@ -490,6 +490,7 @@ declare namespace App {
             desc8: string;
             desc9: string;
             desc10: string;
+            desc11: string;
           };
           onlineUser: string;
         };
@@ -497,6 +498,9 @@ declare namespace App {
           bind: {
             key: string;
             value: string;
+            saveCfg: string;
+            exportCfg: string;
+            editMode: string;
           };
           mapOrder: {
             add: string;
@@ -509,6 +513,12 @@ declare namespace App {
           };
           mapDisplay: {
             mapName: string;
+            loadModel: string;
+          };
+          skinDisplay: {
+            loadModel: string;
+            weaponModel: string;
+            characterModel: string;
           };
           obs: {
             fontSize: string;
@@ -959,6 +969,8 @@ declare namespace App {
             players: string;
             addr: string;
             version: string;
+            connectStr: string;
+            isStatistics: string;
             form: {
               serverName: string;
               communityId: string;
@@ -966,6 +978,8 @@ declare namespace App {
               gameId: string;
               ip: string;
               port: string;
+              connectStr: string;
+              isStatistics: string;
             };
           };
           map: {

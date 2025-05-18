@@ -46,6 +46,10 @@ declare namespace Api {
       port: string;
       /** 排序值 */
       sort: number;
+      /** 是否统计 */
+      isStatistics: number;
+      /** 连接指令 */
+      connectStr: string;
     }>;
 
     /** server params */
@@ -82,6 +86,10 @@ declare namespace Api {
       port: string;
       /** 排序值 */
       sort: number;
+      /** 是否统计 */
+      isStatistics: number;
+      /** 连接指令 */
+      connectStr: string;
     }>;
 
     /** steam server vo */
@@ -116,6 +124,10 @@ declare namespace Api {
       minPlayers: number;
       /** 在线玩家 */
       sourcePlayers: Array<SourcePlayer>;
+      /** 是否统计 */
+      isStatistics: number;
+      /** 连接指令 */
+      connectStr: string;
     };
     type SourcePlayer = {
       /** 索引 */

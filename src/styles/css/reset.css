@@ -50,6 +50,7 @@ html {
 body {
   margin: 0; /* 1 */
   line-height: inherit; /* 2 */
+  cursor: url('https://www.bluearchive.top/statics/point/正常.gif'), auto;
 }
 
 /*

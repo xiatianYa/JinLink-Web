@@ -51,6 +51,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'chat',
+    path: '/chat',
+    component: 'layout.base$view.chat',
+    meta: {
+      title: 'chat',
+      i18nKey: 'route.chat'
+    }
+  },
+  {
     name: 'community',
     path: '/community',
     component: 'layout.base$view.community',
@@ -439,39 +448,12 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
-        name: 'server_7daystodie',
-        path: '/server/7daystodie',
-        component: 'view.server_7daystodie',
-        meta: {
-          title: 'server_7daystodie',
-          i18nKey: 'route.server_7daystodie'
-        }
-      },
-      {
         name: 'server_csgo',
         path: '/server/csgo',
         component: 'view.server_csgo',
         meta: {
           title: 'server_csgo',
           i18nKey: 'route.server_csgo'
-        }
-      },
-      {
-        name: 'server_minecraft',
-        path: '/server/minecraft',
-        component: 'view.server_minecraft',
-        meta: {
-          title: 'server_minecraft',
-          i18nKey: 'route.server_minecraft'
-        }
-      },
-      {
-        name: 'server_projectzombie',
-        path: '/server/projectzombie',
-        component: 'view.server_projectzombie',
-        meta: {
-          title: 'server_projectzombie',
-          i18nKey: 'route.server_projectzombie'
         }
       }
     ]
@@ -492,15 +474,6 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'tool_bind',
           i18nKey: 'route.tool_bind'
-        }
-      },
-      {
-        name: 'tool_chat',
-        path: '/tool/chat',
-        component: 'view.tool_chat',
-        meta: {
-          title: 'tool_chat',
-          i18nKey: 'route.tool_chat'
         }
       },
       {

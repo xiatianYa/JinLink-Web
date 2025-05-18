@@ -12,12 +12,15 @@ import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { useAuth } from '@/hooks/business/auth';
+import { useDict } from '@/hooks/business/dict';
 import ServerOperateDrawer from './modules/server-operate-drawer.vue';
 import ServerSearch from './modules/server-search.vue';
 
 const appStore = useAppStore();
 
 const { hasAuth } = useAuth();
+
+const { dictLabel } = useDict();
 
 // 社区配置项
 const communityOptions = ref<CommonType.Option<string>[]>([]);
@@ -84,6 +87,13 @@ const { columns, data, getData, getDataByPage, loading, mobilePagination, search
       title: $t('page.manage.dict.sort'),
       align: 'center',
       minWidth: 100
+    },
+    {
+      key: 'isStatistics',
+      title: $t('page.game.server.isStatistics'),
+      align: 'center',
+      minWidth: 100,
+      render: row => dictLabel('yes_no', row.isStatistics.toString())
     },
     {
       key: 'operate',

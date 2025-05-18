@@ -189,7 +189,9 @@ onMounted(() => {
         :placeholder="$t('page.tool.mapDisplay.mapName')"
         clearable
       />
-      <NButton class="mr-5px mt-10px" strong secondary type="info" @click="loadModel()">加载模型</NButton>
+      <NButton class="mr-5px mt-10px" strong secondary type="info" @click="loadModel()">
+        {{ $t('page.tool.mapDisplay.loadModel') }}
+      </NButton>
     </NCard>
     <NCard size="small" class="map-card mb-15px">
       <div v-show="!loading" ref="screenDom" class="canvas-container"></div>

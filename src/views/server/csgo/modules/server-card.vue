@@ -136,7 +136,7 @@ const getProgressColor = (progress: any) => {
 // 加入服务器
 const joinServer = (server: Api.Game.SteamServerVo) => {
   const aLink = document.createElement('a');
-  aLink.href = `steam://rungame/730/76561198977557298/+connect ${server.addr}`;
+  aLink.href = `steam://rungame/730/76561198977557298/+connect ${server.connectStr}`;
   aLink.click();
   message.success('连接成功');
   websocket.sendMsgConnect(server.addr);
@@ -144,7 +144,7 @@ const joinServer = (server: Api.Game.SteamServerVo) => {
 
 // 复制服务器地址
 const copyServerAddr = (server: Api.Game.SteamServerVo) => {
-  navigator.clipboard.writeText(`connect ${server.addr}`);
+  navigator.clipboard.writeText(`connect ${server.connectStr}`);
   message.success('复制成功');
 };
 
@@ -171,7 +171,9 @@ const onAutoJoinMap = (server: Api.Game.SteamServerVo) => {
       players,
       maxPlayers,
       minPlayers,
-      sourcePlayers
+      sourcePlayers,
+      connectStr,
+      isStatistics
     } = server;
     gameStore.automaticInfo = {
       serverName,
@@ -188,7 +190,9 @@ const onAutoJoinMap = (server: Api.Game.SteamServerVo) => {
       players,
       maxPlayers,
       minPlayers,
-      sourcePlayers
+      sourcePlayers,
+      connectStr,
+      isStatistics
     };
     gameStore.automaticInfo!.minPlayers = server.maxPlayers - 1;
   }
@@ -321,7 +325,7 @@ onMounted(() => {
               v-model:value="gameStore.automaticInfo!.minPlayers"
               class="mb-5"
               placeholder="(小于或等于时自动进入服务器)"
-              :min="0"
+              :min="(gameStore.automaticInfo?.maxPlayers ?? 1) - 4"
               :max="(gameStore.automaticInfo?.maxPlayers ?? 1) - 1"
               :disabled="gameStore.isAutomatic"
               clearable

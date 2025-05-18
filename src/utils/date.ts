@@ -80,3 +80,14 @@ export function formatTimingTime(time: number): string {
   const seconds = time % 60;
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
+
+export function isWithinOneSeconds(timeStr: string): boolean {
+  // 将时间字符串转换为 Date 对象
+  const targetDate = new Date(timeStr.replace(' ', 'T'));
+  // 获取当前时间
+  const currentDate = new Date();
+  // 计算时间差（毫秒）
+  const timeDifference = Math.abs(currentDate.getTime() - targetDate.getTime());
+  // 判断时间差是否在 1 秒内
+  return timeDifference <= 1000;
+}

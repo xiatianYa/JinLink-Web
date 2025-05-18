@@ -238,19 +238,19 @@ watch(communityId, async () => {
             <SvgIcon icon="material-symbols:save-outline" />
           </NIcon>
         </template>
-        保存配置
+        {{ $t('page.tool.bind.saveCfg') }}
       </NButton>
       <NButton class="mr-5px mt-10px" strong secondary type="info" @click="exportCfg">
         <template #icon>
           <SvgIcon icon="material-symbols:file-export-outline" />
         </template>
-        导出配置
+        {{ $t('page.tool.bind.exportCfg') }}
       </NButton>
       <NButton class="mr-5px mt-10px" strong secondary type="info" @click="changeEditMode">
         <template #icon>
           <SvgIcon icon="hugeicons:exchange-01" />
         </template>
-        编辑模式
+        {{ $t('page.tool.bind.editMode') }}
       </NButton>
       <NPopover trigger="hover" placement="bottom-start">
         <template #trigger>

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import pako from 'pako';
-import { NButton } from 'naive-ui';
+import { NButton, NImage } from 'naive-ui';
 import { h } from 'vue';
 import { useAuthStore } from '@/store/modules/auth';
 import { useGameStore } from '@/store/modules/game';
@@ -8,6 +8,7 @@ import { fetchUpdateMapOrder } from '@/service/api/game/map';
 import { isMoreThanTwoHours } from '@/utils/time';
 
 // 连接地址
+// const wsUrl = 'wss://www.bluearchive.top/websocket/ws/server/';
 const wsUrl = 'ws://127.0.0.1:8080/ws/server/';
 
 // 定义WebSocket相关的类型
@@ -26,6 +27,7 @@ interface WebSocketType {
   sendEmojiMsg(content: string): void;
   sendMImgMsg(content: string): void;
   notificationMapOrder(data: Array<Api.Game.SourceServerVo>): void;
+  renderChatRoom(lastMessage: any, gameStore: any): any;
   onClose(): void;
   reconnect(): void;
   close(): void;
@@ -43,6 +45,8 @@ const Websocket: WebSocketType = {
   init(): void {
     const authStore = useAuthStore();
     const gameStore = useGameStore();
+
+    if (Websocket.websocket) return;
 
     if (!authStore.isLogin) {
       window.$message?.error('认证不存在!');
@@ -68,7 +72,6 @@ const Websocket: WebSocketType = {
               setTimeout(() => {
                 window.$notification?.success({
                   content: '连接服务器成功',
-                  meta: '登录器一个月吃掉作者3顿KFC套餐,希望有条件的大佬可以赞助一下,阿里嘎多(。-ω-)ノ',
                   duration: 20000,
                   keepAliveOnHover: true
                 });
@@ -86,14 +89,14 @@ const Websocket: WebSocketType = {
                 gameStore.automaticCount += 1;
                 setTimeout(() => {
                   Websocket.sendJoinServer(gameStore.automaticInfo);
-                }, 70);
+                }, 10);
                 return;
               }
 
               gameStore.isAutomatic = false;
               gameStore.automaticCount = 0;
               const aLink = document.createElement('a');
-              aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.addr}`;
+              aLink.href = `steam://rungame/730/76561198977557298/+connect ${gameStore.automaticInfo?.connectStr}`;
               aLink.click();
 
               window.$notification?.success({
@@ -132,7 +135,7 @@ const Websocket: WebSocketType = {
                       tertiary: true,
                       round: true,
                       onClick: () => {
-                        window.open(`steam://rungame/730/76561198977557298/+connect ${data.data.addr}`);
+                        window.open(`steam://rungame/730/76561198977557298/+connect ${data.data.connectStr}`);
                         Websocket.notification.destroyAll();
                         window.$message?.success('连接成功');
                         Websocket.sendMsgConnect(data.data.addr);
@@ -150,9 +153,11 @@ const Websocket: WebSocketType = {
               // 如果不是本人发送 则发起通知
               if (data.data.fromId !== authStore.userInfo.userId) {
                 window.$notification?.create({
-                  title: '聊天室消息',
-                  description: `${data.data.content}`,
-                  duration: 10000,
+                  title: 'Ba公共聊天室',
+                  content: () => {
+                    return Websocket.renderChatRoom(data.data, gameStore);
+                  },
+                  duration: 20000,
                   keepAliveOnHover: true
                 });
               }
@@ -432,8 +437,35 @@ const Websocket: WebSocketType = {
     });
   },
 
+  // 聊天室消息渲染
+  renderChatRoom(lastMessage: any): any {
+    const senderDiv = h('div', { class: 'mr-5px' }, `${lastMessage.loginUser.nickName}说 :`);
+
+    let messageContent;
+    if (lastMessage.type === '1' || lastMessage.type === '3') {
+      messageContent = h(
+        'div',
+        {
+          class: 'msg-text max-w-100% flex-wrap',
+          strong: true,
+          secondary: true
+        },
+        lastMessage.content
+      );
+    } else {
+      messageContent = h(NImage, {
+        class: 'h-24px w-24px',
+        src: lastMessage.content,
+        previewDisabled: true
+      });
+    }
+
+    return h('div', { class: 'bottom flex-y-center' }, [senderDiv, messageContent]);
+  },
+
   // 处理断开连接操作
   onClose(): void {
+    Websocket.websocket = null;
     if (!Websocket.reconnectTimer) {
       Websocket.reconnectTimer = setInterval(() => {
         Websocket.reconnect();

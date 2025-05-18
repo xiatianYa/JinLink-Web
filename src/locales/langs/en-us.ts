@@ -212,7 +212,7 @@ const local: App.I18n.Schema = {
     mapstrategy_list: 'Map Strategy List',
     mapstrategy_detail: 'Map Strategy Detail',
     game_examine: 'Game Examine List',
-    tool_chat: '聊天室'
+    chat: 'Chat Room'
   },
   page: {
     login: {
@@ -295,7 +295,7 @@ const local: App.I18n.Schema = {
         desc8:
           'Added warm server push (can push all online users of the login server), optimized bind key assistant, permanently save configuration, and export cfg file after saving',
         desc9: 'Added OBS live plugin, you can go to the tool-OBS live plugin to configure',
-        desc10: ''
+        desc10: 'Added chat room function, you can go to the tool-chat room to experience'
       },
       onlineUser: 'Online User',
       sponsor: {
@@ -743,13 +743,17 @@ const local: App.I18n.Schema = {
         editServer: 'Server Edit',
         players: 'Players',
         addr: 'Addr',
+        connectStr: 'Connect Str',
+        isStatistics: 'is Statistics',
         form: {
           serverName: 'Please enter server name',
           communityId: 'Please select community id',
           modeId: 'Please select mode id',
           gameId: 'Please select game id',
           ip: 'Please enter ip',
-          port: 'Please enter port'
+          port: 'Please enter port',
+          connectStr: 'Please enter connect str',
+          isStatistics: 'Please Select is Statistics'
         },
         version: 'Version'
       },
@@ -833,7 +837,10 @@ const local: App.I18n.Schema = {
     tool: {
       bind: {
         key: 'Please select key',
-        value: 'Please select value'
+        value: 'Please select value',
+        saveCfg: 'Save Config',
+        exportCfg: 'Export Config',
+        editMode: 'Edit Mode'
       },
       mapOrder: {
         add: 'Add Subscription',
@@ -845,7 +852,13 @@ const local: App.I18n.Schema = {
         }
       },
       mapDisplay: {
-        mapName: 'Please enter map name'
+        mapName: 'Please select map name',
+        loadModel: 'Load Model'
+      },
+      skinDisplay: {
+        loadModel: 'Load Model',
+        weaponModel: 'Weapon Model',
+        characterModel: 'Character Model'
       },
       obs: {
         fontSize: 'Font Size',

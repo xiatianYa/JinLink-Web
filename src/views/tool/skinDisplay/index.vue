@@ -219,14 +219,13 @@ window.onresize = () => {
       <NTabs
         type="segment"
         class="card-tabs"
-        default-value="signin"
         size="large"
         animated
         pane-wrapper-style="margin: 0 -4px"
         pane-style="padding-left: 4px; padding-right: 4px; box-sizing: border-box;"
         @update:value="handleUpdateValue"
       >
-        <NTabPane name="武器模型" tab="武器模型">
+        <NTabPane name="武器模型" :tab="$t('page.tool.skinDisplay.weaponModel')">
           <div class="min-h-500px flex gap-8px lt-sm:overflow-auto">
             <NCard>
               <NGrid :x-gap="10" :y-gap="10" cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen">
@@ -241,7 +240,7 @@ window.onresize = () => {
             </NCard>
           </div>
         </NTabPane>
-        <NTabPane name="人物模型" tab="人物模型">
+        <NTabPane name="人物模型" :tab="$t('page.tool.skinDisplay.characterModel')">
           <div class="min-h-500px flex gap-8px lt-sm:overflow-auto">
             <NCard>
               <NGrid :x-gap="10" :y-gap="10" cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen">

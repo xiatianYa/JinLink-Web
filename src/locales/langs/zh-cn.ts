@@ -212,7 +212,7 @@ const local: App.I18n.Schema = {
     mapstrategy_list: '地图攻略列表',
     mapstrategy_detail: '地图攻略详情',
     game_examine: '游戏审核列表',
-    tool_chat: '聊天室'
+    chat: '聊天室'
   },
   page: {
     login: {
@@ -292,7 +292,8 @@ const local: App.I18n.Schema = {
         desc7: '新增用户头像修改,可前往个人中心进行修改,优化地图订阅(会根据你的社区偏好,模式偏好进行通知)',
         desc8: '地图订阅新增暧服推送(可推送登录器所有在线用户),优化绑键助手,永久保存配置,保存后可导出cfg文件',
         desc9: '新增OBS 直播插件,可前往工具-OBS 直播插件进行配置',
-        desc10: ''
+        desc10: '新增聊天室功能,可前往工具-聊天室进行体验',
+        desc11: '优化自动挤服,在线人数统计修改为只统计正常游戏模式(挂机服等服务器不计入统计)'
       },
       onlineUser: '在线用户',
       sponsor: {
@@ -300,7 +301,7 @@ const local: App.I18n.Schema = {
         name: '名称',
         amount: '赞赏金额',
         time: '赞赏时间',
-        desc: '赞助的费用将用于(网站维护,机器人维护)和请我吃KFC,O(∩_∩)O,感谢各位大佬的赞助。',
+        desc: '赞助的费用将用于(网站维护,机器人维护)和请我吃KFC,O(∩_∩)O,多余的会分给一起维护这个项目的管理员,感谢各位大佬的赞助,(暂不接收任何以社区官方人员的捐助打赏,捐助后我会自行退回,漏记请联系我,会及时补上)。',
         sponsorRecord: '赞赏记录'
       }
     },
@@ -741,13 +742,17 @@ const local: App.I18n.Schema = {
         editServer: '编辑游戏服务器',
         players: '玩家数',
         addr: '服务器地址',
+        connectStr: '连接地址',
+        isStatistics: '是否统计',
         form: {
           serverName: '请输入服务器名称',
           communityId: '请选择社区名称',
           modeId: '请选择模式名称',
           gameId: '请选择游戏名称',
           ip: '请输入游戏服务器IP',
-          port: '请输入游戏服务器端口'
+          port: '请输入游戏服务器端口',
+          connectStr: '请输入连接地址',
+          isStatistics: '请选择是否统计'
         }
       },
       map: {
@@ -830,7 +835,10 @@ const local: App.I18n.Schema = {
     tool: {
       bind: {
         key: '请选择按键',
-        value: '请选择指令'
+        value: '请选择指令',
+        saveCfg: '保存配置',
+        exportCfg: '导出配置',
+        editMode: '编辑模式'
       },
       mapOrder: {
         add: '新增订阅',
@@ -842,7 +850,13 @@ const local: App.I18n.Schema = {
         }
       },
       mapDisplay: {
-        mapName: '请选择地图名称'
+        mapName: '请选择地图名称',
+        loadModel: '加载模型'
+      },
+      skinDisplay: {
+        loadModel: '加载模型',
+        weaponModel: '武器模型',
+        characterModel: '人物模型'
       },
       obs: {
         fontSize: '字体大小',

@@ -162,7 +162,7 @@ watch(
             <NNumberAnimation :from="0" :to="community.onLineUserNumber" :duration="2000" />
           </NStatistic>
         </template>
-        <NGrid :x-gap="10" :y-gap="10" cols="1 s:2 m:3 l:4 xl:4 2xl:4" responsive="screen">
+        <NGrid :x-gap="10" :y-gap="10" cols="1 s:1 m:2 l:3 xl:3 2xl:4" responsive="screen">
           <NGridItem v-for="server in community.gameServerVoList" :key="server.addr">
             <ServerCard :game-server-vo="server" />
           </NGridItem>

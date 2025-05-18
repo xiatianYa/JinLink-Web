@@ -271,6 +271,8 @@ declare namespace Api {
       roleCode: string;
       /** role description */
       roleDesc: string;
+      /** role statys */
+      status: string;
     }>;
 
     /** user */
